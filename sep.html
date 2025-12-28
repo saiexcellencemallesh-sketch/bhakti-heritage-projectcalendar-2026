@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>September 2026 - Meerabai | The Mystic Queen of Bhakti</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --royal-maroon: #800000;
+            --palace-gold: #d4af37;
+            --sand-stone: #fdf5e6;
+            --desert-clay: #a0522d;
+            --text-main: #2d241e;
+            --off-white: #faf9f6;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--sand-stone);
+            color: var(--text-main);
+            line-height: 1.8;
+        }
+
+        /* Celestial Logo - Radiant Sun Theme for September */
+        #celestial-logo {
+            position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 30px;
+            background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
+            border: 3px double var(--palace-gold); 
+            box-shadow: 0 0 50px #ffae00; 
+            color: #000;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(26, 0, 0, 0.95);
+            padding: 15px 0;
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--palace-gold);
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--palace-gold); text-decoration: none;
+            margin: 0 15px; font-family: 'Cinzel', serif;
+            font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s;
+        }
+
+        nav a:hover { color: white; }
+
+        /* Hero Section */
+        header {
+            position: relative; height: 65vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
+                        url('https://aanganresortmandawa.com/wp-content/uploads/2021/09/Famous-Sunset-and-Sunrise-Spots-in-Rajasthan.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 5rem);
+            margin: 0; text-shadow: 4px 4px 15px rgba(0,0,0,0.8); letter-spacing: 8px;
+        }
+
+        header p {
+            font-size: 1.1rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--palace-gold); font-weight: bold;
+        }
+
+        .portrait-container {
+            position: relative; margin-top: -100px; text-align: center; z-index: 10;
+        }
+
+        .portrait-container img {
+            width: 240px; height: 240px; border-radius: 50%;
+            border: 10px solid var(--sand-stone);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            object-fit: cover; background: white;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
+
+        h2 {
+            font-family: 'Cinzel', serif; color: var(--royal-maroon);
+            text-align: center; font-size: 2.2rem; margin-bottom: 40px; position: relative;
+        }
+
+        h2::after {
+            content: ''; display: block; width: 60px; height: 3px;
+            background: var(--palace-gold); margin: 15px auto;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center; }
+
+        .insight-card {
+            background: var(--off-white); padding: 40px; border-radius: 2px;
+            border: 1px solid #e0d7c6; box-shadow: 10px 10px 0px var(--palace-gold);
+        }
+
+        .miracle-box {
+            background: var(--royal-maroon); color: white; padding: 30px;
+            margin: 20px 0; border-radius: 8px; border-left: 10px solid var(--palace-gold);
+        }
+
+        .miracle-box h3 { font-family: 'Cinzel', serif; margin-top: 0; color: var(--palace-gold); }
+
+        /* Video System - 3 Card Layout */
+        .video-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-top: 40px;
+        }
+
+        .video-card {
+            background: white; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 4px solid var(--royal-maroon);
+        }
+
+        .iframe-wrap { position: relative; padding-bottom: 56.25%; height: 0; }
+        .iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-desc { padding: 15px; text-align: center; font-weight: bold; font-size: 0.9rem; color: var(--royal-maroon); font-family: 'Cinzel'; }
+
+        .footer {
+            background: #1a0000; color: #d4af37; padding: 80px 20px; text-align: center; line-height: 2;
+        }
+
+        .social-btn {
+            display: inline-block; border: 1px solid var(--palace-gold);
+            padding: 10px 25px; color: var(--palace-gold); text-decoration: none;
+            margin: 10px; font-family: 'Cinzel', serif; font-size: 0.8rem;
+        }
+
+        .social-btn:hover { background: var(--palace-gold); color: white; }
+
+        @media (max-width: 600px) {
+            header { height: 45vh; }
+            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; }
+            .portrait-container img { width: 180px; height: 180px; }
+            .portrait-container { margin-top: -80px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+
+<nav>
+    <a href="#about">The Saint</a>
+    <a href="#miracles">Miracles</a>
+    <a href="#music">Bhajans</a>
+</nav>
+
+<header>
+    <p>Bhakti Movement Series</p>
+    <h1>Meera Bai</h1>
+</header>
+
+<div class="portrait-container">
+    <img src="https://trovecraftindia.com/cdn/shop/files/plate_1.jpg?v=1733214129&width=1100" alt="Meerabai Portrait">
+    <p style="color: var(--royal-maroon); font-weight: bold; margin-top: 15px; font-style: italic;">"Mere toh Giridhar Gopal, Dusara na koi"</p>
+</div>
+
+<main class="container">
+    
+    <section id="about" class="grid-2">
+        <div class="content">
+            <h2>The Rebel Princess</h2>
+            <p>
+                Born in 1498 in the fortress of <b>Kudki</b>, Meera Bai was a Rajput princess who redefined the meaning of love and royalty. While her family sought political alliances, Meera's heart was already wedded to <b>Lord Krishna</b>.
+            </p>
+            <p>
+                She famously refused to follow the traditional 'Stri-Dharma' of a royal wife, instead spending her days in the company of wandering saints and dancing in the streets of Chittorgarh.
+            </p>
+        </div>
+        <div class="insight-card">
+            <h3 style="font-family: 'Cinzel'; color: var(--royal-maroon);">The Eternal Vow</h3>
+            <p style="font-style: italic;">"I have found the wealth of the Divine Name; a treasure that no thief can steal, and that grows more beautiful every day."</p>
+            <hr>
+            <p><small><b>Legacy:</b> Her refusal to commit <i>Sati</i> and her choice of Sant Ravidas as her Guru were revolutionary acts against the caste and gender norms of the 16th century.</small></p>
+        </div>
+    </section>
+
+    <section id="miracles">
+        <h2>The Divine Interventions</h2>
+        <div class="miracle-box">
+            <h3>The Cup of Poison</h3>
+            <p>When her in-laws sent a cup of lethal poison to end her life, Meera offered it to Krishna and drank it. By divine grace, the poison turned into sweet nectar, leaving her unharmed.</p>
+        </div>
+        <div class="miracle-box">
+            <h3>The Serpent & The Flower</h3>
+            <p>A basket containing a deadly cobra was sent to her. When Meera opened the basket, the snake had miraculously transformed into a garland of fresh roses.</p>
+        </div>
+    </section>
+
+    <section id="music">
+        <h2>The Melody of Devotion</h2>
+        <div class="video-grid">
+            
+            <div class="video-card">
+                <div class="iframe-wrap">
+                    <iframe src="https://www.youtube.com/embed/hfSFGnoUOYg?si=8hYWoZfn3HifF0Bc" allowfullscreen></iframe>
+                </div>
+                <div class="video-desc">The Life Story of Meerabai</div>
+            </div>
+
+            <div class="video-card">
+                <div class="iframe-wrap">
+                    <iframe src="https://www.youtube.com/embed/qmWuyDG-mBg?si=VJRrnW-l5s_A8yWs" allowfullscreen></iframe>
+                </div>
+                <div class="video-desc">Soulful Meerabai Bhajan</div>
+            </div>
+
+            <div class="video-card">
+                <div class="iframe-wrap">
+                    <iframe src="https://www.youtube.com/embed/6ihKc-NUwZU?si=z2A6SEn5sKKjoS2m" allowfullscreen></iframe>
+                </div>
+                <div class="video-desc">The ISKCON Perspective</div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <h3>Bhakthi Heritage Art Calendar 2026 Project</h3>
+    <p>Art By: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b></p>
+    <div style="margin: 30px 0;">
+        <a href="https://www.instagram.com/swetcha_art" target="_blank" class="social-btn">@swetcha_art</a>
+        <a href="https://www.instagram.com/sai_prema_photography" target="_blank" class="social-btn">@sai_prema_photography</a>
+    </div>
+    <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2026 Bhakti Calendar Project | Meerabai: The Queen of Hearts</p>
+</footer>
+
+</body>
+</html>
