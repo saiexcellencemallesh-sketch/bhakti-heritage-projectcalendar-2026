@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>April 2026 - Saint Tyagaraja | Bhakthi Heritage</title>
+    <title>Saint Tyagaraja | Bhakthi Heritage 2026</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
@@ -23,107 +23,90 @@
             font-family: 'Lora', serif;
             background-color: var(--paper);
             color: var(--text-main);
-            line-height: 1.8;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Fixed Celestial Logo - Consistent with Project Branding */
+        /* Fixed Logo - Simplified (No Sun Effects) */
         #celestial-logo {
             position: fixed; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
             left: 30px; top: 30px;
-            background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
+            background: var(--deep-maroon);
             border: 3px double var(--gold); 
-            box-shadow: 0 0 40px rgba(255, 174, 0, 0.4);
-            color: #000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--gold);
         }
 
-        /* Navigation Bar */
         nav {
             background-color: rgba(74, 4, 4, 0.98);
             padding: 15px 50px;
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 1000;
             border-bottom: 3px solid var(--gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .nav-links { display: flex; gap: 20px; }
         .nav-links a {
             color: white; text-decoration: none;
-            font-family: 'Cinzel', serif; font-size: 0.8rem; transition: 0.3s;
-        }
-        .nav-links a:hover { color: var(--gold); }
-
-        /* Hero Section */
-        .hero {
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/4/4b/Saint_Tyagaraja.jpg');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; color: var(--gold); padding: 20px;
+            font-family: 'Cinzel', serif; font-size: 0.8rem; margin-left: 20px;
         }
 
-        .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; }
-        .hero p { font-size: 1.2rem; color: white; font-style: italic; max-width: 700px; font-family: 'Cinzel'; letter-spacing: 2px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; text-align: center; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+        .main-header { padding: 40px 0; }
+        .main-header h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--deep-maroon); margin: 0; }
+        .main-header p { font-family: 'Cinzel'; color: var(--saffron); letter-spacing: 3px; font-weight: bold; }
+
+        /* Main Portrait */
+        .saint-img {
+            width: 100%; max-width: 650px; border: 12px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); margin-bottom: 40px;
+        }
+
+        .intro-text {
+            text-align: left; background: white; padding: 40px;
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 60px;
+        }
 
         .section-title {
-            text-align: center; font-family: 'Cinzel', serif;
-            color: var(--deep-maroon); font-size: 2.2rem; margin-bottom: 40px;
+            font-family: 'Cinzel', serif; color: var(--deep-maroon);
+            font-size: 1.8rem; border-bottom: 2px solid var(--gold);
+            display: inline-block; margin-bottom: 20px;
         }
 
-        /* Profile Layout */
-        .profile-flex { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
-        .profile-image { flex: 1; min-width: 300px; }
-        .profile-image .art-placeholder {
-            width: 100%; aspect-ratio: 1/1; background: #eee; border: 10px solid white;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Cinzel'; color: var(--gold); border-radius: 5px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-        .profile-text { flex: 1.5; min-width: 300px; }
-
-        /* Quote Styling */
-        .quote-box {
-            background: white; padding: 40px; border-radius: 2px;
-            border-left: 10px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin: 40px 0; font-style: italic; font-size: 1.2rem; text-align: center;
-        }
-
-        /* Video System - Touch to Witness Logic */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        /* Video Gallery System */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .video-card { text-align: left; }
         .vid-box {
             position: relative; width: 100%; padding-bottom: 56.25%;
-            background: #000; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer;
-            border: 1px solid var(--gold);
+            background: #000; border-radius: 8px; overflow: hidden;
+            border: 2px solid var(--gold); cursor: pointer;
         }
         .vid-overlay {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.7); z-index: 2;
-        }
-        .vid-overlay span {
-            background: var(--deep-maroon); color: var(--gold);
-            padding: 10px 20px; font-family: 'Cinzel'; font-size: 0.8rem;
-            border: 1px solid var(--gold); letter-spacing: 2px; font-weight: bold;
+            background: rgba(0,0,0,0.6); z-index: 2; color: var(--gold);
+            font-family: 'Cinzel'; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;
         }
         .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-        .video-label { padding: 15px; background: var(--deep-maroon); color: white; text-align: center; font-family: 'Cinzel'; }
+        
+        .video-title { 
+            display: block; font-family: 'Cinzel'; color: var(--deep-maroon); 
+            font-weight: bold; margin: 15px 0 8px; font-size: 1rem;
+        }
+        .video-desc { font-size: 0.95rem; color: #444; margin: 0; font-style: italic; }
 
-        /* Footer */
         .footer {
-            background: #1a0404; color: #888; padding: 60px 20px;
-            text-align: center; border-top: 4px solid var(--gold);
+            background: #1a0404; color: #888; padding: 50px 20px;
+            text-align: center; border-top: 4px solid var(--gold); margin-top: 60px;
         }
         .footer b { color: var(--gold); }
 
         @media (max-width: 768px) {
-            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; }
-            .hero h1 { font-size: 2.2rem; }
+            #celestial-logo { display: none; }
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .main-header h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -132,56 +115,102 @@
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
 
     <nav>
-        <a href="#" style="font-family: 'Cinzel'; color: var(--gold); font-weight: bold; text-decoration: none;">TYAGARAJA</a>
+        <a href="#" style="font-family: 'Cinzel'; color: var(--gold); font-weight: bold; text-decoration: none;">SAINT TYAGARAJA</a>
         <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#music">Nadopasana</a>
+            <a href="#about">Heritage</a>
+            <a href="#music">Musical Rasa</a>
         </div>
     </nav>
 
-    <section class="hero">
-        <h1>Saint Tyagaraja</h1>
-        <p>The Divine Melody of Rama</p>
-    </section>
-
     <div class="container">
-        <section id="about" class="profile-flex">
-            <div class="profile-image">
-                <div class="art-placeholder">[ SAINT TYAGARAJA ART ]</div>
-            </div>
-            <div class="profile-text">
-                <h2 class="section-title" style="text-align: left;">The Path of Nadopasana</h2>
-                <p>Saint Tyagaraja (1767–1847) was the crown jewel of Carnatic music. For him, music was a bridge to the Divine. He viewed <b>Nadopasana</b>—worship through sound—as the most direct path to reaching Lord Rama.</p>
-                <p>Choosing a life of simple devotion over worldly riches, he famously sang <i>"Nidhi Chala Sukhama?"</i> (Does wealth bring happiness?) when offered royal treasures.</p>
-            </div>
+        <header class="main-header">
+            <h1>Saint Tyagaraja</h1>
+            <p>The Worship of Music & Bharat</p>
+        </header>
+
+        <img src="https://tamilandvedas.com/wp-content/uploads/2020/05/d6564-tyag3.jpg" alt="Saint Tyagaraja Portrait" class="saint-img">
+
+        <section id="about" class="intro-text">
+            <h2 class="section-title">The Spirit of Nadopasana</h2>
+            <p>Saint Tyagaraja believed that music wasn't just a skill—it was the soul of Bharat. He called it <b>Nadopasana</b>: a way to reach the Divine through every note. He spent his life exploring the <b>Rasa</b> (essence) of every Raga, proving that music is the highest form of service to humanity.</p>
+            <p>He lived a simple life of <b>Unchavritti</b>, walking the streets and singing for his daily bread. He famously turned down mountains of gold from kings because he believed his talent belonged to God alone.</p>
         </section>
 
-        <div class="quote-box">
-            "To see the Divine in every raga, to feel Rama in every tala; that is the true purpose of music."
-        </div>
-
-        <section id="music" style="margin-top: 80px;">
-            <h2 class="section-title">Musical Tributes</h2>
+        <section id="music">
+            <h2 class="section-title">Witness the Divine Melodies</h2>
             <div class="video-grid">
-                <div class="video-item">
-                    <div class="vid-box" onclick="playV(this,'yhjND38WN54')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'LJRQL3b5ygY')">
+                        <div class="vid-overlay"><span>THE SECRET TREATISE</span></div>
                     </div>
-                    <p class="video-label">Pancharatna Kritis Tribute</p>
+                    <span class="video-title">Sree Narada Mouli</span>
+                    <p class="video-desc">How did a simple man get the "Secret Keys" to music from a celestial sage? Witness the divine initiation.</p>
                 </div>
-                <div class="video-item">
-                    <div class="vid-box" onclick="playV(this,'R3NxAR60jlo')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'64JyLaF7PJU')">
+                        <div class="vid-overlay"><span>GOLD VS. GOD</span></div>
                     </div>
-                    <p class="video-label">The Life of Tyagaraja</p>
+                    <span class="video-title">Nidhi Chala Sukhama</span>
+                    <p class="video-desc">A king offered him a mountain of gold. Why did he say "No" in such a hauntingly beautiful way?.</p>
                 </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'S_IAn7_tYpI')">
+                        <div class="vid-overlay"><span>THE QUEEN'S VOICE</span></div>
+                    </div>
+                    <span class="video-title">M.S. Subbulakshmi</span>
+                    <p class="video-desc">They say her voice is the bridge to the Divine. Can you hear the prayer in every note she sings?.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'BSd3QO2u7KI')">
+                        <div class="vid-overlay"><span>SITUATIONAL WISDOM</span></div>
+                    </div>
+                    <span class="video-title">Samayaniki Thagu</span>
+                    <p class="video-desc">Ever wonder if there's a "right way" to speak in every situation? The master explains the art of the perfect word.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'pWJki0sutt8')">
+                        <div class="vid-overlay"><span>RADICAL HUMILITY</span></div>
+                    </div>
+                    <span class="video-title">Endaro Mahanubhavulu</span>
+                    <p class="video-desc">Imagine bowing to every great person who ever lived. How humble can a genius really be?.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'jc9TMoAHoHY')">
+                        <div class="vid-overlay"><span>DIVINE INTIMACY</span></div>
+                    </div>
+                    <span class="video-title">Seethamma Mayamma</span>
+                    <p class="video-desc">What if the universe wasn't just space, but a home where God is your actual mother and father?.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'ylH_dHz1Syc')">
+                        <div class="vid-overlay"><span>LOSS & RESILIENCE</span></div>
+                    </div>
+                    <span class="video-title">Thapamemi Cheseno</span>
+                    <p class="video-desc">What happens when a saint loses his idols to the river? Witness the heartbreak that turned into a miracle.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'Az6prJ-yQlU')">
+                        <div class="vid-overlay"><span>LUST VS. LOVE</span></div>
+                    </div>
+                    <span class="video-title">Entha Muddo</span>
+                    <p class="video-desc">Is it lust or is it love? See how Tyagaraja breaks down the human heart and its many masks.</p>
+                </div>
+
             </div>
         </section>
     </div>
 
     <footer class="footer">
         <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        Art By: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>
+        Art Inspiration: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b><br>
         &copy; 2026 | Nadopasana Series
     </footer>
 
