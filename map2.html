@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharatha Khanda: The Sarva Bhakti Mahasagar</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --parchment: #fdf5e6;
+            --ink: #2c1e11;
+            --gold: #b8860b;
+            --saffron: #ff9933;
+            --accent: #800000;
+        }
+
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Crimson Text', serif; background: var(--parchment); color: var(--ink); overflow: hidden; }
+
+        #container { display: flex; height: 100vh; }
+        #map { flex: 2.2; border-right: 6px double var(--gold); background: #eee; }
+        #sidebar { flex: 1.5; padding: 25px; overflow-y: auto; background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); }
+
+        /* Controls */
+        #controls { margin-bottom: 20px; }
+        #search-box {
+            width: 100%; padding: 12px; border: 2px solid var(--gold); background: var(--parchment);
+            font-family: 'Crimson Text'; font-size: 1.1rem; border-radius: 5px; box-sizing: border-box;
+        }
+
+        /* Tirtha Toggles */
+        .geo-group { background: rgba(184, 134, 11, 0.1); padding: 10px; border: 1px solid var(--gold); border-radius: 5px; margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 5px; }
+        .toggle-btn { flex: 1; min-width: 80px; font-size: 0.7rem; font-family: 'Cinzel Decorative'; padding: 5px; cursor: pointer; border: 1px solid var(--ink); background: var(--parchment); }
+        .toggle-btn.active { background: var(--accent); color: white; }
+
+        /* Map Visuals */
+        .leaflet-tile-pane { filter: sepia(1) hue-rotate(-15deg) contrast(0.9) brightness(0.95); }
+
+        /* Markers */
+        .marker-box { text-align: center; }
+        .saint-dot { width: 8px; height: 8px; background: var(--accent); border: 2px solid var(--gold); border-radius: 50%; margin: 0 auto; }
+        .perm-label {
+            display: block; background: rgba(44, 30, 17, 0.85); color: #fff; font-size: 9px; font-weight: bold;
+            padding: 1px 4px; border-radius: 3px; border: 0.5px solid var(--gold); font-family: 'Cinzel Decorative', cursive; white-space: nowrap;
+        }
+
+        /* Sidebar UI */
+        .header-title { font-family: 'Cinzel Decorative'; color: var(--accent); text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-top: 0; }
+        .meta { color: var(--gold); text-transform: uppercase; font-size: 0.85rem; font-weight: bold; display: block; border-bottom: 1px dashed var(--gold); margin-bottom: 10px; }
+        .section-h { font-weight: bold; color: var(--accent); margin-top: 15px; display: block; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .highlight-box { background: rgba(184, 134, 11, 0.1); border-left: 5px solid var(--saffron); padding: 12px; margin-top: 15px; font-style: italic; font-size: 1rem; line-height: 1.5; }
+        .dyk-box { background: rgba(128, 0, 0, 0.05); border: 1px solid var(--accent); padding: 10px; margin-top: 10px; font-size: 0.95rem; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="map"></div>
+    <div id="sidebar">
+        <div id="controls">
+            <input type="text" id="search-box" placeholder="Search for a Saint or City..." onkeyup="searchSaint()">
+            <div class="geo-group">
+                <button class="toggle-btn" onclick="toggleLayer('jyotir')">🔱 Shiva</button>
+                <button class="toggle-btn" onclick="toggleLayer('shakti')">🪷 Shakti</button>
+                <button class="toggle-btn" onclick="toggleLayer('rivers')">🌊 Rivers</button>
+            </div>
+        </div>
+        <div id="info-panel">
+            <h1 class="header-title">Sarva Bhakti Atlas</h1>
+            <p style="text-align: center; font-style: italic;">"Mapping 50 Saints who built the consciousness of Bharat."</p>
+            <div style="text-align: center; font-size: 3rem; margin-top: 40px;">🪔</div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([21.5, 79.0], 5);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png').addTo(map);
+
+    const layers = { jyotir: L.layerGroup(), shakti: L.layerGroup(), rivers: L.layerGroup() };
+
+    const saintData = [
+        // --- SOUTH ---
+        { name: "Adi Shankara", coords: [10.15, 76.43], era: "8th C", loc: "Kerala/Kashi", work: "Advaita Vedanta", bio: "The master of Non-dualism, Shankara revived Sanatana Dharma through rigorous intellectual debate. He traveled the length of Bharat on foot, establishing four cardinal Mathas to physically anchor the subcontinent’s spiritual unity.", impact: "Unified diverse sects into the Shanmata system.", fact: "Established the 4 Mathas (Corners) of Bharat.", dyk: "He wrote his commentaries on the Brahma Sutras at the age of 16 in Kashi." },
+        { name: "Andal", coords: [9.51, 77.53], era: "8th C", loc: "Srivilliputhur, TN", work: "Thiruppavai", bio: "The only female Alvar among the twelve Vaishnava saints of South India. Andal saw Lord Vishnu as her beloved and refused to marry anyone else, expressing her intense bridal devotion through immortal Tamil poetry.", impact: "Her verses are the backbone of Margazhi prayers.", fact: "She merged into the deity of Lord Ranganatha.", dyk: "She secretly wore the deity's garlands before they were offered, to see if she was a match for God." },
+        { name: "Ramanujacharya", coords: [10.86, 78.69], era: "11th C", loc: "Srirangam, TN", work: "Visishtadvaita", bio: "The chief proponent of Qualified Non-dualism. Ramanuja was a social revolutionary who taught that the path of Bhakti (devotion) was open to all, regardless of caste or social status, emphasizing divine grace.", impact: "Organized temple rituals for major hubs like Tirupati.", fact: "He called marginalized people 'Thirukulattar' (of divine family).", dyk: "He stood atop a temple gopuram and shouted the secret mantra to everyone so they could be liberated." },
+        { name: "Madhvacharya", coords: [13.34, 74.74], era: "13th C", loc: "Udupi, KA", work: "Dvaita Vedanta", bio: "The founder of Dualism, emphasizing the eternal distinction between the Soul and the Supreme. He established the Ashta Mathas of Udupi and popularized the worship of Lord Krishna across the Deccan.", impact: "Revived the Bhakti of Lord Krishna in Karnataka.", fact: "Saved a merchant ship and found the Krishna idol in a clay mound.", dyk: "He was physically legendary; he could consume massive quantities of food as part of his spiritual potency." },
+        { name: "Basavanna", coords: [16.48, 75.94], era: "12th C", loc: "Karnataka", work: "Vachanas", bio: "A statesman and social reformer who founded the Lingayat movement. He preached that 'Work is Worship' and established the Anubhava Mantapa, a parliament for spiritual democracy open to all seekers.", impact: "Abolished caste hierarchy in spiritual seeking.", fact: "Used common Kannada for profound metaphysical truths.", dyk: "He rejected temple building, saying the human body itself is the moving temple of Shiva." },
+        { name: "Akka Mahadevi", coords: [14.12, 75.36], era: "12th C", loc: "Karnataka", work: "Vachanas", bio: "A radical female mystic of the Lingayat tradition. She considered Lord Shiva as her husband and renounced all worldly possessions, wandering as a naked ascetic in search of the Ultimate Reality.", impact: "A symbol of female empowerment through total renunciation.", fact: "Found Shiva in the Kadali forests of Srisailam.", dyk: "She famously discarded her clothes, covering herself only with her long hair to prove she had transcended body-consciousness." },
+        { name: "Nammalvar", coords: [8.61, 77.94], era: "9th C", loc: "Tamil Nadu", work: "Tiruvaymoli", bio: "The most prominent Alvar saint. He spent 16 years in silent meditation in a hollow tamarind tree before he spoke his first word of Tamil poetry to his disciple Madhurakavi.", impact: "His poetry is known as the 'Tamil Veda'.", fact: "The deity of Srirangam is said to have requested his presence.", dyk: "He remained in a trance of God-consciousness for nearly his entire life, never opening his eyes to the mundane world." },
+        { name: "Appar", coords: [11.53, 79.50], era: "7th C", loc: "Tamil Nadu", work: "Tevaram", bio: "A Shaiva Nayanar who survived persecution by the power of his devotion. He served Shiva by physically cleaning temple courtyards, proving that humility is the highest form of worship.", impact: "Converted the Pallava King Mahendravarman to Shaivism.", fact: "Was tied to a stone and thrown into the sea, but floated miraculously.", dyk: "He spent his later years walking from temple to temple, removing weeds with a small hoe as an act of service." },
+        { name: "Purandara Dasa", coords: [15.33, 76.46], era: "16th C", loc: "Hampi, KA", work: "Carnatic Music", bio: "Once a greedy billionaire merchant, he gave away his wealth to become a wandering haridasa. He is revered as the 'Grandfather' of Carnatic music for systematizing the art form.", impact: "Standardized the training system for Carnatic music.", fact: "Composed over 475,000 songs dedicated to Lord Vittala.", dyk: "His conversion was triggered when his wife gave away her diamond nose-ring to a beggar, who was Lord Vishnu in disguise." },
+        { name: "Kanaka Dasa", coords: [14.65, 75.38], era: "16th C", loc: "Udupi, KA", work: "Haribhakti-sara", bio: "A soldier who became a saint after surviving a battle. Though denied entry into the Udupi temple, his devotion was so pure that the deity turned around to give him Darshan.", impact: "Proved that Bhakti transcends caste and social birth.", fact: "The 'Kanakana Kindi' window in Udupi temple exists where the deity turned.", dyk: "When asked who could attain Moksha, he said 'I can' (meaning when the 'I'/ego goes, Moksha remains)." },
+        { name: "Bhadrachala Ramadasu", coords: [17.67, 80.89], era: "17th C", loc: "Telangana", work: "Dasarathi Shatakamu", bio: "Gopanna, a tehsildar, used government tax money to build the Bhadrachalam temple for Lord Rama. He was imprisoned for 12 years by the Tanishah of Golconda for his act of devotion.", impact: "Pioneer of the 'Kirtana' tradition in Telugu music.", fact: "Rama and Lakshmana paid his debt to the Sultan in gold coins.", dyk: "He carved symbols of Rama on the walls of his jail cell using a small stone during his 12 years of isolation." },
+        { name: "Annamacharya", coords: [13.62, 79.41], era: "15th C", loc: "Tirupati, AP", work: "32,000 Sankeertanas", bio: "The first major Telugu poet to dedicate his entire life to singing for Lord Venkateshwara. He rejected royal wealth, seeing all humans as equal before the divine light of the Lord.", impact: "Revitalized the cult of Lord Venkateshwara through music.", fact: "His works were engraved on copper plates and hidden in Tirumala.", dyk: "He was the first to use music as a tool for social equality, singing 'The soul in the King and the beggar are one'." },
+        { name: "Bammera Potana", coords: [18.03, 79.28], era: "15th C", loc: "Warangal, TS", work: "Andhra Bhagavatam", bio: "A simple farmer who refused to dedicate his epic work to any king, choosing to live in poverty rather than sell his soul. His Bhagavatam is the most recited Telugu text.", impact: "Kept the Telugu spiritual tradition alive among rural masses.", fact: "He is called the 'Sahaja Kavi' (Natural Poet).", dyk: "When the King threatened to burn his book, it is said a divine light protected the manuscript from the flames." },
+        { name: "Tyagaraja", coords: [10.87, 79.10], era: "18th C", loc: "Thiruvaiyaru, TN", work: "Pancharatna Kritis", bio: "The greatest devotee of Lord Rama in the musical tradition. He renounced wealth and fame, choosing to live by 'Unchavritti' (begging for alms) while composing thousands of divine melodies.", impact: "The heart of South Indian classical music rests on him.", fact: "Rama himself is said to have appeared to protect him during his travels.", dyk: "He once saw Lord Rama and Lakshmana in person while he was singing 'Bhavanutha' in the temple." },
+
+        // --- WEST ---
+        { name: "Jnaneshwar", coords: [18.63, 73.88], era: "13th C", loc: "Alandi, MH", work: "Jnaneshwari", bio: "Born as an outcast, Jnaneshwar translated the Bhagavad Gita into Marathi at age 15, making spiritual knowledge accessible to the masses and founding the Varkari pilgrimage tradition.", impact: "Laid the foundation of Marathi literature and Bhakti.", fact: "Voluntarily entered 'Sanjeevan Samadhi' at the age of 21.", dyk: "He famously made a wall fly like a magic carpet to meet a proud yogi who was riding a tiger." },
+        { name: "Sant Namdev", coords: [17.67, 75.33], era: "14th C", loc: "Pandharpur, MH", work: "Kirtan", bio: "A tailor-saint who traveled from Maharashtra to Punjab, spreading the message of 'One God'. He was a pioneer of the Kirtan tradition and integrated regional Bhakti movements.", impact: "His hymns are included in the Guru Granth Sahib.", fact: "He is considered the first Hindi-Marathi bridge saint.", dyk: "He once ran after a dog with a bowl of ghee because it had taken his dry roti and he didn't want it to choke." },
+        { name: "Tukaram", coords: [18.71, 73.75], era: "17th C", loc: "Dehu, MH", work: "Abhangas", bio: "A common grocer who became the most popular saint of Maharashtra. He expressed his personal struggles and intense love for Vitthala through rustic, powerful poetry that moved millions.", impact: "The spiritual backbone of the Maratha resurgence.", fact: "Shivaji Maharaj considered him a spiritual guide.", dyk: "When priests threw his books in the river, the river Indrayani returned them dry after 13 days of his penance." },
+        { name: "Eknath", coords: [19.48, 75.38], era: "16th C", loc: "Paithan, MH", work: "Eknathi Bhagavata", bio: "A saint who actively worked against untouchability. He lived a family life while practicing high devotion, proving that spirituality does not require leaving the world.", impact: "Brought Bhakti back to the common tongue from Sanskrit.", fact: "He ate with people of the lowest castes to defy social norms.", dyk: "He once picked up a thirsty, dying donkey and carried it to the holy Ganges water to save its life." },
+        { name: "Samartha Ramdas", coords: [17.65, 73.92], era: "17th C", loc: "Maharashtra", work: "Dasbodh", bio: "The Guru of Shivaji Maharaj who focused on 'Bal-Bhakti' (Strength through Devotion). He established 1,100 Hanuman temples across India to inspire the youth toward physical and mental discipline.", impact: "Instilled courage in the society during a time of oppression.", fact: "Lived in self-imposed exile in caves to gain spiritual power.", dyk: "While others chanted 'Hari Om', he popularized the vigorous 'Jai Jai Raghuveer Samarth' to wake up the society." },
+        { name: "Narsinh Mehta", coords: [21.52, 70.45], era: "15th C", loc: "Junagadh, GJ", work: "Vaishnav Jan To", bio: "The Adi Kavi of Gujarat. Despite facing poverty and social boycott, his poems about Krishna’s Raas Leela and the character of a true devotee became the moral pillars of India.", impact: "Wrote the bhajan that became the favorite of Mahatma Gandhi.", fact: "Krishna reportedly appeared as a merchant to pay his bills.", dyk: "When his daughter was to be married and he had no money, legend says the Lord Himself brought the wedding gifts." },
+
+        // --- NORTH ---
+        { name: "Sant Kabir", coords: [25.31, 82.97], era: "15th C", loc: "Kashi, UP", work: "Bijak", bio: "A weaver who preached a formless God (Nirguna) found within the self. He attacked the hypocrisy of both Hindu and Islamic priesthood with sharp, profound couplets.", impact: "Established the Kabir Panth and influenced millions.", fact: "Born in a Muslim family, he became the disciple of Ramananda.", dyk: "After he died, his followers found only flowers under his shroud; half were cremated and half were buried." },
+        { name: "Mirabai", coords: [26.64, 74.02], era: "16th C", loc: "Merta, RJ", work: "Bhajans", bio: "A Rajput princess who left her palace for the love of Krishna. She wandered through Vrindavan and Dwarka, singing of a bridal devotion that bypassed all royal protocols.", impact: "The face of female devotion in the North.", fact: "Survived multiple assassination attempts by her royal in-laws.", dyk: "A cup of poison was sent to her by her brother-in-law, which she drank with a smile; it turned into nectar." },
+        { name: "Tulsidas", coords: [25.46, 82.51], era: "16th C", loc: "Varanasi, UP", work: "Ramcharitmanas", bio: "By translating the Ramayana into the common Awadhi language, Tulsidas brought the story of Rama to the doorstep of every commoner, making Rama the ideal of North Indian society.", impact: "Stopped the decline of Sanatana Dharma in the North.", fact: "It is said he met Hanuman and Rama in person.", dyk: "He was so obsessed with his wife that her taunt about his lust turned his heart toward God in an instant." },
+        { name: "Guru Nanak", coords: [31.52, 74.35], era: "15th C", loc: "Punjab", work: "Guru Granth Sahib", bio: "The founder of Sikhism. He walked across the world—from Mecca to Tibet—to preach the oneness of the Creator and the equality of all humans under one God.", impact: "Founded a new faith based on selfless service (Sewa).", fact: "He stayed in Guru-ka-Langar to feed all, regardless of status.", dyk: "When asked to pray toward Mecca, he said 'Turn my feet toward where God is not present'." },
+        { name: "Sant Ravidas", coords: [25.26, 83.00], era: "15th C", loc: "Varanasi, UP", work: "Bhajans", bio: "A cobbler saint who taught that true purity belongs to the heart. He emphasized that the dignity of labor is sacred and God resides in the lowliest of souls.", impact: "Empowered the marginalized communities through self-respect.", fact: "Mirabai is said to have accepted him as her spiritual guru.", dyk: "He once showed that the river Ganga resided in his tub of water used for tanning leather." },
+        { name: "Surdas", coords: [27.21, 77.83], era: "16th C", loc: "Braj, UP", work: "Sursagar", bio: "A blind poet whose descriptions of the childhood of Krishna (Vatsalya Bhava) are considered the finest in world literature. He saw the divine light through his inner vision.", impact: "Immortalized the Braj Bhasha through his devotional songs.", fact: "He was a leading figure of the 'Ashtachap' poets.", dyk: "It is said he could describe the color of Krishna's clothes each morning without having physical eyes." },
+        { name: "Guru Gobind Singh", coords: [25.61, 85.17], era: "17th C", loc: "Patna/Anandpur", work: "Dasam Granth", bio: "The 10th Sikh Guru who created the Khalsa. He unified the 'Saint' and the 'Soldier', fighting tyranny to protect the weak while staying rooted in high spiritual devotion.", impact: "Unified the spirit of resistance against religious oppression.", fact: "Declared the Guru Granth Sahib as the final, eternal Guru.", dyk: "He was a scholar of five languages and a master of poetry before he ever picked up a sword." },
+
+        // --- EAST ---
+        { name: "Chaitanya Mahaprabhu", coords: [23.42, 88.36], era: "16th C", loc: "Bengal/Puri", work: "Sankirtan", bio: "A scholar who turned into an ecstatic mystic. He popularized the 'Hare Krishna' Maha Mantra and the communal chanting that spread divine love across Bengal and Odisha.", impact: "Founded the Gaudiya Vaishnava movement.", fact: "He lived at the Jagannath Temple in Puri for 18 years.", dyk: "He was so fair and radiant that he was called 'Gauranga' (The Golden One) by everyone." },
+        { name: "Srimanta Sankardev", coords: [26.34, 92.68], era: "15th C", loc: "Assam", work: "Borgeet", bio: "A polymath who integrated the tribes of Assam through the 'Satras' (monasteries). He used theater, dance, and music to create an egalitarian society based on one-pointed devotion.", impact: "The father of modern Assamese culture and identity.", fact: "Created the Sattriya dance, now a classical dance of India.", dyk: "His 'Namghars' (prayer halls) are the only religious spaces where there are no idols, only a holy book." },
+        { name: "Jayadeva", coords: [20.27, 85.83], era: "12th C", loc: "Odisha", work: "Gita Govinda", bio: "A court poet who became a wandering saint. His masterpiece describing the divine love of Radha and Krishna is sung every single day at the Puri Jagannath temple.", impact: "Influenced all subsequent Krishna-Bhakti movements in the East.", fact: "His poetry is the foundation of the Odissi dance tradition.", dyk: "Legend says Krishna Himself finished a verse of the Gita Govinda while Jayadeva was away bathing." },
+        { name: "Vidyapati", coords: [26.12, 85.89], era: "14th C", loc: "Mithila, Bihar", work: "Maithili Lyrics", bio: "The 'Maithili Nightingale'. His lyrics of love for Radha and Krishna influenced Chaitanya Mahaprabhu and shaped the poetic traditions of Bengal and Bihar.", impact: "Created a bridge between Sanskrit and vernacular languages.", fact: "His songs are the most popular in the Mithila region today.", dyk: "Legend says Lord Shiva worked as his servant (ugna) just to be near his beautiful singing." },
+
+        // --- KASHMIR & HIMALAYAS ---
+        { name: "Lal Ded", coords: [34.08, 74.79], era: "14th C", loc: "Kashmir", work: "Vaakhs", bio: "A wandering mystic of the Shaiva tradition. Her verses are the earliest known Kashmiri literature, emphasizing that Shiva lives within the human heart, not in shrines.", impact: "Revered by both Hindus and Muslims as a mother figure.", fact: "Lived as a wandering ascetic after leaving her family life.", dyk: "She famously said she had outgrown the need for clothes because she saw only Shiva everywhere." }
+    ];
+
+    // --- Tirtha Data ---
+    const tirthas = {
+        jyotir: [ [20.88, 70.40, "Somnath"], [16.07, 78.86, "Mallikarjuna"], [23.18, 75.76, "Mahakaleshwar"], [22.24, 76.14, "Omkareshwar"], [30.73, 79.06, "Kedarnath"], [19.07, 73.53, "Bhimashankar"], [25.31, 83.01, "Vishwanath"], [19.93, 73.53, "Trimbakeshwar"], [24.49, 86.69, "Vaidyanath"], [22.43, 69.07, "Nageshwar"], [9.28, 79.31, "Rameshwaram"], [20.02, 75.16, "Grishneshwar"] ],
+        shakti: [ [26.16, 91.70, "Kamakhya"], [22.52, 88.34, "Kalighat"], [31.87, 76.32, "Jwala Ji"], [12.84, 79.70, "Kamakshi"], [12.27, 76.67, "Chamundeshwari"] ],
+        rivers: [ [[30.9, 79], [25.3, 83], [22.5, 88]], [[31, 78], [28.6, 77], [25.4, 82]], [[19.9, 73], [17.6, 81], [16.9, 82]] ]
+    };
+
+    const markers = [];
+    saintData.forEach(s => {
+        const icon = L.divIcon({
+            className: 'custom-icon',
+            html: `<div class="marker-box"><div class="saint-dot"></div><span class="perm-label">${s.name}</span></div>`,
+            iconSize: [100, 40], iconAnchor: [50, 20]
+        });
+        const m = L.marker(s.coords, {icon: icon}).addTo(map);
+        m.name = s.name.toLowerCase(); m.loc = s.loc.toLowerCase(); markers.push(m);
+        m.on('click', () => {
+            document.getElementById('info-panel').innerHTML = `
+                <h1 class="header-title">${s.name}</h1>
+                <span class="meta">${s.era} | ${s.loc}</span>
+                <div class="section-h">Life & Journey (50 Words):</div>
+                <div style="line-height:1.6; font-size:1.1rem;">${s.bio}</div>
+                <div class="section-h">Major Contribution:</div>
+                <div>${s.work} - ${s.impact}</div>
+                <div class="highlight-box"><strong>The Sacred Legend:</strong> ${s.fact}</div>
+                <div class="dyk-box"><strong>Did You Know?</strong> ${s.dyk}</div>
+            `;
+            map.flyTo(s.coords, 8);
+        });
+    });
+
+    function toggleLayer(type) {
+        if(map.hasLayer(layers[type])) { map.removeLayer(layers[type]); }
+        else {
+            if(type === 'jyotir') tirthas.jyotir.forEach(t => L.marker([t[0], t[1]], {icon: L.divIcon({html: '🔱', className: 'tirtha-icon'})}).addTo(layers.jyotir));
+            if(type === 'shakti') tirthas.shakti.forEach(t => L.marker([t[0], t[1]], {icon: L.divIcon({html: '🪷', className: 'tirtha-icon'})}).addTo(layers.shakti));
+            if(type === 'rivers') tirthas.rivers.forEach(r => L.polyline(r, {color: '#2a5a8a', weight: 3}).addTo(layers.rivers));
+            map.addLayer(layers[type]);
+        }
+    }
+
+    function searchSaint() {
+        const input = document.getElementById('search-box').value.toLowerCase();
+        markers.forEach(m => {
+            if (m.name.includes(input) || m.loc.includes(input)) m.getElement().style.display = "block";
+            else m.getElement().style.display = "none";
+        });
+    }
+</script>
+</body>
+</html>
