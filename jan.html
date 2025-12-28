@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>January: The Essence of Devotion | Bhakthi Heritage 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --brown: #4e342e;
+            --paper: #fdf5e6;
+            --dark: #050505;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--paper);
+            color: var(--brown);
+            font-family: 'Lora', serif;
+            line-height: 1.8;
+        }
+
+        /* Celestial Logo - Sun Theme for Jan */
+        #celestial-logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 9999;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center; justify-content: center;
+            text-align: center; font-family: 'Cinzel'; font-size: 8px;
+            font-weight: bold; background: radial-gradient(circle, #fff700 0%, #ffae00 100%);
+            border: 3px double var(--gold); box-shadow: 0 0 40px rgba(255, 174, 0, 0.4);
+            color: var(--brown);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 160px 20px 80px;
+        }
+
+        header { text-align: center; margin-bottom: 60px; }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            margin: 0; color: var(--gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            font-family: 'Cinzel'; letter-spacing: 5px;
+            display: block; font-size: 1rem; margin-top: 10px;
+            font-weight: bold; color: var(--brown); opacity: 0.7;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px; padding: 50px;
+            margin-bottom: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        .quote-box {
+            font-style: italic; border-left: 4px solid var(--gold);
+            padding: 20px 30px; margin: 40px 0;
+            background: rgba(212, 175, 55, 0.05); border-radius: 0 10px 10px 0;
+            font-size: 1.4rem; text-align: center; color: var(--brown);
+        }
+
+        h3 {
+            font-family: 'Cinzel'; color: var(--gold);
+            margin-top: 40px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            display: inline-block; padding-bottom: 5px;
+        }
+
+        p { font-size: 1.1rem; text-align: justify; margin-bottom: 25px; }
+
+        /* Updated Video System */
+        .vid-container {
+            position: relative; width: 100%;
+            margin: 30px 0 50px; border-radius: 12px;
+            overflow: hidden; border: 2px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .vid-box {
+            position: relative; width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            background-color: #000; cursor: pointer;
+        }
+
+        /* The Overlay that will disappear */
+        .vid-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.7); z-index: 2; transition: opacity 0.5s ease;
+        }
+
+        .vid-overlay span {
+            background: rgba(0,0,0,0.85); color: var(--gold);
+            padding: 15px 30px; font-family: 'Cinzel';
+            font-size: 0.9rem; border: 1px solid var(--gold);
+            letter-spacing: 2px; pointer-events: none;
+        }
+
+        .vid-box iframe {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; border: none;
+        }
+
+        .footer {
+            padding: 60px 20px; text-align: center;
+            border-top: 1px solid var(--gold); font-size: 0.85rem;
+            color: #777; background: #fff; line-height: 2;
+        }
+
+        .footer b { color: var(--gold); }
+
+        @media (max-width: 600px) {
+            .card { padding: 25px; }
+            #celestial-logo { width: 90px; height: 90px; font-size: 7px; left: 15px; top: 15px; }
+            .container { padding-top: 130px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+
+    <div class="container">
+        <header>
+            <h1>The Essence of Devotion</h1>
+            <span class="tagline">JANUARY</span>
+        </header>
+
+        <div class="card">
+            <div class="quote-box">
+                "Asatoma Sadgamaya... <br>May your darkness turn into light."
+            </div>
+            
+            <p>Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience of "surrender through love."</p>
+            
+            <h3>1. Mathematics and Bhakthi!</h3>
+            <div class="vid-container">
+                <div class="vid-box" onclick="playV(this,'jfKXI_5wLGs')">
+                    <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                </div>
+            </div>
+
+            <h3>2. The Bhakti Movement: A Social Revolution</h3>
+            <div class="vid-container">
+                <div class="vid-box" onclick="playV(this,'V2aDhYMspqQ')">
+                    <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                </div>
+            </div>
+
+            <h3>3. The Three Pillars of Practice</h3>
+            <p>Traditionally, Bhakti is anchored by <b>Shravana</b>, <b>Kirtana</b>, and <b>Smarana</b>.</p>
+            <div class="vid-container">
+                <div class="vid-box" onclick="playV(this,'uW6pd1PSe3g')">
+                    <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                </div>
+            </div>
+
+            <p><b>Modern Metaphor:</b> The viral song "Chor" by Justh.</p>
+            <div class="vid-container">
+                <div class="vid-box" onclick="playV(this,'Gg48H-lrZHo')">
+                    <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
+        A tribute to the heroes and sheros of the Bhakthi Movement<br>
+        Design: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>
+        Follow: <b>@swetcha_art</b> & <b>@Sai_prema_photography</b>
+    </footer>
+
+    <script>
+        // Swaps the overlay for the YouTube iframe immediately
+        function playV(container, id) {
+            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+    </script>
+</body>
+</html>
