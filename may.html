@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>May 2026 - Saint Sakkubai | Bhakthi Heritage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --saffron: #ff9933; --paper: #fffcf5; --text: #4e342e; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { margin: 0; padding: 0; font-family: 'Lora', serif; background-color: var(--paper); color: var(--text); line-height: 1.8; }
+
+        #celestial-logo {
+            position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 30px; background: radial-gradient(circle, #fff700 0%, #ffae00 100%);
+            border: 3px double var(--gold); box-shadow: 0 0 40px #ffae00; color: #000;
+        }
+
+        .container { max-width: 850px; margin: 0 auto; padding: 160px 20px 80px; }
+        header { text-align: center; margin-bottom: 60px; }
+        h1 { font-family: 'Cinzel'; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); margin: 0; }
+        .tagline { font-family: 'Cinzel'; letter-spacing: 5px; font-weight: bold; opacity: 0.7; }
+
+        .card { background: white; padding: 45px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid rgba(212,175,55,0.2); }
+        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 12px; overflow: hidden; border: 2px solid var(--gold); cursor: pointer; margin: 30px 0; }
+        .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); z-index: 2; }
+        .vid-overlay span { background: var(--saffron); color: white; padding: 12px 25px; font-family: 'Cinzel'; border: 1px solid var(--gold); }
+        .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+        .footer { padding: 60px 20px; text-align: center; border-top: 1px solid var(--gold); font-size: 0.85rem; color: #777; background: #fff; }
+        .footer b { color: var(--gold); }
+    </style>
+</head>
+<body>
+    <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+    <div class="container">
+        <header>
+            <h1>Saint Sakkubai</h1>
+            <span class="tagline">MAY</span>
+        </header>
+        <div class="card">
+            <p>Saint Sakkubai proved that devotion requires no grand temple, only a pure heart. Her life in Pandharpur remains a testament to the power of Vitthala's grace in the face of earthly trials.</p>
+            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/ZckaWGoDwys?autoplay=1\' allowfullscreen></iframe>'">
+                <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+            </div>
+            <p style="text-align: center; font-style: italic;">"In every chore, I find my Krishna; in every breath, I hear His name."</p>
+        </div>
+    </div>
+    <footer class="footer">
+        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
+        Art: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b>
+    </footer>
+</body>
+</html>
