@@ -4,53 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>May 2026 - Saint Sakkubai | Bhakthi Heritage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --saffron: #ff9933; --paper: #fffcf5; --text: #4e342e; }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { margin: 0; padding: 0; font-family: 'Lora', serif; background-color: var(--paper); color: var(--text); line-height: 1.8; }
-
-        #celestial-logo {
-            position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
-            left: 30px; top: 30px; background: radial-gradient(circle, #fff700 0%, #ffae00 100%);
-            border: 3px double var(--gold); box-shadow: 0 0 40px #ffae00; color: #000;
+        :root {
+            --saffron: #FF9933;
+            --deep-maroon: #4a0404;
+            --gold: #D4AF37;
+            --paper: #fffcf5;
+            --text-main: #2d241e;
         }
 
-        .container { max-width: 850px; margin: 0 auto; padding: 160px 20px 80px; }
-        header { text-align: center; margin-bottom: 60px; }
-        h1 { font-family: 'Cinzel'; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); margin: 0; }
-        .tagline { font-family: 'Cinzel'; letter-spacing: 5px; font-weight: bold; opacity: 0.7; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
 
-        .card { background: white; padding: 45px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid rgba(212,175,55,0.2); }
-        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 12px; overflow: hidden; border: 2px solid var(--gold); cursor: pointer; margin: 30px 0; }
-        .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); z-index: 2; }
-        .vid-overlay span { background: var(--saffron); color: white; padding: 12px 25px; font-family: 'Cinzel'; border: 1px solid var(--gold); }
-        .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--paper);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        .footer { padding: 60px 20px; text-align: center; border-top: 1px solid var(--gold); font-size: 0.85rem; color: #777; background: #fff; }
+        /* Simplified Fixed Logo - Positioned slightly lower as requested */
+        #celestial-logo {
+            position: fixed; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 80px; /* Adjusted down from 30px */
+            background: var(--deep-maroon);
+            border: 3px double var(--gold); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--gold);
+        }
+
+        nav {
+            background-color: rgba(74, 4, 4, 0.98);
+            padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .nav-links a {
+            color: white; text-decoration: none;
+            font-family: 'Cinzel', serif; font-size: 0.8rem; margin-left: 20px;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+
+        .main-header { padding: 40px 0; }
+        .main-header h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--deep-maroon); margin: 0; }
+        .main-header p { font-family: 'Cinzel'; color: var(--saffron); letter-spacing: 3px; font-weight: bold; }
+
+        /* Saint Portrait using Provided URL */
+        .saint-portrait {
+            width: 100%; max-width: 600px; border: 12px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); margin: 20px auto 40px;
+            display: block;
+        }
+
+        .content-box {
+            text-align: left; background: white; padding: 40px;
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 60px; border-left: 5px solid var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif; color: var(--deep-maroon);
+            font-size: 1.8rem; margin-bottom: 20px; display: block;
+        }
+
+        /* Video Section */
+        .video-container { margin-top: 40px; }
+        .vid-aspect { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; }
+        .vid-aspect iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        
+        .video-caption { 
+            display: block; font-family: 'Cinzel'; color: var(--deep-maroon); 
+            font-weight: bold; margin: 20px 0 10px; font-size: 1.1rem;
+        }
+
+        .footer {
+            background: #1a0404; color: #888; padding: 50px 20px;
+            text-align: center; border-top: 4px solid var(--gold); margin-top: 60px;
+        }
         .footer b { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            #celestial-logo { display: none; }
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .main-header h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
+
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-    <div class="container">
-        <header>
-            <h1>Saint Sakkubai</h1>
-            <span class="tagline">MAY</span>
-        </header>
-        <div class="card">
-            <p>Saint Sakkubai proved that devotion requires no grand temple, only a pure heart. Her life in Pandharpur remains a testament to the power of Vitthala's grace in the face of earthly trials.</p>
-            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/ZckaWGoDwys?autoplay=1\' allowfullscreen></iframe>'">
-                <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
-            </div>
-            <p style="text-align: center; font-style: italic;">"In every chore, I find my Krishna; in every breath, I hear His name."</p>
+
+    <nav>
+        <a href="#" style="font-family: 'Cinzel'; color: var(--gold); font-weight: bold; text-decoration: none;">SAINT SAKKUBAI</a>
+        <div class="nav-links">
+            <a href="#about">The Life</a>
+            <a href="#movie">The Cinematic Miracle</a>
         </div>
+    </nav>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>Saint Sakkubai</h1>
+            <p>Devotion Beyond All Trials</p>
+        </header>
+
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJMmFu-VQzdI49SoJTnFe8Ph4_1rrRIDQx7hsYFWVe7mWmEH1_CTsTtAMlFXttuTAtTpfWbL66itx3t5OXcDoDrgDy_4w6Iqm3r4Wfxdvzl-_Ttv3h8BGRFVLlKI5QmCb7g1J3tYLZSeZavFUqtl34qvcpfbr4YnZ1ZxaT61tQ8rnfsr3u4MQSKW5P1_uJ/w1600-h1600-p-k-no-nu/Sakkubai%201.jpg" 
+             alt="Saint Sakkubai" class="saint-portrait">
+
+        <section id="about" class="content-box">
+            <h2 class="section-title">A Heart Bound to Pandharpur</h2>
+            <p>Born into a pious family in Maharashtra, Sakkubai’s life took a turn when she was married into a household that possessed no room for her spiritual thirst. Enduring constant ill-treatment and harsh physical labor under a cruel mother-in-law, she never let the name of <b>Lord Vitthala</b> leave her lips.</p>
+            <p>The ultimate test of her faith came when she was forbidden from joining a group of pilgrims traveling to Pandharpur for the sacred Ekadashi festival. For her "defiance," she was tied to a pillar and left in darkness—but her devotion moved the Lord of the Universe Himself. In an act of unparalleled grace, Lord Vitthala took the form of <b>"Maya Sakkubai,"</b> performing her mundane chores and enduring her trials, just so his beloved devotee could find her soul's peace at his feet in the temple.</p>
+        </section>
+
+        <section id="movie" class="video-container">
+            <h2 class="section-title">The Cinematic Miracle</h2>
+            <p style="text-align: left; margin-bottom: 30px;">
+                The story of Sakkubai has been immortalized in Indian cinema, most notably in the 1954 Telugu classic <i>Sati Sakkubai</i> starring <b>Anjali Devi</b> and <b>S.V. Ranga Rao</b>. The film captured the raw emotional depth of her sacrifice and the divine intervention that turned her suffering into salvation. Its timeless music, depicting her longing and final union with Panduranga, remains a cornerstone of Bharat's devotional heritage.
+            </p>
+            
+            <div class="vid-aspect">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/AeB34ONL0gQ?si=2MhiHiubppyxQmoc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <span class="video-caption">Witness the Power of Surrender</span>
+            <p style="font-style: italic; color: #555; max-width: 650px; margin: 0 auto;">Experience the soul-stirring portrayal of a devotee whose silent prayers moved the Divine to serve her in her own home.</p>
+        </section>
     </div>
+
     <footer class="footer">
         <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        Art: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b>
+        Art: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b><br>
+        &copy; 2026
     </footer>
 </body>
 </html>
