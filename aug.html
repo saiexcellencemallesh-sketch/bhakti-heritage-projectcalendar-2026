@@ -4,33 +4,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>August 2026 - Sharada Maa | Bhakthi Heritage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Lora&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --paper: #ffffff; --text: #333; }
-        body { margin: 0; padding: 0; font-family: 'Lora', serif; background-color: var(--paper); color: var(--text); line-height: 1.8; }
-        #celestial-logo { position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; font-family: 'Cinzel'; font-size: 8px; font-weight: bold; left: 30px; top: 30px; background: #fff; box-shadow: 0 0 40px rgba(0,0,0,0.1); border: 2px solid #f0f0f0; color: #d4af37; }
-        .container { max-width: 850px; margin: 0 auto; padding: 160px 20px 80px; }
-        header { text-align: center; margin-bottom: 60px; }
-        h1 { font-family: 'Cinzel'; font-size: 3rem; color: var(--gold); }
-        .card { background: #fafafa; padding: 45px; border-radius: 20px; border: 1px solid #eee; }
-        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; margin: 30px 0; }
-        .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.8); z-index: 2; color: #333; font-family: 'Cinzel'; }
+        :root {
+            --saffron: #FF9933;
+            --deep-maroon: #4a0404;
+            --gold: #D4AF37;
+            --paper: #fffcf5;
+            --text-main: #2d241e;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--paper);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Project Logo - Lowered position */
+        #celestial-logo {
+            position: fixed; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 80px;
+            background: var(--deep-maroon);
+            border: 3px double var(--gold); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--gold);
+        }
+
+        nav {
+            background-color: rgba(74, 4, 4, 0.98);
+            padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .nav-links a {
+            color: white; text-decoration: none;
+            font-family: 'Cinzel', serif; font-size: 0.8rem; margin-left: 20px;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+
+        .main-header { padding: 40px 0; }
+        .main-header h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 3.5rem); color: var(--deep-maroon); margin: 0; }
+        .main-header p { font-family: 'Cinzel'; color: var(--saffron); letter-spacing: 3px; font-weight: bold; }
+
+        /* Sharada Maa Portrait */
+        .saint-portrait {
+            width: 100%; max-width: 550px; border: 12px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); margin: 20px auto 40px;
+            display: block;
+        }
+
+        .content-box {
+            text-align: left; background: white; padding: 40px;
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 60px; border-left: 5px solid var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif; color: var(--deep-maroon);
+            font-size: 1.8rem; margin-bottom: 20px; display: block;
+        }
+
+        /* Video System */
+        .video-section { margin-top: 40px; }
+        .vid-box {
+            position: relative; width: 100%; max-width: 700px; padding-bottom: 56.25%;
+            margin: 0 auto; background: #000; border-radius: 8px; overflow: hidden;
+            border: 2px solid var(--gold); cursor: pointer;
+        }
+        .vid-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.6); z-index: 2; color: var(--gold);
+            font-family: 'Cinzel'; font-size: 0.8rem; font-weight: bold; letter-spacing: 2px;
+        }
         .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        
+        .video-caption { 
+            display: block; font-family: 'Cinzel'; color: var(--deep-maroon); 
+            font-weight: bold; margin: 20px 0 10px; font-size: 1.1rem;
+        }
+
+        .footer {
+            background: #1a0404; color: #888; padding: 50px 20px;
+            text-align: center; border-top: 4px solid var(--gold); margin-top: 60px;
+        }
+        .footer b { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            #celestial-logo { display: none; }
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .main-header h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
+
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-    <div class="container">
-        <header>
-            <h1>Sharada Maa</h1>
-            <p style="font-family: 'Cinzel'; letter-spacing: 5px;">AUGUST</p>
-        </header>
-        <div class="card">
-            <p>Sharada Devi, the Holy Mother, embodied unconditional love and silent strength. Her life was a silent prayer for the welfare of all her children across the world.</p>
-            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/WSnwWLfDAzE?autoplay=1\' allowfullscreen></iframe>'">
-                <div class="vid-overlay">▶ TOUCH TO WITNESS</div>
-            </div>
+
+    <nav>
+        <a href="#" style="font-family: 'Cinzel'; color: var(--gold); font-weight: bold; text-decoration: none;">SHARADA MAA</a>
+        <div class="nav-links">
+            <a href="#about">The Mother</a>
+            <a href="#witness">Witness</a>
         </div>
+    </nav>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>Sharada Maa</h1>
+            <p>August 2026</p>
+        </header>
+
+        <img src="https://www.rkmkashi.in/upload/ckeditor_docs/images/Maa%202.jpg" 
+             alt="Sharada Maa" class="saint-portrait">
+
+        <section id="about" class="content-box">
+            <h2 class="section-title">The Mother of All</h2>
+            <p>Sharada Maa, the Holy Mother, was the spiritual partner of Sri Ramakrishna. While she lived a very quiet life, she embodied a type of love that the world had rarely seen—unconditional, silent, and incredibly strong.</p>
+            
+            <p><b>Her Compassion:</b> She didn't just love the good people; she loved everyone exactly the same. She famously said that she was the mother of the wicked just as much as she was the mother of the virtuous. To her, no one was a stranger. Her life was a silent prayer for the welfare of all her children across the entire world. She taught us that the greatest power in the universe isn't money or fame, but a simple, motherly heart that accepts everyone without judgment.</p>
+        </section>
+
+        <section id="witness" class="video-section">
+            <h2 class="section-title">A Silent Prayer</h2>
+            <div class="vid-box" onclick="playV(this,'WSnwWLfDAzE')">
+                <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+            </div>
+            <span class="video-caption">The Presence of the Holy Mother</span>
+            <p style="font-style: italic; color: #555; max-width: 650px; margin: 20px auto 0;">Curious to see what "Universal Motherhood" looks like? Step into this visual journey to experience the silent strength and peace of Sharada Maa.</p>
+        </section>
     </div>
+
+    <footer class="footer">
+        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
+        Art: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b><br>
+        &copy; 2026
+    </footer>
+
+    <script>
+        function playV(container, id) {
+            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+    </script>
 </body>
 </html>
