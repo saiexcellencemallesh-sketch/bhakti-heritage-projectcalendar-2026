@@ -3,64 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>December 2026 - The Final Reveal | Bhakthi Heritage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <title>December 2026 - The Next Saint | Bhakthi Heritage</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --paper: #ffffff; --text: #050505; }
-        * { box-sizing: border-box; }
-        body { margin: 0; padding: 0; font-family: 'Lora', serif; background: linear-gradient(135deg, #fff 0%, var(--gold) 100%); min-height: 100vh; overflow-x: hidden; }
-        
-        #celestial-logo { position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; font-family: 'Cinzel'; font-size: 8px; font-weight: bold; left: 30px; top: 30px; background: #fff; box-shadow: 0 0 50px rgba(255,255,255,0.8); border: 3px double var(--gold); color: var(--text); }
+        :root {
+            --saffron: #FF9933;
+            --deep-maroon: #4a0404;
+            --gold: #D4AF37;
+            --paper: #fffcf5;
+            --text-main: #2d241e;
+        }
 
-        .container { max-width: 850px; margin: 0 auto; padding: 160px 20px 80px; text-align: center; }
-        header h1 { font-family: 'Cinzel'; font-size: 3.5rem; color: var(--text); }
-        .tagline { font-family: 'Cinzel'; letter-spacing: 5px; font-weight: bold; color: var(--text); margin-bottom: 50px; display: block; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
 
-        .card { background: rgba(255, 255, 255, 0.9); padding: 50px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border: 1px solid var(--gold); }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--paper);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        #cam-frame { width: 300px; height: 300px; border: 8px double var(--gold); border-radius: 50%; margin: 30px auto; overflow: hidden; display: none; box-shadow: 0 0 50px var(--gold); background: #000; }
+        /* Fixed Logo - Set to absolute so it moves upward as you scroll on mobile */
+        #celestial-logo {
+            position: absolute; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 80px;
+            background: var(--deep-maroon);
+            border: 3px double var(--gold); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--gold);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+
+        .main-header { padding: 40px 0; }
+        .main-header h1 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--deep-maroon); margin: 0; }
+        .main-header p { font-family: 'Cinzel'; color: var(--saffron); letter-spacing: 3px; font-weight: bold; }
+
+        .intro-box {
+            text-align: left; background: white; padding: 30px; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 40px;
+            border-left: 5px solid var(--gold);
+        }
+
+        /* Interaction Area */
+        .reveal-card {
+            background: #fdfaf0; padding: 40px; border-radius: 12px;
+            border: 1px solid var(--gold); margin-bottom: 40px;
+        }
+
+        #cam-container { display: none; margin-bottom: 20px; position: relative; }
+        #cam-frame { 
+            width: 280px; height: 280px; border: 8px double var(--gold); 
+            border-radius: 50%; margin: 0 auto; overflow: hidden; 
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); background: #000;
+        }
         #video-el { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 
-        .btn { background: var(--text); color: var(--gold); padding: 20px 50px; font-family: 'Cinzel'; font-weight: bold; border-radius: 4px; cursor: pointer; border: none; font-size: 1.1rem; transition: 0.3s; margin-top: 20px; }
-        .btn:hover { background: #fff; color: var(--text); transform: translateY(-3px); }
+        .btn-group { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .btn {
+            background: var(--deep-maroon); color: var(--gold); 
+            padding: 15px 30px; font-family: 'Cinzel'; font-weight: bold; 
+            border-radius: 4px; cursor: pointer; border: 1px solid var(--gold);
+            width: 100%; max-width: 320px; transition: 0.3s;
+        }
+        .btn:hover { background: #1a0404; transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--deep-maroon); border: 1px solid var(--deep-maroon); }
 
-        .footer { padding: 80px 20px; text-align: center; border-top: 1px solid var(--gold); font-size: 0.85rem; color: #444; background: rgba(255,255,255,0.5); }
+        /* Manifestation Content - Hidden until reveal */
+        #final-content { display: none; text-align: left; margin-top: 40px; animation: fadeIn 1s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .manifest-text { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .manifest-text h2 { font-family: 'Cinzel'; color: var(--deep-maroon); text-align: center; margin-bottom: 25px; }
+        .manifest-text b { color: var(--saffron); }
+
+        .footer {
+            background: #1a0404; color: #888; padding: 40px 20px;
+            text-align: center; border-top: 4px solid var(--gold); font-size: 0.8rem;
+        }
+        .footer b { color: var(--gold); }
+
+        @media (max-width: 768px) { 
+            #celestial-logo { position: absolute; width: 90px; height: 90px; left: 20px; top: 20px; font-size: 7px; } 
+            .main-header h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
+
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
 
     <div class="container">
-        <header>
-            <h1>The Final Reveal</h1>
-            <span class="tagline">DECEMBER</span>
+        <header class="main-header">
+            <h1>The Journey's End</h1>
+            <p>December 2026</p>
         </header>
 
-        <div class="card">
-            <div id="cam-frame"><video id="video-el" autoplay playsinline muted></video></div>
-            <div id="mirror-btn-wrap"><button class="btn" onclick="openMirror()">REVEAL THE 13TH SAINT</button></div>
-            <p style="font-size: 1.4rem; margin-top: 40px;"><b>"Every soul is potentially divine."</b></p>
-            <p>— Swami Vivekananda</p>
+        <section class="intro-box">
+            <p>You have traveled a long way through this calendar. You walked with Tyagaraja on the path of sound, witnessed Sakkubai’s quiet miracles, and learned simple truths from Kabir. You even saw the fierce love of Akka Mahadevi.</p>
+            <p>But there is one more saint you need to meet. This is special because <b>the saint is here in the Kali Yuga right now</b>... and you can meet him today.</p>
+        </section>
+
+        <div class="reveal-card">
+            <div id="cam-container">
+                <div id="cam-frame"><video id="video-el" autoplay playsinline muted></video></div>
+                <button class="btn btn-secondary" style="margin-top: 15px; width: auto;" onclick="closeMirror()">Option 2: Proceed Without Camera</button>
+            </div>
+
+            <div id="interaction-wrap">
+                <p style="margin-bottom: 25px;">There is a small experience waiting for you—please allow your camera to experience it. If you are not comfortable, please proceed with Option 2.</p>
+                <div class="btn-group">
+                    <button class="btn" onclick="openMirror()">REVEAL THE NEXT SAINT</button>
+                    <button class="btn btn-secondary" onclick="skipMirror()">OPTION 2: PROCEED WITHOUT CAMERA</button>
+                </div>
+            </div>
+
+            <div id="final-content">
+                <div class="manifest-text">
+                    <h2>The Supreme Realization</h2>
+                    <p>In the West, people often talk about <b>Manifestation</b> to get a better job, more money, or personal happiness. But in <b>Bharat Khanda</b>, we have known the secret of this power for thousands of years. We didn't just use it for basic benefits—we used it for the highest cause possible.</p>
+                    <p>We used this power to manifest <b>what we already are</b>: Divine. We understood that the light we see in the masters is the same light that sits within us. We manifested what we are, God ourselves.</p>
+                    <p style="text-align: center; font-size: 1.4rem; margin: 30px 0; color: var(--deep-maroon);">
+                        <b>"There can be no bigger motivation in life than realizing that you are nothing short of God!"</b>
+                    </p>
+                    <p style="text-align: center; font-size: 1.1rem; border-top: 1px solid #eee; padding-top: 20px;">
+                        <i>"Every soul is potentially divine."</i><br>— Swami Vivekananda
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
         <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        Art By: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b>
+        Art By: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b>
     </footer>
 
     <script>
+        let stream = null;
+
         async function openMirror() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
                 const video = document.getElementById('video-el');
                 video.srcObject = stream;
-                document.getElementById('cam-frame').style.display = "block";
-                document.getElementById('mirror-btn-wrap').style.display = "none";
+                document.getElementById('cam-container').style.display = "block";
+                document.getElementById('interaction-wrap').style.display = "none";
+                document.getElementById('final-content').style.display = "block";
                 await video.play();
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             } catch (err) {
-                alert("To meet the 13th Saint, please allow camera access. This mirror is for your eyes only.");
+                alert("To meet the Next Saint, please allow camera access. If you prefer not to, you can still proceed with Option 2.");
+                skipMirror();
             }
+        }
+
+        function skipMirror() {
+            document.getElementById('interaction-wrap').style.display = "none";
+            document.getElementById('final-content').style.display = "block";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function closeMirror() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            document.getElementById('cam-container').style.display = "none";
+            document.getElementById('interaction-wrap').style.display = "block";
+            document.getElementById('final-content').style.display = "none";
         }
     </script>
 </body>
