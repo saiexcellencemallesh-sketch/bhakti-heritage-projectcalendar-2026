@@ -3,173 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>January 2026 - The Essence of Bhakthi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>The Essence of Bhakthi 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Kannada:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
             --paper: #fdfaf0;
             --dark: #050505;
             --maroon: #4a0404;
+            --moon-glow: rgba(200, 220, 255, 0.6);
+            --sun-glow: rgba(255, 174, 0, 0.8);
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
         body, html { margin: 0; padding: 0; font-family: 'Lora', serif; background: var(--paper); overflow-x: hidden; }
 
-        /* --- SCREEN 1: THE IMMERSIVE GATEWAY --- */
+        /* Multilingual Fonts */
+        body.lang-hi, body.lang-hi h1, body.lang-hi h2, body.lang-hi p, body.lang-hi .map-instruction { font-family: 'Noto Sans Devanagari', 'Lora', serif; }
+        body.lang-kn, body.lang-kn h1, body.lang-kn h2, body.lang-kn p, body.lang-kn .map-instruction { font-family: 'Noto Sans Kannada', 'Lora', serif; }
+        body.lang-te, body.lang-te h1, body.lang-te h2, body.lang-te p, body.lang-te .map-instruction { font-family: 'Noto Sans Telugu', 'Lora', serif; }
+
+        /* GATEWAY */
         #gateway-overlay {
             position: fixed; inset: 0; background: var(--dark); z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; color: white; padding: 30px; transition: transform 1.5s cubic-bezier(0.82, 0.01, 0.77, 1);
+            text-align: center; color: white; padding: 30px; 
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.82, 0.01, 0.77, 1);
         }
-        .gateway-content { max-width: 600px; animation: fadeIn 2s ease; }
+        .gateway-content { max-width: 600px; animation: fadeIn 3s ease; position: relative;}
         .gateway-content h1 { font-family: 'Cinzel'; color: var(--gold); font-size: 2.5rem; margin-bottom: 20px; }
-        .gateway-content p { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 40px; }
-
+        .gateway-content p { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 40px; color: #e0e0e0; }
+        
         .btn-step {
-            background: none; border: 2px solid var(--gold); color: var(--gold);
-            padding: 18px 40px; font-family: 'Cinzel'; font-weight: bold;
-            cursor: pointer; transition: 0.4s; letter-spacing: 2px;
+            background: transparent; border: 2px solid var(--gold); color: var(--gold);
+            padding: 15px 30px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; transition: 0.4s;
+            font-size: 1rem; 
         }
-        .btn-step:hover { background: var(--gold); color: var(--dark); }
+        .btn-step:hover { background: var(--gold); color: var(--dark); box-shadow: 0 0 20px var(--gold); }
 
-        /* --- SCREEN 2: THE MAIN CONTENT --- */
-        #main-scroll { position: relative; z-index: 1; }
+        /* LANGUAGE SWITCHER */
+        .lang-switch {
+            position: absolute; top: -80px; right: 0; 
+            display: flex; gap: 10px; justify-content: center; width: 100%;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--gold);
+            padding: 5px 10px; cursor: pointer; font-family: 'Cinzel'; font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active { background: var(--gold); color: #000; }
 
-        /* CELESTIAL LOGO (Rising Sun) */
-        #celestial-logo {
-            position: fixed; width: 110px; height: 110px; border-radius: 50%;
+        /* CELESTIAL ORB */
+        #celestial-orb {
+            position: fixed; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
-            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
-            left: 30px; top: 30px; z-index: 999;
-            background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
-            border: 3px double var(--gold); box-shadow: 0 0 40px #ffae00; color: #000;
-            transform: translateY(100vh); /* Starts at bottom */
-            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+            font-family: 'Cinzel'; font-weight: bold; z-index: 10001;
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
+        .orb-moon {
+            width: 120px; height: 120px; top: 15%; left: 10%;
+            background: radial-gradient(circle at 30% 30%, #f5f5f5, #b0b0b0);
+            box-shadow: 0 0 40px var(--moon-glow); border: 2px solid #555;
+            color: #1a1a1a; font-size: 9px;
+        }
+        .orb-sun {
+            width: 100px; height: 100px; top: 20px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle, #fff700 0%, #ffae00 100%);
+            box-shadow: 0 0 50px var(--sun-glow); border: 2px solid white;
+            color: #4a0404; font-size: 10px; opacity: 1;
+        }
+        .orb-sun.scrolled { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(-50px) scale(0.5); }
 
-        /* Transition Classes */
-        .ascend #gateway-overlay { transform: translateY(-100vh); }
-        .ascend #celestial-logo { transform: translateY(0); }
+        /* MAIN CONTENT */
+        #main-scroll { position: relative; z-index: 1; opacity: 0; transition: opacity 2s ease 1s; }
+        .ascend #gateway-overlay { opacity: 0; pointer-events: none; transform: scale(1.1); }
+        .ascend #main-scroll { opacity: 1; }
 
         .container { max-width: 900px; margin: 0 auto; padding: 140px 20px 60px; }
         
-        /* Typography */
-        h2 { font-family: 'Cinzel'; color: var(--maroon); font-size: 2.2rem; text-align: center; margin-top: 60px; }
+        h2 { 
+            font-family: 'Cinzel'; color: var(--maroon); font-size: 2rem; 
+            text-align: center; margin-top: 80px; margin-bottom: 20px; position: relative; 
+        }
+        h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0; }
+
         .article-text { font-size: 1.2rem; line-height: 2; text-align: justify; color: #2d241e; }
+        
+        .roots-emphasis { color: #a0522d; font-weight: 700; }
+
         .bridge { 
-            background: var(--maroon); color: white; padding: 40px; text-align: center;
-            font-family: 'Cinzel'; font-size: 1.4rem; border-radius: 4px; margin: 60px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1), transparent); 
+            color: var(--maroon); padding: 40px 20px; text-align: center;
+            font-family: 'Cinzel'; font-size: 1.4rem; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); 
+            margin: 60px 0; font-style: italic;
         }
 
-        /* Map Embed */
+        /* --- MAP FIX --- */
         .map-frame { 
-            width: 100%; height: 500px; border: 5px solid var(--gold); border-radius: 8px;
-            margin-bottom: 80px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            width: 100%; 
+            height: 750px; 
+            border: none; 
+            background: transparent; 
+            display: block;
+        }
+        
+        /* New Instruction Styling - CORRECTED */
+        .map-instruction {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            color: var(--maroon);
+            margin-top: 10px; /* Added positive margin to separate from map */
+            margin-bottom: 60px;
+            font-size: 1rem;
+            background: #fffdf5; /* Softer background */
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .map-instruction span { font-weight: bold; letter-spacing: 0.5px; }
+
+        /* VIDEO CARDS */
+        .vibration-card { 
+            background: white; border-radius: 8px; padding: 30px; margin-bottom: 60px; 
+            border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+        }
+        .vibration-card h3 { 
+            font-family: 'Cinzel'; color: var(--maroon); margin-top: 0; font-size: 1.4rem; 
+            border-bottom: 1px solid var(--gold); display: inline-block; padding-bottom: 10px;
+        }
+        .vid-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
+            border-radius: 8px; border: 3px double var(--gold); margin-top: 20px;
+        }
+        .vid-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* MYSTIC PORTAL TEASER */
+        .next-chapter {
+            margin-top: 120px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center bottom, #382408 0%, #1a0505 50%, #000000 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            border: 1px solid #331f00;
+        }
+        .next-chapter::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23d4af37" fill-opacity="0.1"%3E%3Ccircle cx="10" cy="10" r="1"/%3E%3Ccircle cx="50" cy="50" r="1.5"/%3E%3Ccircle cx="80" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E');
+            opacity: 0.5; pointer-events: none;
+        }
+        .next-chapter::after {
+            content: ''; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
+            width: 60%; height: 100px;
+            background: radial-gradient(ellipse at center, rgba(255, 200, 50, 0.4) 0%, transparent 70%);
+            filter: blur(40px);
+            pointer-events: none;
+        }
+        .next-chapter h3 {
+            font-family: 'Cinzel', serif; font-size: 2.8rem; margin: 0 0 20px 0;
+            color: #ffdb73; text-transform: uppercase; letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+        .next-chapter .decoration {
+            font-size: 2rem; color: var(--gold); margin-bottom: 20px; display: block;
+            animation: spinSlow 10s infinite linear;
+        }
+        .next-chapter p {
+            font-size: 1.3rem; line-height: 1.8; max-width: 700px; margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.85); font-weight: 300;
+        }
+        .next-chapter .highlight {
+            color: #ffae00; font-weight: bold; font-family: 'Cinzel'; border-bottom: 1px solid #ffae00;
+        }
+        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
+
+        /* CREDITS SECTION STYLING */
+        .credits-section {
+            margin-top: 80px;
+            padding: 40px 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            background-color: #faf8f0;
+            border-radius: 8px;
+        }
+        .credits-section p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        .credits-section b {
+            color: var(--maroon);
+        }
+        .warriors-credit {
+            font-style: italic;
+            color: #d4af37 !important; /* Gold for Bhakthi Warriors */
+            font-weight: bold;
+            margin-top: 20px;
         }
 
-        /* Vibration Cards */
-        .vibration-card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 50px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .vibration-card h3 { font-family: 'Cinzel'; color: var(--gold); margin-top: 0; }
-        .vid-box { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid var(--gold); margin-top: 20px; }
-        .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); z-index: 2; }
-        .vid-overlay span { background: var(--gold); color: #000; padding: 10px 20px; font-family: 'Cinzel'; font-weight: bold; font-size: 0.8rem; }
-        .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-
-        .urge-box { background: #fff4e6; border: 2px dashed var(--gold); padding: 40px; text-align: center; margin-top: 80px; }
-
-        .footer { background: #1a0404; color: #888; padding: 80px 20px; text-align: center; line-height: 2; font-size: 0.9rem; }
-        .footer b { color: var(--gold); }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Responsive Mobile Adjustments */
         @media (max-width: 600px) {
-            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; }
-            .container { padding-top: 120px; }
+            .next-chapter { padding: 50px 20px; }
+            .next-chapter h3 { font-size: 2rem; }
+            .map-frame { height: 500px; } 
+            .btn-step { font-size: 0.9rem; padding: 12px 20px; } 
+            
+            /* Instruction tweak for mobile */
+            .map-instruction { flex-direction: column; gap: 5px; text-align: center; padding: 15px; font-size: 0.9rem; }
         }
+
+        .footer { background: #1a0404; color: #666; padding: 40px 20px; text-align: center; margin-top: 0;}
     </style>
 </head>
 <body>
 
     <div id="gateway-overlay">
         <div class="gateway-content">
-            <div style="font-size: 3rem; margin-bottom: 20px;">❁</div>
-            <h1>A New Beginning for 2026</h1>
-            <p>Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within. We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.</p>
-            <button class="btn-step" onclick="stepInto()">STEP VIRTUALLY INTO BHAKTHI 2026</button>
+            
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('hi')">HI</button>
+                <button class="lang-btn" onclick="setLang('kn')">KN</button>
+                <button class="lang-btn" onclick="setLang('te')">TE</button>
+            </div>
+
+            <h1 data-i18n="gateway_title">A New Beginning for 2026</h1>
+            <p data-i18n="gateway_text">Every great discovery can begin with a single step. As we step into 2026, let us choose to start with light. With a smile on your face and courage in your heart, begin the most beautiful discovery—the journey back to yourself.</p>
+            <button class="btn-step" onclick="stepInto()" data-i18n="btn_enter">STEP VIRTUALLY INTO BHAKTHI</button>
         </div>
     </div>
 
-    <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+    <div id="celestial-orb" class="orb-moon">BHAKTHI<br>2026</div>
 
     <main id="main-scroll">
         <div class="container">
-            
             <section class="article-text">
-                <h2>What is Bhakthi?</h2>
-                <p>Bhakthi is just a simple, pure love. It is the special bond between your heart and the Divine. It isn’t about hard rules or difficult rituals. It is more like a <b>"romance of the soul"</b>—a way to feel connected to something bigger than yourself just by being who you are. When you sing with joy or remember a name with love, you are in the flow of Bhakthi.</p>
                 
-                <h2>The Soul of Bharath</h2>
-                <p>This love is the heartbeat of <b>Bharath</b>. The word actually means "those who are engaged in light"—where <i>Bha</i> means the light of wisdom. For thousands of years, our land has been held together by a "sacred geography". The saints didn't just pray; they walked and sang across this land, making it holy with every step. From the high mountains to the deep oceans, this thread of devotion is what truly defines our home.</p>
+                <h2 data-i18n="title_soul">The Soul of a Nation</h2>
+                <p data-i18n="text_soul">Culture is not just art; it is the invisible thread holding a civilization together. <b>Culture is the soul of any country.</b> History warns us: when a nation forgets its culture, its downfall is inevitable. But Bharath stands tall. While other ancient civilizations crumbled, the spirit of India lives on. Why? Because of its guardians.</p>
 
-                <div class="bridge">
-                    "It is this thread of Bhakthi that has defined the sacred geography of Bharath."
+                <h2 data-i18n="title_guardians">The Guardians of Light</h2>
+                <p data-i18n="text_guardians">These guardians were not kings with armies. They were mystics and poets—the Saints of Bharath. When society fractured, they stitched it back together with the strongest thread known to humanity: <b>Love (Bhakthi)</b>.</p>
+
+                <h2 data-i18n="title_roots">Why is this important?</h2>
+                <p data-i18n="text_roots">
+                    In a world that changes every day, we often feel lost or distracted. We need something to hold onto. <br><br>
+                    <span class="roots-emphasis">Culture is our root system.</span> Without it, we drift; with it, we stand tall. We are sharing this journey not to teach you academic history, but to help you find your own anchor. When you know where you come from, you have the strength to face where you are going.
+                </p>
+
+                <div class="bridge" data-i18n="bridge_text">"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win."</div>
+
+                <iframe src="map3.html" class="map-frame" scrolling="no"></iframe>
+                
+                <div class="map-instruction">
+                    <span style="font-size: 1.5rem;">👇</span> 
+                    <span data-i18n="map_instruction">Click on a Saint's name on the map to learn about them.</span>
                 </div>
 
-                <iframe src="map2.html" class="map-frame"></iframe>
-
-                <h2>Sacred Vibrations</h2>
-                <p style="text-align: center;">Explore these vibrations to unlock the curiosity of your soul.</p>
+                <h2 data-i18n="title_vibrations">Sacred Vibrations</h2>
+                
+                <div class="vibration-card">
+                    <h3 data-i18n="vid1_title">The Value of the One</h3>
+                    <p data-i18n="vid1_desc">In this discourse, Sadguru Madhusudhan Sai shares a beautiful analogy: <b>"Behind the number 1, any amount of zeroes will only add to its value. But if you remove that 1, no matter how many zeroes you add, the value is still zero."</b> When Bhakthi is the '1', everything else gains value.</p>
+                    <div class="vid-wrapper">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_1?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
 
                 <div class="vibration-card">
-                    <h3>The Global Revolution of Love</h3>
-                    <p>Why did a simple movement of poets change the world forever? This vibration reveals how Bhakthi was a social lightning bolt that brought equality to every doorstep. Discover the moment the heart spoke louder than the law.</p>
-                    <div class="vid-box" onclick="playV(this,'jfKXI_5wLGs')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                    <h3 data-i18n="vid2_title">The Intensity of Emotion</h3>
+                    <p data-i18n="vid2_desc">Bhakti Yoga is about using the intensity of your emotion to transcend limitations. Sadhguru explains how being a devotee is the most beautiful way to exist—a path where you dissolve into the object of your devotion.</p>
+                    <div class="vid-wrapper">
+                        <iframe src="https://www.youtube.com/embed/jfKXI_5wLGs?rel=0" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                <div class="vibration-card">
-                    <h3>The Romance of the Saints</h3>
-                    <p>What happens when a soul falls in love with the Infinite? This video takes you into the lives of those who walked Bharath with nothing but a song in their hearts. Witness the raw, honest passion of the saints.</p>
-                    <div class="vid-box" onclick="playV(this,'Gg48H-lrZHo')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                <div class="vibration-card" style="background:#fff9eb; border:2px dashed #d4af37;">
+                    <h3 data-i18n="vid3_title">Yatra: The Journey of Namdev</h3>
+                    <p data-i18n="vid3_desc">Inspired by Sant Namdev, Madrasana curated <b>'Yatra'</b>—a musical storytelling experience. Sivasri Skandaprasad (vocals) and Vinay Varanasi (storytelling) take you on a journey through Namdev's deep love for the Divine.</p>
+                    <div class="vid-wrapper">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_3?rel=0" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                <div class="urge-box">
-                    <h2 style="margin-top: 0; color: var(--maroon);">The Call of the Soul</h2>
-                    <p><b>We urge you to listen to this.</b> There is a sound that has echoed through Bharath for centuries—a sound that can quiet the loudest mind. Close your eyes, let the rhythm take over, and find the peace that exists inside you.</p>
-                    <div class="vid-box" onclick="playV(this,'uW6pd1PSe3g')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
-                    </div>
+                <div class="next-chapter">
+                    <span class="decoration">✦</span>
+                    <h3 data-i18n="teaser_title">A New Saint Awaits...</h3>
+                    <p data-i18n="teaser_text_intro">The journey has just begun. Every month, we will introduce you to one light from the galaxy of saints shown in the map above. We will dive deep into their life, their song, and their message.</p>
+                    
+                    <p data-i18n="teaser_text_climax" style="font-style: italic; color: #ffdb73;">Next month, a new light rises from the dust of history to whisper a secret in your ear.</p>
+                    
+                    <p><span class="highlight" data-i18n="teaser_cta">Stay tuned for February.</span></p>
                 </div>
 
-                <h2 style="margin-top: 100px;">The Journey Home</h2>
-                <p>You don't need to touch the eternal snow of the Himalayas or get lost in the deep green forests to find this peace. All you need is the courage to love, for that is the only true pilgrimage. Bhakthi begins and ends exactly where you are standing right now.</p>
+                <div class="credits-section">
+                    <p>Art by <b>Swetcha Art</b> &nbsp;|&nbsp; Content curation by <b>Sai Prema Photography</b></p>
+                    <p class="warriors-credit">
+                        Inspiration, guidance and screenplay - All credits to <b>Bhakthi Warriors</b><br>
+                        <span style="font-weight:normal; font-size:0.95rem; color:#666;">You are going to meet them soon in the next months. Be ready!</span>
+                    </p>
+                </div>
+
             </section>
-
         </div>
     </main>
 
     <footer class="footer">
-        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        Art By: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b><br>
-        &copy; 2026 | "Recognize the Whole Human Race as One."
+        <b>Bhakthi Heritage Art Calendar 2026</b>
     </footer>
 
     <script>
-        function stepInto() {
-            document.body.classList.add('ascend');
-            setTimeout(() => {
-                document.getElementById('gateway-overlay').style.pointerEvents = 'none';
-            }, 1500);
+        // TRANSLATION DATA
+        const i18n = {
+            'en': {
+                gateway_title: "A New Beginning for 2026",
+                gateway_text: "Every great discovery can begin with a single step. As we step into 2026, let us choose to start with light. With a smile on your face and courage in your heart, begin the most beautiful discovery—the journey back to yourself.",
+                btn_enter: "STEP VIRTUALLY INTO BHAKTHI",
+                title_soul: "The Soul of a Nation",
+                text_soul: "Culture is not just art; it is the invisible thread holding a civilization together. <b>Culture is the soul of any country.</b> History warns us: when a nation forgets its culture, its downfall is inevitable. But Bharath stands tall. While other ancient civilizations crumbled, the spirit of India lives on. Why? Because of its guardians.",
+                title_guardians: "The Guardians of Light",
+                text_guardians: "These guardians were not kings with armies. They were mystics and poets—the Saints of Bharath. When society fractured, they stitched it back together with the strongest thread known to humanity: <b>Love (Bhakthi)</b>.",
+                title_roots: "Why is this important?",
+                text_roots: "In a world that changes every day, we often feel lost or distracted. We need something to hold onto.<br><br><span class='roots-emphasis'>Culture is our root system.</span> Without it, we drift; with it, we stand tall. We are sharing this journey not to teach you academic history, but to help you find your own anchor. When you know where you come from, you have the strength to face where you are going.",
+                bridge_text: "\"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win.\"",
+                
+                // INSTRUCTION
+                map_instruction: "Click on a Saint's name on the map to learn about them.",
+
+                title_vibrations: "Sacred Vibrations",
+                vid1_title: "The Value of the One",
+                vid1_desc: "In this discourse, Sadguru Madhusudhan Sai shares a beautiful analogy: <b>\"Behind the number 1, any amount of zeroes will only add to its value. But if you remove that 1, no matter how many zeroes you add, the value is still zero.\"</b> When Bhakthi is the '1', everything else gains value.",
+                vid2_title: "The Intensity of Emotion",
+                vid2_desc: "Bhakti Yoga is about using the intensity of your emotion to transcend limitations. Sadhguru explains how being a devotee is the most beautiful way to exist—a path where you dissolve into the object of your devotion.",
+                vid3_title: "Yatra: The Journey of Namdev",
+                vid3_desc: "Inspired by Sant Namdev, Madrasana curated <b>'Yatra'</b>—a musical storytelling experience. Sivasri Skandaprasad (vocals) and Vinay Varanasi (storytelling) take you on a journey through Namdev's deep love for the Divine.",
+                teaser_title: "A New Saint Awaits...",
+                teaser_text_intro: "The journey has just begun. Every month, we will introduce you to one light from the galaxy of saints shown in the map above. We will dive deep into their life, their song, and their message.",
+                teaser_text_climax: "Next month, a new light rises from the dust of history to whisper a secret in your ear.",
+                teaser_cta: "Stay tuned for February."
+            },
+            'hi': {
+                gateway_title: "2026 की नई शुरुआत",
+                gateway_text: "हर महान खोज एक छोटे कदम से शुरू होती है। 2026 में, आइए प्रकाश के साथ शुरुआत करें। चेहरे पर मुस्कान और दिल में साहस के साथ, सबसे सुंदर खोज शुरू करें—स्वयं की ओर यात्रा।",
+                btn_enter: "भक्ति में प्रवेश करें",
+                title_soul: "राष्ट्र की आत्मा",
+                text_soul: "संस्कृति केवल कला नहीं है; यह वह अदृश्य धागा है जो सभ्यता को जोड़ता है। <b>संस्कृति किसी भी देश की आत्मा है।</b> जब कोई राष्ट्र अपनी संस्कृति को भूल जाता है, तो उसका पतन निश्चित है। लेकिन भारत आज भी खड़ा है। क्यों? अपने संतों के कारण।",
+                title_guardians: "प्रकाश के रक्षक",
+                text_guardians: "ये रक्षक राजा नहीं थे, वे संत थे। जब समाज टूटने लगा, तो उन्होंने इसे मानवता के सबसे मजबूत धागे से वापस जोड़ दिया: <b>प्रेम (भक्ति)</b>।",
+                title_roots: "यह महत्वपूर्ण क्यों है?",
+                text_roots: "ऐसी दुनिया में जो हर दिन बदलती है, हम अक्सर खोया हुआ या विचलित महसूस करते हैं। हमें कुछ पकड़ने की जरूरत है।<br><br><span class='roots-emphasis'>संस्कृति हमारी जड़ है।</span> इसके बिना हम बह जाते हैं; इसके साथ हम गर्व से खड़े रहते हैं। हम यह यात्रा अकादमिक इतिहास सिखाने के लिए नहीं, बल्कि आपको अपना लंगर खोजने में मदद करने के लिए साझा कर रहे हैं। जब आप जानते हैं कि आप कहां से आए हैं, तो आपके पास यह सामना करने की ताकत होती है कि आप कहां जा रहे हैं।",
+                bridge_text: "\"यह मानचित्र केवल भूगोल नहीं है। यह भारत का आध्यात्मिक तंत्रिका तंत्र है।\"",
+                
+                // INSTRUCTION HINDI
+                map_instruction: "उनके बारे में जानने के लिए मानचित्र पर किसी भी संत के नाम पर क्लिक करें।",
+
+                title_vibrations: "पवित्र स्पंदन",
+                vid1_title: "एक (1) का मूल्य",
+                vid1_desc: "सद्गुरु मधुसूदन साई एक सुंदर उपमा देते हैं: \"नंबर 1 के पीछे कितने भी शून्य लगाओ, मूल्य बढ़ता है। लेकिन अगर आप उस 1 को हटा दें, तो केवल शून्य रह जाते हैं।\" भक्ति जीवन का वह '1' है।",
+                vid2_title: "भावना की तीव्रता",
+                vid2_desc: "भक्ति योग का अर्थ है अपनी भावनाओं की तीव्रता का उपयोग करके अपनी सीमाओं को पार करना। सद्गुरु बताते हैं कि भक्त होना अस्तित्व का सबसे सुंदर तरीका है।",
+                vid3_title: "यात्रा: नामदेव की कहानी",
+                vid3_desc: "संत नामदेव के जीवन से प्रेरित, मद्रासणा ने 'यात्रा' प्रस्तुत की। शिवश्री स्कंदप्रसाद (गायन) और विनय वाराणसी (कहानी) आपको नामदेव के दिव्य प्रेम की यात्रा पर ले जाते हैं।",
+                teaser_title: "एक नया संत...",
+                teaser_text_intro: "यात्रा अभी शुरू हुई है। हर महीने हम आपको मानचित्र के एक संत से मिलवाएंगे। हम उनके जीवन, उनके गीत और उनके संदेश में गहराई से उतरेंगे।",
+                teaser_text_climax: "अगले महीने, इतिहास की धूल से एक नया प्रकाश उठेगा और आपके कान में एक रहस्य फुसफुसाएगा।",
+                teaser_cta: "फरवरी के लिए बने रहें।"
+            },
+            'kn': {
+                gateway_title: "2026 ಕ್ಕೆ ಹೊಸ ಆರಂಭ",
+                gateway_text: "ಪ್ರತಿಯೊಂದು ದೊಡ್ಡ ಆವಿಷ್ಕಾರವು ಒಂದು ಸಣ್ಣ ಹೆಜ್ಜೆಯಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ನಾವು 2026 ಕ್ಕೆ ಕಾಲಿಡುತ್ತಿದ್ದಂತೆ, ಬೆಳಕಿನೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸೋಣ.",
+                btn_enter: "ಭಕ್ತಿಯ ಲೋಕಕ್ಕೆ ಬನ್ನಿ",
+                title_soul: "ರಾಷ್ಟ್ರದ ಆತ್ಮ",
+                text_soul: "ಸಂಸ್ಕೃತಿಯು ಕೇವಲ ಕಲೆಯಲ್ಲ; ಇದು ನಾಗರಿಕತೆಯನ್ನು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುವ ಅದೃಶ್ಯ ದಾರ. <b>ಸಂಸ್ಕೃತಿಯು ಯಾವುದೇ ದೇಶದ ಆತ್ಮ.</b> ಭಾರತದ ಸಂತರು ಈ ಸಂಸ್ಕೃತಿಯ ರಕ್ಷಕರು.",
+                title_guardians: "ಬೆಳಕಿನ ರಕ್ಷಕರು",
+                text_guardians: "ಈ ರಕ್ಷಕರು ರಾಜರಲ್ಲ, ಅವರು ಸಂತರು. ಸಮಾಜ ಒಡೆದಾಗ, ಅವರು ಅದನ್ನು ಪ್ರೀತಿ ಮತ್ತು ಭಕ್ತಿಯಿಂದ ಮತ್ತೆ ಜೋಡಿಸಿದರು.",
+                title_roots: "ಇದು ಏಕೆ ಮುಖ್ಯ?",
+                text_roots: "ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತಿರುವ ಜಗತ್ತಿನಲ್ಲಿ, ನಾವು ಆಗಾಗ್ಗೆ ಕಳೆದುಹೋದಂತೆ ಭಾವಿಸುತ್ತೇವೆ. ನಮಗೆ ಹಿಡಿದಿಡಲು ಏನಾದರೂ ಬೇಕು.<br><br><span class='roots-emphasis'>ಸಂಸ್ಕೃತಿಯೇ ನಮ್ಮ ಬೇರು.</span> ಅದಿಲ್ಲದೆ ನಾವು ಅಲೆದಾಡುತ್ತೇವೆ; ಅದಿದ್ದರೆ ನಾವು ಎತ್ತರವಾಗಿ ನಿಲ್ಲುತ್ತೇವೆ. ನಾವು ನಿಮಗೆ ಇತಿಹಾಸವನ್ನು ಕಲಿಸಲು ಅಲ್ಲ, ನಿಮ್ಮ ಸ್ವಂತ ಆಧಾರವನ್ನು ಕಂಡುಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡಲು ಈ ಪ್ರಯಾಣವನ್ನು ಹಂಚಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ. ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ ಎಂದು ತಿಳಿದಾಗ, ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ಎದುರಿಸುವ ಶಕ್ತಿ ನಿಮಗಿರುತ್ತದೆ.",
+                bridge_text: "\"ಈ ನಕ್ಷೆಯು ಕೇವಲ ಭೂಗೋಳವಲ್ಲ. ಇದು ಭಾರತದ ಆಧ್ಯಾತ್ಮಿಕ ನರಮಂಡಲ.\"",
+                
+                // INSTRUCTION KANNADA
+                map_instruction: "ಅವರ ಬಗ್ಗೆ ತಿಳಿಯಲು ನಕ್ಷೆಯಲ್ಲಿರುವ ಸಂತರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+
+                title_vibrations: "ಪವಿತ್ರ ಕಂಪನಗಳು",
+                vid1_title: "ಒಂದರ (1) ಮೌಲ್ಯ",
+                vid1_desc: "ಸದ್ಗುರು ಮಧುಸೂದನ್ ಸಾಯಿ ಹೇಳುತ್ತಾರೆ: \"ಸಂಖ್ಯೆ 1 ರ ಹಿಂದೆ ಸೊನ್ನೆಗಳನ್ನು ಸೇರಿಸಿದರೆ ಮೌಲ್ಯ ಹೆಚ್ಚುತ್ತದೆ. ಆದರೆ 1 ನ್ನು ತೆಗೆದರೆ, ಉಳಿಯುವುದು ಬರೀ ಶೂನ್ಯ.\" ಭಕ್ತಿಯೇ ಆ '1'.",
+                vid2_title: "ಭಾವನೆಯ ತೀವ್ರತೆ",
+                vid2_desc: "ಭಕ್ತಿ ಯೋಗವು ನಿಮ್ಮ ಭಾವನೆಗಳ ತೀವ್ರತೆಯನ್ನು ಬಳಸಿಕೊಂಡು ಮಿತಿಗಳನ್ನು ಮೀರುವುದಾಗಿದೆ. ಭಕ್ತನಾಗಿರುವುದು ಅತ್ಯಂತ ಸುಂದರವಾದ ಬದುಕು ಎಂದು ಸದ್ಗುರು ವಿವರಿಸುತ್ತಾರೆ.",
+                vid3_title: "ಯಾತ್ರೆ: ನಾಮದೇವರ ಕಥೆ",
+                vid3_desc: "ಸಂತ ನಾಮದೇವರ ಜೀವನ ಆಧಾರಿತ 'ಯಾತ್ರೆ' ಕಾರ್ಯಕ್ರಮ. ಶಿವಶ್ರೀ ಸ್ಕಂದಪ್ರಸಾದ್ ಮತ್ತು ವಿನಯ್ ವಾರಣಾಸಿ ಅವರು ನಾಮದೇವರ ದೈವಿಕ ಪ್ರೇಮದ ಕಥೆಯನ್ನು ಪ್ರಸ್ತುತಪಡಿಸುತ್ತಾರೆ.",
+                teaser_title: "ಹೊಸ ಸಂತ ಕಾಯುತ್ತಿದ್ದಾರೆ...",
+                teaser_text_intro: "ಪ್ರಯಾಣ ಈಗಷ್ಟೇ ಶುರುವಾಗಿದೆ. ಮುಂದಿನ ತಿಂಗಳು, ಇತಿಹಾಸದ ಪುಟಗಳಿಂದ ಹೊಸ ಬೆಳಕು ಉದಯಿಸಲಿದೆ. ಅವರ ಜೀವನ ಮತ್ತು ಸಂದೇಶವನ್ನು ನಾವು ಅರಿಯೋಣ.",
+                teaser_text_climax: "ಮುಂದಿನ ತಿಂಗಳು, ಹೊಸ ಬೆಳಕು ಉದಯಿಸಿ ನಿಮ್ಮ ಕಿವಿಯಲ್ಲಿ ರಹಸ್ಯವನ್ನು ಪಿಸುಗುಟ್ಟಲಿದೆ.",
+                teaser_cta: "ಫೆಬ್ರವರಿಗಾಗಿ ನಿರೀಕ್ಷಿಸಿ."
+            },
+            'te': {
+                gateway_title: "2026 కి కొత్త ఆరంభం",
+                gateway_text: "ప్రతి గొప్ప ఆవిష్కరణ ఒక చిన్న అడుగుతో మొదలవుతుంది. 2026 లోకి అడుగుపెడుతూ, మనం వెలుగుతో ప్రయాణాన్ని ప్రారంభిద్దాం.",
+                btn_enter: "భక్తి ప్రపంచంలోకి రండి",
+                title_soul: "జాతి ఆత్మ",
+                text_soul: "సంస్కృతి అంటే కేవలం కళ కాదు; అది నాగరికతను నిలబెట్టే అదృశ్య సూత్రం. <b>సంస్కృతి ఏ దేశానికైనా ఆత్మ వంటిది.</b> భారతీయ సంతులు దీనిని కాపాడారు.",
+                title_guardians: "కాంతి రక్షకులు",
+                text_guardians: "ఈ రక్షకులు రాజులు కాదు, వారు ఋషులు. సమాజం విచ్ఛిన్నమైనప్పుడు, వారు దానిని <b>భక్తి</b> అనే దారంతో తిరిగి కలిపారు.",
+                title_roots: "ఇది ఎందుకు ముఖ్యం?",
+                text_roots: "ప్రతిరోజూ మారుతున్న ఈ ప్రపంచంలో, మనం తరచుగా దారి తప్పినట్లు భావిస్తాము. మనకు ఆధారం కావాలి.<br><br><span class='roots-emphasis'>సంస్కృతి మన మూల వ్యవస్థ.</span> అది లేకపోతే మనం కొట్టుకుపోతాం; అది ఉంటే మనం నిలబడతాం. మీకు చరిత్ర నేర్పించడానికి కాదు, మీ స్వంత మూలాన్ని కనుగొనడంలో సహాయపడటానికి ఈ ప్రయాణాన్ని పంచుకుంటున్నాము. మీరు ఎక్కడి నుండి వచ్చారో తెలిసినప్పుడు, మీరు ఎక్కడికి వెళుతున్నారో ఎదుర్కునే బలం మీకు ఉంటుంది.",
+                bridge_text: "\"ఈ మ్యాప్ కేవలం భౌగోళికం కాదు. ఇది భారతదేశపు ఆధ్యాత్మిక నాడీ వ్యవస్థ.\"",
+                
+                // INSTRUCTION TELUGU
+                map_instruction: "వారి గురించి తెలుసుకోవడానికి మ్యాప్‌లోని సంతు పేరుపై క్లిక్ చేయండి.",
+
+                title_vibrations: "పవిత్ర ప్రకంపనలు",
+                vid1_title: "ఒకటి (1) యొక్క విలువ",
+                vid1_desc: "సద్గురు మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
+                vid2_title: "భావోద్వేగ తీవ్రత",
+                vid2_desc: "భక్తి యోగం అంటే మన భావోద్వేగ తీవ్రతతో పరిమితులను దాటడం. భక్తుడిగా జీవించడం ఎంత అందంగా ఉంటుందో సద్గురు వివరిస్తున్నారు.",
+                vid3_title: "యాత్ర: నామదేవుని కథ",
+                vid3_desc: "సంతు నామదేవ్ జీవితం ఆధారంగా మద్రాసన 'యాత్ర'ను రూపొందించింది. శివశ్రీ స్కందప్రసాద్ మరియు వినయ్ వారణాసి నామదేవుని భక్తి కథను వినిపిస్తారు.",
+                teaser_title: "ఒక కొత్త సంతు...",
+                teaser_text_intro: "ప్రయాణం ఇప్పుడే మొదలైంది. ప్రతి నెల, ఈ మ్యాప్‌లోని ఒక సంతు గురించి మనం లోతుగా తెలుసుకుందాం.",
+                teaser_text_climax: "వచ్చే నెలలో, చరిత్ర నుండి ఒక కొత్త వెలుగు ఉద్భవించి మీ చెవిలో ఒక రహస్యాన్ని చెబుతుంది.",
+                teaser_cta: "ఫిబ్రవరి కోసం వేచి ఉండండి."
+            }
+        };
+
+        function setLang(lang) {
+            document.body.className = 'lang-' + lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+            });
         }
 
-        function playV(container, id) {
-            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        function stepInto() { 
+            document.body.classList.add('ascend'); 
+            const orb = document.getElementById('celestial-orb');
+            orb.classList.remove('orb-moon');
+            orb.classList.add('orb-sun');
+            orb.innerHTML = "BHAKTHI<br>2026";
         }
+
+        window.addEventListener('scroll', function() {
+            const orb = document.getElementById('celestial-orb');
+            if (document.body.classList.contains('ascend')) {
+                if (window.scrollY > 50) orb.classList.add('scrolled');
+                else orb.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
 </html>
-
