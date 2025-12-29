@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYB - The Galaxy of Saints</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper-color: #fdf5e6;
+            --border-color: #b8860b;
+            --text-color: #2c1e11;
+            --highlight-color: #800000;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #1a0f0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .poster {
+            background-color: var(--paper-color);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            width: 100%;
+            max-width: 700px;
+            border: 8px double var(--border-color);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(0,0,0,0.7);
+            position: relative;
+            color: var(--text-color);
+        }
+
+        /* Ornate Corners */
+        .corner { position: absolute; width: 40px; height: 40px; border: 3px solid var(--highlight-color); }
+        .tl { top: 15px; left: 15px; border-right: none; border-bottom: none; }
+        .tr { top: 15px; right: 15px; border-left: none; border-bottom: none; }
+        .bl { bottom: 15px; left: 15px; border-right: none; border-top: none; }
+        .br { bottom: 15px; right: 15px; border-left: none; border-top: none; }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--highlight-color);
+            font-size: 3rem;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 1px 1px 0px #ffcc99;
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            color: var(--border-color);
+            font-size: 1.1rem;
+            margin-top: 5px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            border-bottom: 2px solid var(--border-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .quote-top {
+            font-style: italic;
+            font-size: 1.05rem;
+            margin: 25px 0 10px;
+            color: #4a3b32;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* Map Section */
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 750px;
+            margin: 20px 0 5px 0;
+            background: transparent;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+        }
+
+        /* Label Styling & Interactivity */
+        .saint-group { 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            transform-origin: center;
+        }
+        .saint-group:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+        }
+        .saint-group:hover text { fill: var(--highlight-color); font-weight: 900; }
+
+        .saint-label {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            font-weight: 700;
+            fill: #5c4a3d;
+            opacity: 1;
+            paint-order: stroke;
+            stroke: var(--paper-color);
+            stroke-width: 2.5px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: auto;
+        }
+
+        /* Invisible hit area circle */
+        .hit-area {
+            fill: transparent;
+            cursor: pointer;
+        }
+
+        .saint-marker {
+            fill: #ff4500; 
+            stroke: var(--highlight-color); 
+            stroke-width: 0.5px;
+            animation: flicker 3s infinite alternate; 
+            transform-box: fill-box; 
+            transform-origin: center bottom;
+            pointer-events: auto; 
+        }
+        
+        .halo { 
+            fill: rgba(255, 140, 0, 0.15); 
+            animation: glow 4s infinite ease-in-out; 
+            pointer-events: auto;
+        }
+
+        .saint-group:nth-child(even) .saint-marker { animation-duration: 2.5s; }
+        .saint-group:nth-child(3n) .saint-marker { animation-duration: 3.5s; }
+
+        @keyframes flicker { 0% { transform: scale(0.9); opacity: 0.8; } 100% { transform: scale(1.1); opacity: 1; } }
+        @keyframes glow { 0% { r: 5; opacity: 0.1; } 50% { r: 12; opacity: 0.4; } 100% { r: 5; opacity: 0.1; } }
+
+        /* --- INFO CLOUD / POPUP STYLES --- */
+        .info-cloud {
+            display: none;
+            position: fixed;
+            width: 260px;
+            background-color: #fffaf0;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 9999;
+            text-align: left;
+            font-size: 0.9rem;
+            pointer-events: auto;
+        }
+
+        .info-cloud.active {
+            display: block;
+            animation: popIn 0.2s ease-out;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .info-cloud h3 {
+            margin: 0 0 8px 0;
+            color: var(--highlight-color);
+            font-family: 'Cinzel', serif;
+            border-bottom: 1px dotted var(--border-color);
+            padding-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .info-cloud p {
+            margin: 6px 0;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        .info-cloud strong {
+            color: #8b4513;
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .close-cloud {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            color: #aaa;
+            font-size: 1.5rem;
+            line-height: 0.8;
+            font-weight: bold;
+        }
+        .close-cloud:hover { color: var(--highlight-color); }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <h1>KYB</h1>
+        <div class="subtitle">KNOW YOUR BHARATH</div>
+
+        <p class="quote-top">
+            "Just as one lamp lights another without losing its own glow, these saints have passed the light of Bharath from age to age. The flame of the light is ever on, <em>probably thats why its called akhada bharath!</em>"
+        </p>
+
+        <div class="map-wrapper" id="mapContainer">
+            <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet">
+                
+                <defs>
+                    <g id="diya">
+                        <circle cx="0" cy="0" r="20" class="hit-area" />
+                        <circle cx="0" cy="0" r="10" class="halo" />
+                        <path d="M -5 3 Q 0 8 5 3 L 5 0 L -5 0 Z" fill="#800000" />
+                        <path d="M 0 3 Q 2.5 -2 0 -6 Q -2.5 -2 0 3" class="saint-marker" />
+                    </g>
+                </defs>
+
+                <g class="saint-group" onclick="showInfo(event, 'lalded')"><use href="#diya" x="280" y="80" /><text x="295" y="83" class="saint-label">Lal Ded</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'nundrishi')"><use href="#diya" x="260" y="90" /><text x="210" y="93" class="saint-label">Nund Rishi</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'abhinavagupta')"><use href="#diya" x="300" y="60" /><text x="315" y="63" class="saint-label">Abhinavagupta</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'gurunanak')"><use href="#diya" x="220" y="130" /><text x="160" y="133" class="saint-label">Guru Nanak</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'gurugobind')"><use href="#diya" x="240" y="140" /><text x="255" y="143" class="saint-label">Guru Gobind Singh</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'babafarid')"><use href="#diya" x="200" y="120" /><text x="150" y="123" class="saint-label">Baba Farid</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'bullehshah')"><use href="#diya" x="190" y="150" /><text x="130" y="153" class="saint-label">Bulleh Shah</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'gorakhnath')"><use href="#diya" x="330" y="110" /><text x="345" y="113" class="saint-label">Gorakhnath</text></g>
+
+                <g class="saint-group" onclick="showInfo(event, 'jhulelal')"><use href="#diya" x="140" y="200" /><text x="90" y="203" class="saint-label">Jhulelal</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'mirabai')"><use href="#diya" x="200" y="230" /><text x="155" y="233" class="saint-label">Mirabai</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'dadudayal')"><use href="#diya" x="220" y="220" /><text x="235" y="223" class="saint-label">Dadu Dayal</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'narsinh')"><use href="#diya" x="130" y="280" /><text x="60" y="283" class="saint-label">Narsinh Mehta</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'akho')"><use href="#diya" x="150" y="295" /><text x="115" y="298" class="saint-label">Akho</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'jalaram')"><use href="#diya" x="160" y="270" /><text x="175" y="273" class="saint-label">Jalaram</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'tukaram')"><use href="#diya" x="180" y="380" /><text x="130" y="383" class="saint-label">Tukaram</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'jnaneshwar')"><use href="#diya" x="210" y="360" /><text x="225" y="363" class="saint-label">Jnaneshwar</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'namdev')"><use href="#diya" x="190" y="340" /><text x="145" y="343" class="saint-label">Namdev</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'eknath')"><use href="#diya" x="220" y="380" /><text x="235" y="383" class="saint-label">Eknath</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ramdas')"><use href="#diya" x="180" y="400" /><text x="100" y="403" class="saint-label">Samarth Ramdas</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'saibaba')"><use href="#diya" x="200" y="320" /><text x="155" y="323" class="saint-label">Sai Baba</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'janabai')"><use href="#diya" x="230" y="340" /><text x="245" y="343" class="saint-label">Janabai</text></g>
+
+                <g class="saint-group" onclick="showInfo(event, 'kabir')"><use href="#diya" x="350" y="230" /><text x="365" y="233" class="saint-label">Kabir</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'tulsidas')"><use href="#diya" x="370" y="250" /><text x="385" y="253" class="saint-label">Tulsidas</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ravidas')"><use href="#diya" x="340" y="250" /><text x="300" y="253" class="saint-label">Ravidas</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'surdas')"><use href="#diya" x="300" y="220" /><text x="260" y="223" class="saint-label">Surdas</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ramananda')"><use href="#diya" x="330" y="210" /><text x="345" y="213" class="saint-label">Ramananda</text></g>
+
+                <g class="saint-group" onclick="showInfo(event, 'vidyapati')"><use href="#diya" x="420" y="250" /><text x="435" y="253" class="saint-label">Vidyapati</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'chaitanya')"><use href="#diya" x="490" y="300" /><text x="505" y="303" class="saint-label">Chaitanya</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'sankardev')"><use href="#diya" x="530" y="220" /><text x="545" y="223" class="saint-label">Sankardev</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'madhavdev')"><use href="#diya" x="550" y="235" /><text x="565" y="238" class="saint-label">Madhavdev</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ramakrishna')"><use href="#diya" x="480" y="320" /><text x="500" y="323" class="saint-label">Ramakrishna</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'vivekananda')"><use href="#diya" x="470" y="340" /><text x="490" y="343" class="saint-label">Vivekananda</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'lalan')"><use href="#diya" x="500" y="280" /><text x="515" y="283" class="saint-label">Lalan Fakir</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'jayadeva')"><use href="#diya" x="440" y="360" /><text x="455" y="363" class="saint-label">Jayadeva</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'bhimabhoi')"><use href="#diya" x="430" y="380" /><text x="375" y="383" class="saint-label">Bhima Bhoi</text></g>
+
+                <g class="saint-group" onclick="showInfo(event, 'basavanna')"><use href="#diya" x="260" y="460" /><text x="190" y="463" class="saint-label">Basavanna</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'akkamahadevi')"><use href="#diya" x="250" y="480" /><text x="160" y="483" class="saint-label">Akka Mahadevi</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'allama')"><use href="#diya" x="280" y="470" /><text x="295" y="473" class="saint-label">Allama Prabhu</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'purandara')"><use href="#diya" x="270" y="500" /><text x="180" y="503" class="saint-label">Purandara Dasa</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'madhvacharya')"><use href="#diya" x="250" y="520" /><text x="175" y="523" class="saint-label">Madhvacharya</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ramadasu')"><use href="#diya" x="350" y="460" /><text x="365" y="463" class="saint-label">Ramadasu</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'annamacharya')"><use href="#diya" x="380" y="480" /><text x="395" y="483" class="saint-label">Annamacharya</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'vemana')"><use href="#diya" x="360" y="440" /><text x="375" y="443" class="saint-label">Vemana</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'tyagaraja')"><use href="#diya" x="340" y="560" /><text x="355" y="563" class="saint-label">Tyagaraja</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ramanuja')"><use href="#diya" x="350" y="580" /><text x="365" y="583" class="saint-label">Ramanuja</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'andal')"><use href="#diya" x="360" y="600" /><text x="375" y="603" class="saint-label">Andal</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'manikkavasagar')"><use href="#diya" x="370" y="630" /><text x="385" y="633" class="saint-label">Manikkavasagar</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'appar')"><use href="#diya" x="390" y="550" /><text x="405" y="553" class="saint-label">Appar</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'thiruvalluvar')"><use href="#diya" x="380" y="660" /><text x="395" y="663" class="saint-label">Thiruvalluvar</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'narayanaguru')"><use href="#diya" x="300" y="660" /><text x="235" y="663" class="saint-label">Narayana Guru</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'shankara')"><use href="#diya" x="310" y="690" /><text x="255" y="693" class="saint-label">Adi Shankara</text></g>
+                <g class="saint-group" onclick="showInfo(event, 'ramana')"><use href="#diya" x="330" y="620" /><text x="270" y="623" class="saint-label">Ramana Maharshi</text></g>
+            </svg>
+        </div>
+
+        <div id="infoBox" class="info-cloud">
+            <span class="close-cloud" onclick="hideInfo()">&times;</span>
+            <h3 id="cloudTitle">Name</h3>
+            <p><strong>Contribution:</strong> <span id="cloudCont"></span></p>
+            <p><strong>Impact:</strong> <span id="cloudImp"></span></p>
+            <p><strong>Fact:</strong> <span id="cloudFact"></span></p>
+        </div>
+
+    </div>
+
+    <script>
+        // DATA FOR ALL SAINTS
+        const saintData = {
+            'lalded': { name: 'Lal Ded (Kashmir)', contribution: 'Created Vatsun poetry style.', impact: 'Bridged Shaivism and Sufism in the valley.', fact: 'She wandered as an ascetic, singing Vakhs of non-dualism.' },
+            'nundrishi': { name: 'Nund Rishi (Kashmir)', contribution: 'Founder of the indigenous Rishi order.', impact: 'Used common metaphors to teach harmony.', fact: 'Also revered as Sheikh Noor-ud-Din Wali.' },
+            'abhinavagupta': { name: 'Abhinavagupta (Kashmir)', contribution: 'Tantraloka and Aesthetic theory (Rasa).', impact: 'Synthesized various schools of Shaivism.', fact: 'A polymath who debated and unified philosophy.' },
+            'gurunanak': { name: 'Guru Nanak Dev (Punjab)', contribution: 'Founder of Sikhism; Ik Onkar.', impact: 'Rejected caste distinctions and ritualism.', fact: 'Traveled on foot to Mecca, Tibet, and Sri Lanka.' },
+            'gurugobind': { name: 'Guru Gobind Singh (Punjab)', contribution: 'Established the Khalsa Panth.', impact: 'Infused martial valor with spiritual depth.', fact: 'A scholar of Persian, Sanskrit, and Braj Bhasha.' },
+            'babafarid': { name: 'Baba Farid (Punjab)', contribution: 'Punjabi Sufi poetry.', impact: 'His hymns are enshrined in the Guru Granth Sahib.', fact: 'Spread the Chisti order\'s message of love.' },
+            'bullehshah': { name: 'Bulleh Shah (Punjab)', contribution: 'Humanist Sufi Kafi poetry.', impact: 'Boldly challenged religious orthodoxy.', fact: 'His verses emphasized finding God within oneself.' },
+            'gorakhnath': { name: 'Gorakhnath (North)', contribution: 'Founder of Nath monastic tradition.', impact: 'Popularized Hatha Yoga across India.', fact: 'His influence spans from Nepal to Rajasthan.' },
+            
+            'jhulelal': { name: 'Jhulelal (Sindh)', contribution: 'Preserver of Sindhi identity and Dharma.', impact: 'Symbol of religious tolerance in Sindh.', fact: 'Worshipped by Muslims as Zinda Pir.' },
+            'mirabai': { name: 'Mirabai (Rajasthan)', contribution: 'Passionate Bhajans for Krishna.', impact: 'Defied royal norms to embrace devotion.', fact: 'Refused to bow to anyone but her Giridhar Gopal.' },
+            'dadudayal': { name: 'Dadu Dayal (Rajasthan)', contribution: 'Nirguna Bhakti; Dadu Panth.', impact: 'Preached against sectarian division.', fact: 'His name "Dadu" means "Brother" or "The Giver".' },
+            'narsinh': { name: 'Narsinh Mehta (Gujarat)', contribution: 'Adikavi of Gujarati literature.', impact: 'His bhajan "Vaishnava Jana To" defined Gandhi\'s ethics.', fact: 'Used music to break caste barriers.' },
+            'akho': { name: 'Akho (Gujarat)', contribution: 'Philosophical poetry (Chhappa).', impact: 'Used sharp satire to expose hypocrisy.', fact: 'A goldsmith who turned towards Vedantic truth.' },
+            'jalaram': { name: 'Jalaram Bapa (Gujarat)', contribution: 'Tradition of "Sadavrat" (feeding all).', impact: 'His movement focuses purely on selfless service.', fact: 'He served Ram and the hungry with equal zeal.' },
+            'tukaram': { name: 'Sant Tukaram (Maharashtra)', contribution: 'Abhangas of Vitthala bhakti.', impact: 'Brought spiritual knowledge to the commoner.', fact: 'Drowned his own debt records to free the poor.' },
+            'jnaneshwar': { name: 'Jnaneshwar (Maharashtra)', contribution: 'Jnaneshwari (Gita in Marathi).', impact: 'Democratized spiritual wisdom.', fact: 'Took Sanjeevan Samadhi at the age of 21.' },
+            'namdev': { name: 'Namdev (Maharashtra)', contribution: 'Bhajans emphasizing the Divine Name.', impact: 'Traveled to Punjab; revered by Sikhs.', fact: 'A tailor who showed God listens to the humble.' },
+            'eknath': { name: 'Eknath (Maharashtra)', contribution: 'Revived Marathi Bhagavata Dharma.', impact: 'Bridged the gap between castes.', fact: 'Famously fed holy water to a thirsty donkey.' },
+            'ramdas': { name: 'Samarth Ramdas (Maharashtra)', contribution: 'Dasbodh; Philosophy of Action.', impact: 'Spiritual guide to Shivaji Maharaj.', fact: 'Established Hanuman temples to inspire strength.' },
+            'saibaba': { name: 'Sai Baba (Shirdi)', contribution: '"Sabka Malik Ek" (One God).', impact: 'United Hindus and Muslims in faith.', fact: 'Lived in a dilapidated mosque he called Dwarkamai.' },
+            'janabai': { name: 'Janabai (Maharashtra)', contribution: 'Varkari Abhangas.', impact: 'Voiced the spiritual aspirations of women.', fact: 'She ground grain while singing to Lord Vitthala.' },
+
+            'kabir': { name: 'Kabir (Varanasi)', contribution: 'Dohas challenging all dogma.', impact: 'Influenced the Bhakti movement deeply.', fact: 'A weaver who belonged to no religion but Truth.' },
+            'tulsidas': { name: 'Tulsidas (Varanasi)', contribution: 'Ramcharitmanas.', impact: 'Made the Ramayana accessible in Awadhi.', fact: 'Believed to be the reincarnation of Valmiki.' },
+            'ravidas': { name: 'Ravidas (Varanasi)', contribution: 'Nirguna poetry of equality.', impact: 'Fought against caste discrimination.', fact: 'A cobbler whose spiritual light attracted queens.' },
+            'surdas': { name: 'Surdas (Braj)', contribution: 'Sur Sagar; Krishna Lila poetry.', impact: 'Immortalized the Vatsalya (parental) love for God.', fact: 'Blind from birth, he saw Krishna with inner eyes.' },
+            'ramananda': { name: 'Ramananda (Varanasi)', contribution: 'Pioneered vernacular Bhakti.', impact: 'Teacher of Kabir, Ravidas, and Pipa.', fact: 'Opened the path of Ram Bhakti to all castes.' },
+
+            'vidyapati': { name: 'Vidyapati (Mithila)', contribution: 'Maithili love songs of God.', impact: 'Influenced Bengali Vaishnavism.', fact: 'Known as the "Cuckoo of Maithili".' },
+            'chaitanya': { name: 'Chaitanya Mahaprabhu (Bengal)', contribution: 'Gaudiya Vaishnavism; Sankirtan.', impact: 'Spread the "Hare Krishna" mantra.', fact: 'Danced in ecstasy, seeing Krishna in everyone.' },
+            'sankardev': { name: 'Srimanta Sankardev (Assam)', contribution: 'Ekasarana Dharma; Sattriya culture.', impact: 'Unified Assam through art and faith.', fact: 'A playwright, musician, and social reformer.' },
+            'madhavdev': { name: 'Madhavdev (Assam)', contribution: 'Nam Ghosa.', impact: 'Solidified the Satra institution.', fact: 'The devoted disciple who carried the master\'s lamp.' },
+            'ramakrishna': { name: 'Ramakrishna (Bengal)', contribution: 'Harmony of all religions.', impact: 'Revived the spiritual core of Vedanta.', fact: 'Experienced God through Islam and Christianity too.' },
+            'vivekananda': { name: 'Swami Vivekananda (Bengal)', contribution: 'Modern Vedanta; Nationalism.', impact: 'Took Indian philosophy to the global stage.', fact: 'His Chicago speech in 1893 is historic.' },
+            'lalan': { name: 'Lalan Fakir (Bengal)', contribution: 'Baul philosophy and songs.', impact: 'Rejected caste and organized religion.', fact: 'His songs inspired Rabindranath Tagore.' },
+            'jayadeva': { name: 'Jayadeva (Odisha)', contribution: 'Gita Govinda.', impact: 'Shaped classical dance and music of India.', fact: 'His poetry is sung nightly in Jagannath Puri.' },
+            'bhimabhoi': { name: 'Bhima Bhoi (Odisha)', contribution: 'Mahima Dharma poetry.', impact: 'Championed the cause of the tribal/oppressed.', fact: 'Prayed for the world\'s redemption over his own.' },
+
+            'basavanna': { name: 'Basavanna (Karnataka)', contribution: 'Vachana Sahitya; Lingayat faith.', impact: 'Established the "Hall of Experience" democracy.', fact: 'Rejected the sacred thread and caste supremacy.' },
+            'akkamahadevi': { name: 'Akka Mahadevi (Karnataka)', contribution: 'Radical Vachana poetry.', impact: 'Icon of female spiritual independence.', fact: 'Wandered clothed only in her long hair.' },
+            'allama': { name: 'Allama Prabhu (Karnataka)', contribution: 'Mystic Vachanas.', impact: 'Presided over the Anubhava Mantapa.', fact: 'Known for his uncompromising non-dualist wisdom.' },
+            'purandara': { name: 'Purandara Dasa (Karnataka)', contribution: 'Father of Carnatic Music.', impact: 'Codified the teaching method of music.', fact: 'Composed 475,000 songs (legend says).' },
+            'madhvacharya': { name: 'Madhvacharya (Karnataka)', contribution: 'Dvaita (Dualism) philosophy.', impact: 'Established the Krishna Mutt in Udupi.', fact: 'A proponent of realistic theism.' },
+            'ramadasu': { name: 'Ramadasu (Telangana)', contribution: 'Music; Bhadrachalam Temple.', impact: 'His kirtans are widely sung in Telugu homes.', fact: 'Imprisoned for 12 years for building a temple.' },
+            'annamacharya': { name: 'Annamacharya (Andhra)', contribution: 'Sankirtanas for Venkateswara.', impact: 'First known composer of Carnatic music.', fact: 'Wrote 32,000 songs on copper plates.' },
+            'vemana': { name: 'Vemana (Andhra)', contribution: 'Padyalu (moral poems).', impact: 'His satire acts as a moral compass.', fact: 'A yogi who used rustic language for high truth.' },
+            'tyagaraja': { name: 'Tyagaraja (Tamil Nadu)', contribution: 'Pancharatna Kritis.', impact: 'Defined the golden age of Carnatic music.', fact: 'Rejected royal rewards to sing only for Rama.' },
+            'ramanuja': { name: 'Ramanuja (Tamil Nadu)', contribution: 'Vishishtadvaita philosophy.', impact: 'Opened temple entry for the downtrodden.', fact: 'Proclaimed the mantra from a temple tower to all.' },
+            'andal': { name: 'Andal (Tamil Nadu)', contribution: 'Tiruppavai hymns.', impact: 'The only female Alvar saint.', fact: 'Garlands she wore are offered to Lord Vishnu.' },
+            'manikkavasagar': { name: 'Manikkavasagar (Tamil Nadu)', contribution: 'Tiruvasagam hymns.', impact: 'Key figure in Shaiva Siddhanta.', fact: 'His words are said to melt the bones.' },
+            'appar': { name: 'Appar (Tamil Nadu)', contribution: 'Tevaram hymns.', impact: 'Converted back to Shaivism from Jainism.', fact: 'Performed menial cleaning service in temples.' },
+            'thiruvalluvar': { name: 'Thiruvalluvar (Tamil Nadu)', contribution: 'Tirukkural (Ethics).', impact: 'Universal guide on Virtue, Wealth, and Love.', fact: 'His work is secular and timeless.' },
+            'narayanaguru': { name: 'Narayana Guru (Kerala)', contribution: 'One Caste, One Religion, One God.', impact: 'Social reform against caste in Kerala.', fact: 'Consecrated a mirror to signify Self-God.' },
+            'shankara': { name: 'Adi Shankara (Kerala)', contribution: 'Consolidated Advaita Vedanta.', impact: 'Unified Hinduism through Mathas.', fact: 'Traveled India on foot; died at 32.' },
+            'ramana': { name: 'Ramana Maharshi (Tamil Nadu)', contribution: 'Self-Enquiry (Who am I?).', impact: 'Revived the path of Jnana Yoga.', fact: 'Spent his life at the holy hill Arunachala.' }
+        };
+
+        const cloud = document.getElementById('infoBox');
+
+        function showInfo(event, id) {
+            // 1. Stop click from reaching document listener (which closes the box)
+            event.stopPropagation();
+            
+            // 2. Fetch Data
+            const data = saintData[id];
+            if (!data) return;
+
+            // 3. Fill Content
+            document.getElementById('cloudTitle').innerText = data.name;
+            document.getElementById('cloudCont').innerText = data.contribution;
+            document.getElementById('cloudImp').innerText = data.impact;
+            document.getElementById('cloudFact').innerText = data.fact;
+
+            // 4. Calculate Position (Fixed positioning based on mouse)
+            // We want it slightly offset from the mouse
+            let x = event.clientX + 20;
+            let y = event.clientY + 20;
+
+            // 5. Boundary Checks (Prevent going off screen)
+            const boxWidth = 290; // Approx width including padding
+            const boxHeight = 200; // Approx height
+
+            if (x + boxWidth > window.innerWidth) {
+                x = event.clientX - boxWidth - 10; // Flip to left
+            }
+            if (y + boxHeight > window.innerHeight) {
+                y = event.clientY - boxHeight - 10; // Flip up
+            }
+
+            // 6. Apply Styles
+            cloud.style.left = x + 'px';
+            cloud.style.top = y + 'px';
+            cloud.classList.add('active');
+        }
+
+        function hideInfo() {
+            cloud.classList.remove('active');
+        }
+
+        // Close when clicking anywhere else on page
+        document.addEventListener('click', function(event) {
+            if (!cloud.contains(event.target)) {
+                hideInfo();
+            }
+        });
+    </script>
+
+</body>
+</html>
