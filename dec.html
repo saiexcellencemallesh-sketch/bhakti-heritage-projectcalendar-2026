@@ -24,12 +24,33 @@
             background-color: var(--paper);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Fixed Logo - Set to absolute so it moves upward as you scroll on mobile */
+        /* Initial Language Selector Overlay */
+        #lang-overlay {
+            position: fixed; inset: 0; z-index: 10000;
+            background: var(--deep-maroon);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--gold); text-align: center; padding: 20px;
+        }
+
+        #lang-overlay h1 { font-family: 'Cinzel'; margin-bottom: 30px; font-size: 1.8rem; }
+        
+        .lang-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; max-width: 400px; }
+        .lang-btn {
+            background: transparent; border: 2px solid var(--gold); color: var(--gold);
+            padding: 15px; font-family: 'Cinzel'; font-size: 1rem; font-weight: bold;
+            cursor: pointer; transition: 0.3s; border-radius: 4px;
+        }
+        .lang-btn:hover { background: var(--gold); color: var(--deep-maroon); }
+
+        /* Main Content - Hidden until language is selected */
+        #main-wrapper { display: none; overflow-x: hidden; position: relative; }
+
+        /* Celestial Logo - Absolute position to scroll away on mobile */
         #celestial-logo {
-            position: absolute; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
+            position: absolute; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
             left: 30px; top: 80px;
@@ -37,6 +58,12 @@
             border: 3px double var(--gold); 
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             color: var(--gold);
+        }
+
+        nav {
+            background-color: rgba(74, 4, 4, 0.98);
+            padding: 15px 50px; border-bottom: 3px solid var(--gold);
+            display: flex; justify-content: flex-end; position: sticky; top: 0; z-index: 1000;
         }
 
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; text-align: center; }
@@ -51,18 +78,10 @@
             border-left: 5px solid var(--gold);
         }
 
-        /* Interaction Area */
-        .reveal-card {
-            background: #fdfaf0; padding: 40px; border-radius: 12px;
-            border: 1px solid var(--gold); margin-bottom: 40px;
-        }
+        .reveal-card { background: #fdfaf0; padding: 40px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 40px; }
 
-        #cam-container { display: none; margin-bottom: 20px; position: relative; }
-        #cam-frame { 
-            width: 280px; height: 280px; border: 8px double var(--gold); 
-            border-radius: 50%; margin: 0 auto; overflow: hidden; 
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); background: #000;
-        }
+        #cam-container { display: none; margin-bottom: 20px; }
+        #cam-frame { width: 280px; height: 280px; border: 8px double var(--gold); border-radius: 50%; margin: 0 auto; overflow: hidden; background: #000; }
         #video-el { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 
         .btn-group { display: flex; flex-direction: column; gap: 15px; align-items: center; }
@@ -75,108 +94,213 @@
         .btn:hover { background: #1a0404; transform: translateY(-2px); }
         .btn-secondary { background: transparent; color: var(--deep-maroon); border: 1px solid var(--deep-maroon); }
 
-        /* Manifestation Content - Hidden until reveal */
         #final-content { display: none; text-align: left; margin-top: 40px; animation: fadeIn 1s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .manifest-text { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .manifest-text h2 { font-family: 'Cinzel'; color: var(--deep-maroon); text-align: center; margin-bottom: 25px; }
-        .manifest-text b { color: var(--saffron); }
 
-        .footer {
-            background: #1a0404; color: #888; padding: 40px 20px;
-            text-align: center; border-top: 4px solid var(--gold); font-size: 0.8rem;
-        }
+        .footer { background: #1a0404; color: #888; padding: 40px 20px; text-align: center; border-top: 4px solid var(--gold); font-size: 0.8rem; }
         .footer b { color: var(--gold); }
 
         @media (max-width: 768px) { 
-            #celestial-logo { position: absolute; width: 90px; height: 90px; left: 20px; top: 20px; font-size: 7px; } 
+            #celestial-logo { width: 80px; height: 80px; left: 15px; top: 15px; font-size: 6px; } 
             .main-header h1 { font-size: 2.2rem; }
+            nav { padding: 10px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-
-    <div class="container">
-        <header class="main-header">
-            <h1>The Journey's End</h1>
-            <p>December 2026</p>
-        </header>
-
-        <section class="intro-box">
-            <p>You have traveled a long way through this calendar. You walked with Tyagaraja on the path of sound, witnessed Sakkubai’s quiet miracles, and learned simple truths from Kabir. You even saw the fierce love of Akka Mahadevi.</p>
-            <p>But there is one more saint you need to meet. This is special because <b>the saint is here in the Kali Yuga right now</b>... and you can meet him today.</p>
-        </section>
-
-        <div class="reveal-card">
-            <div id="cam-container">
-                <div id="cam-frame"><video id="video-el" autoplay playsinline muted></video></div>
-                <button class="btn btn-secondary" style="margin-top: 15px; width: auto;" onclick="closeMirror()">Option 2: Proceed Without Camera</button>
-            </div>
-
-            <div id="interaction-wrap">
-                <p style="margin-bottom: 25px;">There is a small experience waiting for you—please allow your camera to experience it. If you are not comfortable, please proceed with Option 2.</p>
-                <div class="btn-group">
-                    <button class="btn" onclick="openMirror()">REVEAL THE NEXT SAINT</button>
-                    <button class="btn btn-secondary" onclick="skipMirror()">OPTION 2: PROCEED WITHOUT CAMERA</button>
-                </div>
-            </div>
-
-            <div id="final-content">
-                <div class="manifest-text">
-                    <h2>The Supreme Realization</h2>
-                    <p>In the West, people often talk about <b>Manifestation</b> to get a better job, more money, or personal happiness. But in <b>Bharat Khanda</b>, we have known the secret of this power for thousands of years. We didn't just use it for basic benefits—we used it for the highest cause possible.</p>
-                    <p>We used this power to manifest <b>what we already are</b>: Divine. We understood that the light we see in the masters is the same light that sits within us. We manifested what we are, God ourselves.</p>
-                    <p style="text-align: center; font-size: 1.4rem; margin: 30px 0; color: var(--deep-maroon);">
-                        <b>"There can be no bigger motivation in life than realizing that you are nothing short of God!"</b>
-                    </p>
-                    <p style="text-align: center; font-size: 1.1rem; border-top: 1px solid #eee; padding-top: 20px;">
-                        <i>"Every soul is potentially divine."</i><br>— Swami Vivekananda
-                    </p>
-                </div>
-            </div>
+    <div id="lang-overlay">
+        <h1 id="overlay-title">Select Your Language</h1>
+        <div class="lang-grid">
+            <button class="lang-btn" onclick="initApp('en')">English</button>
+            <button class="lang-btn" onclick="initApp('hi')">हिंदी</button>
+            <button class="lang-btn" onclick="initApp('te')">తెలుగు</button>
+            <button class="lang-btn" onclick="initApp('kn')">ಕನ್ನಡ</button>
         </div>
     </div>
 
-    <footer class="footer">
-        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        Art By: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b>
-    </footer>
+    <div id="main-wrapper">
+        <div id="celestial-logo" data-i18n="logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+
+        <nav>
+            <button class="lang-btn" style="padding: 5px 15px; font-size: 0.7rem;" onclick="showOverlay()" data-i18n="btn_change_lang">Change Language</button>
+        </nav>
+
+        <div class="container">
+            <header class="main-header">
+                <h1 data-i18n="header_title">The Journey's End</h1>
+                <p data-i18n="header_date">December 2026</p>
+            </header>
+
+            <section class="intro-box">
+                <p data-i18n="intro_p1">You have traveled a long way through this calendar. You walked with Tyagaraja on the path of sound, witnessed Sakkubai’s quiet miracles, and learned simple truths from Kabir. You even saw the fierce love of Akka Mahadevi.</p>
+                <p data-i18n="intro_p2">But there is one more saint you need to meet. This is special because <b>the saint is here in the Kali Yuga right now</b>... and you can meet him today.</p>
+            </section>
+
+            <div class="reveal-card">
+                <div id="interaction-wrap">
+                    <p style="margin-bottom: 25px;" data-i18n="reveal_prompt">There is a small experience waiting for you—please allow your camera to experience it. If you are not comfortable, please proceed with Option 2.</p>
+                    <div class="btn-group">
+                        <button class="btn" onclick="openMirror()" data-i18n="btn_reveal">REVEAL THE NEXT SAINT</button>
+                        <button class="btn btn-secondary" onclick="skipMirror()" data-i18n="btn_skip">OPTION 2: PROCEED WITHOUT CAMERA</button>
+                    </div>
+                </div>
+
+                <div id="cam-container">
+                    <div id="cam-frame"><video id="video-el" autoplay playsinline muted></video></div>
+                    <button class="btn btn-secondary" style="margin-top: 20px; width: auto;" onclick="closeMirror()" data-i18n="btn_skip">PROCEED WITHOUT CAMERA</button>
+                </div>
+
+                <div id="final-content">
+                    <div class="manifest-text">
+                        <h2 data-i18n="manifest_title">The Supreme Realization</h2>
+                        <p data-i18n="manifest_p1">In the West, people often talk about Manifestation for basic benefits. But in Bharat Khanda, we have known the secret of this power for thousands of years. We used it for the highest cause.</p>
+                        <p data-i18n="manifest_p2">We used this power to manifest what we already are: Divine. We understood that the light we see in the masters is the same light that sits within us.</p>
+                        <p style="text-align: center; font-size: 1.4rem; margin: 30px 0; color: var(--deep-maroon);">
+                            <b data-i18n="motivation_quote">"There can be no bigger motivation in life than realizing that you are nothing short of God!"</b>
+                        </p>
+                        <p style="text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+                            <i data-i18n="swami_quote">"Every soul is potentially divine."</i><br>
+                            <span data-i18n="swami_name">— Swami Vivekananda</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <b data-i18n="footer_project">Bhakthi Heritage Art Calendar 2026 Project</b><br>
+            <span data-i18n="footer_credits">Art: Sweta Sairam | Content: Sai Mallesh</span>
+        </footer>
+    </div>
 
     <script>
+        const translations = {
+            en: {
+                logo: "BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026",
+                header_title: "The Journey's End",
+                header_date: "December 2026",
+                intro_p1: "You have traveled a long way through this calendar. You walked with Tyagaraja, witnessed Sakkubai’s miracles, and learned from Kabir and Akka Mahadevi.",
+                intro_p2: "But there is one more saint you need to meet. This is special because the saint is here in the Kali Yuga right now... and you can meet him today.",
+                reveal_prompt: "There is a small experience waiting for you—please allow your camera to experience it. If you are not comfortable, please proceed with Option 2.",
+                btn_reveal: "REVEAL THE NEXT SAINT",
+                btn_skip: "OPTION 2: PROCEED WITHOUT CAMERA",
+                btn_change_lang: "Change Language",
+                manifest_title: "The Supreme Realization",
+                manifest_p1: "In the West, people often talk about Manifestation for basic benefits. But in Bharat Khanda, we used this power for the highest cause.",
+                manifest_p2: "We manifested what we already are: Divine. We understood that the light we see in the masters is the same light within us.",
+                motivation_quote: "\"There can be no bigger motivation in life than realizing that you are nothing short of God!\"",
+                swami_quote: "\"Every soul is potentially divine.\"",
+                swami_name: "— Swami Vivekananda",
+                footer_project: "Bhakthi Heritage Art Calendar 2026 Project",
+                footer_credits: "Art: Sweta Sairam | Content: Sai Mallesh"
+            },
+            hi: {
+                logo: "भक्ति<br>धरोहर<br>कला कैलेंडर<br>2026",
+                header_title: "यात्रा का अंत",
+                header_date: "दिसंबर 2026",
+                intro_p1: "आपने इस कैलेंडर के माध्यम से एक लंबी यात्रा की है। आप त्यागराज, सखुबाई, कबीर और अक्का महादेवी के साथ चले हैं।",
+                intro_p2: "लेकिन एक और संत हैं जिनसे आपको मिलना है। यह विशेष है क्योंकि वे संत अभी इसी कलयुग में मौजूद हैं... और आप उनसे आज मिल सकते हैं।",
+                reveal_prompt: "आपके लिए एक छोटा सा अनुभव है—कृपया अनुभव करने के लिए अपने कैमरे की अनुमति दें। यदि आप सहज नहीं हैं, तो विकल्प 2 के साथ आगे बढ़ें।",
+                btn_reveal: "अगले संत को प्रकट करें",
+                btn_skip: "विकल्प 2: कैमरे के बिना आगे बढ़ें",
+                btn_change_lang: "भाषा बदलें",
+                manifest_title: "परम बोध",
+                manifest_p1: "पश्चिम में, लोग अक्सर भौतिक लाभ के लिए 'मैनीफेस्टेशन' की बात करते हैं। लेकिन भारत खंड में, हम इस शक्ति को सर्वोच्च कारण के लिए जानते हैं।",
+                manifest_p2: "हमने वह प्रकट किया जो हम पहले से ही हैं: दिव्य। हमने समझा कि जो प्रकाश हम गुरुओं में देखते हैं, वही प्रकाश हमारे भीतर है।",
+                motivation_quote: "\"जीवन में इससे बड़ी कोई प्रेरणा नहीं हो सकती कि आप स्वयं भगवान से कम नहीं हैं!\"",
+                swami_quote: "\"प्रत्येक आत्मा संभावित रूप से दिव्य है।\"",
+                swami_name: "— स्वामी विवेकानंद",
+                footer_project: "भक्ति धरोहर कला कैलेंडर 2026 परियोजना",
+                footer_credits: "कला: श्वेता साईराम | सामग्री: साईं मल्लेश"
+            },
+            te: {
+                logo: "భక్తి<br>వారసత్వం<br>కళా క్యాలెండర్<br>2026",
+                header_title: "ప్రయాణ ముగింపు",
+                header_date: "డిసెంబర్ 2026",
+                intro_p1: "ఈ క్యాలెండర్ ద్వారా మీరు సుదీర్ఘ ప్రయాణం చేశారు. మీరు త్యాగరాజస్వామి, సక్కుబాయి, కబీర్ మరియు అక్క మహాదేవిల సాంగత్యంలో నడిచారు.",
+                intro_p2: "కానీ మీరు కలవవలసిన మరో సాధువు ఉన్నారు. ఇది ప్రత్యేకం ఎందుకంటే ఆ సాధువు ఇప్పుడే ఈ కలియుగంలో ఉన్నారు... మీరు ఈరోజే ఆయన్ని కలవవచ్చు.",
+                reveal_prompt: "మీ కోసం ఒక చిన్న అనుభవం సిద్ధంగా ఉంది—దయచేసి మీ కెమెరా అనుమతించండి. మీకు ఇష్టం లేకపోతే, ఆప్షన్ 2ని ఎంచుకోండి.",
+                btn_reveal: "తదుపరి సాధువును చూడండి",
+                btn_skip: "ఆప్షన్ 2: కెమెరా లేకుండా కొనసాగండి",
+                btn_change_lang: "భాష మార్చండి",
+                manifest_title: "పరమ సత్యం",
+                manifest_p1: "పాశ్చాత్య దేశాలలో ప్రజలు చిన్న చిన్న ప్రయోజనాల కోసం 'మేనిఫెస్టేషన్' గురించి మాట్లాడుతుంటారు. కానీ భారత్ ఖండంలో, మనం ఈ శక్తిని అత్యున్నత లక్ష్యం కోసం ఉపయోగించాం.",
+                manifest_p2: "మనం ఇప్పటికే ఏదైతే అయి ఉన్నామో దానిని వ్యక్తపరిచాం: అదే దైవత్వం. మహనీయులలో మనం చూసే కాంతి మనలోనే ఉందని మనం గ్రహించాం.",
+                motivation_quote: "\"మీరు దేవుడి కంటే తక్కువ కాదని గ్రహించడం కంటే పెద్ద ప్రేరణ జీవితంలో మరొకటి ఉండదు!\"",
+                swami_quote: "\"ప్రతి ఆత్మలోనూ దైవత్వం దాగి ఉంటుంది.\"",
+                swami_name: "— స్వామి వివేకానంద",
+                footer_project: "భక్తి వారసత్వ కళా క్యాలెండర్ 2026 ప్రాజెక్ట్",
+                footer_credits: "కళ: శ్వేత సాయిరామ్ | కంటెంట్: సాయి మల్లేష్"
+            },
+            kn: {
+                logo: "ಭಕ್ತಿ<br>ಪರಂಪರೆ<br>ಕಲಾ ಕ್ಯಾಲೆಂಡರ್<br>2026",
+                header_title: "ಪ್ರಯಾಣದ ಅಂತ್ಯ",
+                header_date: "ಡಿಸೆಂಬರ್ 2026",
+                intro_p1: "ಈ ಕ್ಯಾಲೆಂಡರ್ ಮೂಲಕ ನೀವು ಸುದೀರ್ಘ ಪ್ರಯಾಣ ಮಾಡಿದ್ದೀರಿ. ನೀವು ತ್ಯಾಗರಾಜರು, ಸಕ್ಕುಬಾಯಿ, ಕಬೀರರು ಮತ್ತು ಅಕ್ಕ ಮಹಾದೇವಿಯವರೊಂದಿಗೆ ನಡೆದಿದ್ದೀರಿ.",
+                intro_p2: "ಆದರೆ ನೀವು ಭೇಟಿಯಾಗಬೇಕಾದ ಇನ್ನೊಬ್ಬ ಸಂತನಿದ್ದಾನೆ. ಇದು ವಿಶೇಷ ಏಕೆಂದರೆ ಆ ಸಂತನು ಈಗ ಈ ಕಲಿಯುಗದಲ್ಲಿಯೇ ಇದ್ದಾನೆ... ನೀವು ಇಂದು ಅವನನ್ನು ಭೇಟಿಯಾಗಬಹುದು.",
+                reveal_prompt: "ನಿಮಗಾಗಿ ಒಂದು ಸಣ್ಣ ಅನುಭವ ಕಾಯುತ್ತಿದೆ—ದಯವಿಟ್ಟು ಕ್ಯಾಮರಾ ಬಳಸಲು ಅನುಮತಿ ನೀಡಿ. ನಿಮಗೆ ಇಷ್ಟವಿಲ್ಲದಿದ್ದರೆ, ಆಯ್ಕೆ 2 ರ ಮೂಲಕ ಮುಂದುವರಿಯಿರಿ.",
+                btn_reveal: "ಮುಂದಿನ ಸಂತರನ್ನು ನೋಡಿ",
+                btn_skip: "ಆಯ್ಕೆ 2: ಕ್ಯಾಮರಾ ಇಲ್ಲದೆ ಮುಂದುವರಿಯಿರಿ",
+                btn_change_lang: "ಭಾಷೆ ಬದಲಿಸಿ",
+                manifest_title: "ಪರಮ ಸಾಕ್ಷಾತ್ಕಾರ",
+                manifest_p1: "ಪಾಶ್ಚಿಮಾತ್ಯ ದೇಶಗಳಲ್ಲಿ ಜನರು ಲೌಕಿಕ ಲಾಭಕ್ಕಾಗಿ 'Manifestation' ಬಗ್ಗೆ ಮಾತನಾಡುತ್ತಾರೆ. ಆದರೆ ಭಾರತ ಖಂಡದಲ್ಲಿ, ನಾವು ಈ ಶಕ್ತಿಯನ್ನು ಸರ್ವೋಚ್ಚ ಉದ್ದೇಶಕ್ಕಾಗಿ ಬಳಸಿದ್ದೇವೆ.",
+                manifest_p2: "ನಾವು ಈಗಾಗಲೇ ಏನಾಗಿದ್ದೇವೆಯೋ ಅದನ್ನೇ ವ್ಯಕ್ತಪಡಿಸಿದ್ದೇವೆ: ದೈವಿಕತೆ. ಗುರುಗಳಲ್ಲಿ ನಾವು ಕಾಣುವ ಬೆಳಕು ನಮ್ಮೊಳಗೂ ಇದೆ ಎಂದು ನಾವು ಅರಿತಿದ್ದೇವೆ.",
+                motivation_quote: "\"ನೀವು ದೇವರಿಗಿಂತ ಕಡಿಮೆಯಿಲ್ಲ ಎಂದು ಅರಿತುಕೊಳ್ಳುವುದಕ್ಕಿಂತ ದೊಡ್ಡ ಪ್ರೇರಣೆ ಜೀವನದಲ್ಲಿ ಇನ್ನೊಂದಿಲ್ಲ!\"",
+                swami_quote: "\"ಪ್ರತಿಯೊಂದು ಆತ್ಮವೂ ಸಂಭಾವ್ಯವಾಗಿ ದೈವಿಕವಾಗಿದೆ.\"",
+                swami_name: "— ಸ್ವಾಮಿ ವಿವೇಕಾನಂದ",
+                footer_project: "ಭಕ್ತಿ ಪರಂಪರೆ ಕಲಾ ಕ್ಯಾಲೆಂಡರ್ 2026 ಯೋಜನೆ",
+                footer_credits: "ಕಲೆ: ಶ್ವೇತಾ ಸಾಯಿರಾಮ್ | ವಿಷಯ: ಸಾಯಿ ಮಲ್ಲೇಶ್"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        function initApp(lang) {
+            changeLanguage(lang);
+            document.getElementById('lang-overlay').style.display = 'none';
+            document.getElementById('main-wrapper').style.display = 'block';
+        }
+
+        function showOverlay() {
+            document.getElementById('lang-overlay').style.display = 'flex';
+            document.getElementById('main-wrapper').style.display = 'none';
+        }
+
         let stream = null;
 
         async function openMirror() {
             try {
                 stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-                const video = document.getElementById('video-el');
-                video.srcObject = stream;
+                document.getElementById('video-el').srcObject = stream;
                 document.getElementById('cam-container').style.display = "block";
                 document.getElementById('interaction-wrap').style.display = "none";
                 document.getElementById('final-content').style.display = "block";
-                await video.play();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             } catch (err) {
-                alert("To meet the Next Saint, please allow camera access. If you prefer not to, you can still proceed with Option 2.");
                 skipMirror();
             }
         }
 
         function skipMirror() {
             document.getElementById('interaction-wrap').style.display = "none";
+            document.getElementById('cam-container').style.display = "none";
             document.getElementById('final-content').style.display = "block";
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
         function closeMirror() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            document.getElementById('cam-container').style.display = "none";
-            document.getElementById('interaction-wrap').style.display = "block";
-            document.getElementById('final-content').style.display = "none";
+            if (stream) stream.getTracks().forEach(track => track.stop());
+            skipMirror();
         }
     </script>
 </body>
