@@ -4,46 +4,328 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>June 2026 - Saint Kabir | Bhakthi Heritage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Lora&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --brown: #4e342e; --paper: #faf7f2; }
-        body { margin: 0; padding: 0; font-family: 'Lora', serif; background-color: var(--paper); color: var(--brown); line-height: 1.8; }
-
-        #celestial-logo {
-            position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
-            left: 30px; top: 30px; background: #fff; box-shadow: 0 0 35px #fff; border: 2px solid #eee; color: var(--brown);
+        :root {
+            --saffron: #FF9933;
+            --deep-maroon: #4a0404;
+            --gold: #D4AF37;
+            --paper: #fffcf5;
+            --text-main: #2d241e;
         }
 
-        .container { max-width: 850px; margin: 0 auto; padding: 160px 20px 80px; }
-        header { text-align: center; margin-bottom: 60px; }
-        h1 { font-family: 'Cinzel'; font-size: 3rem; color: var(--gold); margin: 0; }
-        .card { background: white; padding: 45px; border-radius: 15px; border: 1px solid #e0d7c6; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; margin: 30px 0; }
-        .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); z-index: 2; color: var(--gold); font-family: 'Cinzel'; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--paper);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Logo - Positioned lower at 80px as per project branding */
+        #celestial-logo {
+            position: fixed; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 80px;
+            background: var(--deep-maroon);
+            border: 3px double var(--gold); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--gold);
+        }
+
+        nav {
+            background-color: rgba(74, 4, 4, 0.98);
+            padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .nav-links a {
+            color: white; text-decoration: none;
+            font-family: 'Cinzel', serif; font-size: 0.8rem; margin-left: 20px;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+
+        .main-header { padding: 40px 0; }
+        .main-header h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--deep-maroon); margin: 0; }
+        .main-header p { font-family: 'Cinzel'; color: var(--saffron); letter-spacing: 3px; font-weight: bold; }
+
+        /* Updated Saint Image */
+        .saint-portrait {
+            width: 100%; max-width: 600px; border: 12px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); margin: 20px auto 40px;
+            display: block;
+        }
+
+        .content-box {
+            text-align: left; background: white; padding: 40px;
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 60px; border-left: 5px solid var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif; color: var(--deep-maroon);
+            font-size: 1.8rem; margin-bottom: 25px; display: block;
+            text-align: center;
+        }
+
+        /* Quiz Styling */
+        .quiz-section { background: #fdfaf0; padding: 40px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 60px; text-align: left; }
+        .question { margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px dashed #ccc; }
+        .question p { font-weight: bold; margin-bottom: 5px; color: var(--deep-maroon); }
+        .translation { font-style: italic; color: #666; font-size: 0.95rem; margin-bottom: 15px; display: block; }
+        
+        .options { list-style: none; padding: 0; }
+        .option {
+            background: white; border: 1px solid #ddd; padding: 12px 15px;
+            margin-bottom: 10px; cursor: pointer; border-radius: 5px; transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .option:hover { background: #fff9e6; border-color: var(--gold); }
+        .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+
+        /* Instant Explanation Box */
+        .explanation {
+            display: none; margin-top: 15px; padding: 20px; background: #fff;
+            border-left: 5px solid var(--saffron); font-size: 1rem; border-radius: 4px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .explanation b { color: var(--deep-maroon); display: block; margin-bottom: 8px; font-family: 'Cinzel'; }
+        .imp-tag { color: var(--saffron); font-weight: bold; display: block; margin-top: 10px; font-size: 0.9rem; }
+
+        /* Video Gallery */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .video-card { text-align: left; }
+        .vid-box {
+            position: relative; width: 100%; padding-bottom: 56.25%;
+            background: #000; border-radius: 8px; overflow: hidden;
+            border: 2px solid var(--gold); cursor: pointer;
+        }
+        .vid-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.6); z-index: 2; color: var(--gold);
+            font-family: 'Cinzel'; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;
+        }
         .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-        .footer { padding: 60px 20px; text-align: center; border-top: 1px solid var(--gold); font-size: 0.85rem; color: #777; }
+        .video-title { display: block; font-family: 'Cinzel'; color: var(--deep-maroon); font-weight: bold; margin: 15px 0 8px; }
+        .video-desc { font-size: 0.9rem; color: #555; font-style: italic; line-height: 1.4; }
+
+        .footer {
+            background: #1a0404; color: #888; padding: 50px 20px;
+            text-align: center; border-top: 4px solid var(--gold); margin-top: 60px;
+        }
+        .footer b { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            #celestial-logo { display: none; }
+            .main-header h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
+
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-    <div class="container">
-        <header>
-            <h1>Saint Kabir</h1>
-            <p style="font-family: 'Cinzel'; letter-spacing: 5px;">JUNE</p>
-        </header>
-        <div class="card">
-            <p>Saint Kabir, the mystic weaver, taught us to find the Divine in the thread of everyday life. His Dohas continue to shatter the walls between religion and humanity.</p>
-            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/BzaAv6x31Ro?autoplay=1\' allowfullscreen></iframe>'">
-                <div class="vid-overlay">▶ TOUCH TO WITNESS</div>
-            </div>
-            <p style="text-align: center; font-style: italic;">"The Lord is in me, the Lord is in you, as life is in every seed."</p>
+
+    <nav>
+        <a href="#" style="font-family: 'Cinzel'; color: var(--gold); font-weight: bold; text-decoration: none;">SAINT KABIR</a>
+        <div class="nav-links">
+            <a href="#about">The Mystic</a>
+            <a href="#quiz">The Quiz</a>
+            <a href="#music">The Videos</a>
         </div>
+    </nav>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>Saint Kabir</h1>
+            <p>Simple Wisdom for Every Soul</p>
+        </header>
+
+        <img src="https://ramyantar.com/wp-content/uploads/2009/03/Kabirdas_1.jpg" 
+             alt="Saint Kabir Das" class="saint-portrait">
+
+        <section id="about" class="content-box">
+            <h2 class="section-title">The Weaver of Kashi</h2>
+            <p>Saint Kabir (1440–1518) was a simple weaver who lived in the holy city of Kashi. He didn't have fancy degrees or a wealthy background. He spent his days at a loom, weaving cloth, but his mind was busy weaving together the hearts of people from all religions.</p>
+            <p>In his time, people were fighting over rituals, castes, and scriptures. Kabir laughed at this. He famously said, <b>"The Lord is in me, the Lord is in you, as life is in every seed."</b> He taught Bharat that God doesn't live in big buildings or complicated books, but in the simple truth and kindness we show to each other. His words were so powerful that they challenged scholars and kings alike, making him one of the most loved voices in Indian history.</p>
+        </section>
+
+        <section id="quiz" class="quiz-section">
+            <h2 class="section-title">Can You Finish These Dohas?</h2>
+            <p style="text-align: center; margin-bottom: 40px; font-style: italic;">Test your knowledge of these timeless verses. Tap an option to reveal the secret meaning.</p>
+
+            <div class="question" id="q1">
+                <p>1. Bura jo dekhan main chala, bura na milya koi; <br>Jo dil khoja aapna, mujhse _______________ .</p>
+                <span class="translation">(Translation: When I went looking for evil, I found no one evil; when I searched my own heart, I found none...)</span>
+                <div class="options">
+                    <div class="option" onclick="check(this, false, 'q1')">A. achha na koi (I found no one good)</div>
+                    <div class="option" onclick="check(this, true, 'q1')">B. bura na koi (I found no one worse than me)</div>
+                    <div class="option" onclick="check(this, false, 'q1')">C. bada na koi (I found no one great)</div>
+                </div>
+                <div class="explanation">
+                    <b>Real Talk: Stop Pointing Fingers</b>
+                    It's easy to judge everyone else's mistakes online or in person. Kabir says: if you really look at your own heart honestly, you'll realize you have enough of your own stuff to fix.
+                    <span class="imp-tag">Today's Lesson: Mind your own business and work on yourself first.</span>
+                </div>
+            </div>
+
+            <div class="question" id="q2">
+                <p>2. Dheere dheere re mana, __________________; <br>Maali seenche sau ghada, ritu aaye phal hoye.</p>
+                <span class="translation">(Translation: Slowly, slowly, O mind! The gardener may water with a hundred pots, but...)</span>
+                <div class="options">
+                    <div class="option" onclick="check(this, false, 'q2')">A. sab kuch hoye (everything happens)</div>
+                    <div class="option" onclick="check(this, true, 'q2')">B. dheere sab kuch hoye (everything happens slowly in its own time)</div>
+                    <div class="option" onclick="check(this, false, 'q2')">C. kuch na hoye apne kaal (nothing happens in its own time)</div>
+                </div>
+                <div class="explanation">
+                    <b>Real Talk: Patience is a Superpower</b>
+                    In our world of instant delivery and instant likes, we want success right now. But nature doesn't work that way. A tree only gives fruit when the season is right, no matter how much you water it.
+                    <span class="imp-tag">Today's Lesson: Keep doing the work and trust that your "fruit" will come when the time is right.</span>
+                </div>
+            </div>
+
+            <div class="question" id="q3">
+                <p>3. Pothi padh padh jag mua, pandit bhaya na koi; <br>Dhai aakhar __________, padhe so pandit hoye.</p>
+                <span class="translation">(Translation: Reading big books, the whole world died, yet none became wise; one who reads 2.5 letters of...)</span>
+                <div class="options">
+                    <div class="option" onclick="check(this, true, 'q3')">A. prem ka (of love)</div>
+                    <div class="option" onclick="check(this, false, 'q3')">B. gyaan ka (of knowledge)</div>
+                    <div class="option" onclick="check(this, false, 'q3')">C. satya ka (of truth)</div>
+                </div>
+                <div class="explanation">
+                    <b>Real Talk: Degrees vs. Decency</b>
+                    You can have all the PhDs and fancy degrees in the world, but if you don't know how to treat someone with love and kindness, you haven't learned anything. 
+                    <span class="imp-tag">Today's Lesson: Empathy and love are the highest forms of intelligence.</span>
+                </div>
+            </div>
+
+            <div class="question" id="q4">
+                <p>4. Saai itna deejiye, ja mein kutumb samaaye; <br>Main bhi bhookha na rahoon, sadhu ___________________.</p>
+                <span class="translation">(Translation: O Lord, give me only so much that my family is sustained; I should not go hungry, nor...)</span>
+                <div class="options">
+                    <div class="option" onclick="check(this, true, 'q4')">A. na bhookha jaaye (the guest goes hungry)</div>
+                    <div class="option" onclick="check(this, false, 'q4')">B. bhookha na paaye (hunger is not found)</div>
+                    <div class="option" onclick="check(this, false, 'q4')">C. pyaasa na rahe (remain thirsty)</div>
+                </div>
+                <div class="explanation">
+                    <b>Real Talk: Being Happy with "Enough"</b>
+                    Everyone wants "more, more, more." Kabir’s prayer is simple: "Give me enough to take care of my family and a little extra to feed anyone who visits my door."
+                    <span class="imp-tag">Today's Lesson: True wealth is being content with what you need and being generous to others.</span>
+                </div>
+            </div>
+
+            <div class="question" id="q5">
+                <p>5. Kal kare so aaj kar, ___________; <br>Pal mein pralaya hoyegi, bahuri karega kab.</p>
+                <span class="translation">(Translation: What you plan to do tomorrow, do today; what you plan for today...)</span>
+                <div class="options">
+                    <div class="option" onclick="check(this, true, 'q5')">A. aaj kare so ab (what you must do today, do it NOW)</div>
+                    <div class="option" onclick="check(this, false, 'q5')">B. aaj kare so parso (do it the day after)</div>
+                    <div class="option" onclick="check(this, false, 'q5')">C. aaj kare so baad mein (do it later)</div>
+                </div>
+                <div class="explanation">
+                    <b>Real Talk: Stop Procrastinating</b>
+                    We always say "I'll start my diet on Monday" or "I'll call my parents later." Kabir reminds us that life is unpredictable. If you have something good to do, do it right this second.
+                    <span class="imp-tag">Today's Lesson: Don't wait for the "perfect moment." Start now.</span>
+                </div>
+            </div>
+
+            <div class="question" id="q6">
+                <p>6. Guru gobind dou khade, kaake laagon paaye; <br>Balihari guru aapno, _______________.</p>
+                <span class="translation">(Translation: If the Guru and God both stand before me, whose feet should I touch first? I bow to...)</span>
+                <div class="options">
+                    <div class="option" onclick="check(this, false, 'q6')">A. jin jeevan ka arth bataaye (who told life's meaning)</div>
+                    <div class="option" onclick="check(this, true, 'q6')">B. jin gobind diya milaye (who introduced me to God)</div>
+                    <div class="option" onclick="check(this, false, 'q6')">C. jin shishya diya samjhaaye (who taught the student)</div>
+                </div>
+                <div class="explanation">
+                    <b>Real Talk: Value Your Mentors</b>
+                    If God and your teacher both stand in front of you, you should thank your teacher first. Why? Because without the teacher, you wouldn't even know how to find God. 
+                    <span class="imp-tag">Today's Lesson: Be grateful to the people who opened your eyes and guided your path.</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="music">
+            <h2 class="section-title">Explore His Journey</h2>
+            <div class="video-grid">
+                
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'BzaAv6x31Ro')">
+                        <div class="vid-overlay"><span>THE MYSTIC WEAVER</span></div>
+                    </div>
+                    <span class="video-title">The Loom of Life</span>
+                    <p class="video-desc">How can a simple weaving machine explain the mysteries of the universe? Watch this to see how Kabir saw the Divine in his daily work.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'Dr83axn1IbM')">
+                        <div class="vid-overlay"><span>REVOLUTIONARY VOICE</span></div>
+                    </div>
+                    <span class="video-title">The Rebel Saint</span>
+                    <p class="video-desc">Kabir wasn't afraid to speak the truth to power. Discover the secrets of a man who challenged the status quo with just two lines of poetry.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'rWZZ680sQFo')">
+                        <div class="vid-overlay"><span>ONE NATION, ONE GOD</span></div>
+                    </div>
+                    <span class="video-title">Unity in Devotion</span>
+                    <p class="video-desc">Experience the soul-stirring message that brought people from all backgrounds together. Why does Kabir still matter in the 21st century?</p>
+                </div>
+
+            </div>
+        </section>
     </div>
+
     <footer class="footer">
         <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
-        Art: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b>
+        Art: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b><br>
+        &copy; 2026
     </footer>
+
+    <script>
+        function playV(container, id) {
+            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+
+        function check(element, isCorrect, qId) {
+            const qBox = document.getElementById(qId);
+            const options = qBox.getElementsByClassName('option');
+            const explanation = qBox.getElementsByClassName('explanation')[0];
+
+            // Disable all options for this question
+            for (let opt of options) { 
+                opt.style.pointerEvents = 'none'; 
+                // Mark correct answer automatically
+                if (opt.innerText.includes('bura na koi') || 
+                    opt.innerText.includes('dheere sab kuch hoye') || 
+                    opt.innerText.includes('prem ka') || 
+                    opt.innerText.includes('na bhookha jaaye') || 
+                    opt.innerText.includes('aaj kare so ab') || 
+                    opt.innerText.includes('gobind diya milaye')) {
+                    opt.classList.add('correct');
+                }
+            }
+            
+            // Mark wrong choice if applicable
+            if (!isCorrect) {
+                element.classList.add('wrong');
+            }
+
+            // Reveal the meaning immediately
+            explanation.style.display = 'block';
+            explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
 </body>
 </html>
