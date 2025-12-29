@@ -4,33 +4,194 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>October 2026 - Akka Mahadevi | Bhakthi Heritage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Lora&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --green: #2d5a27; --paper: #f5fcf5; }
-        body { margin: 0; padding: 0; font-family: 'Lora', serif; background-color: var(--paper); color: #1a3317; line-height: 1.8; }
-        #celestial-logo { position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; font-family: 'Cinzel'; font-size: 8px; font-weight: bold; left: 30px; top: 30px; background: var(--green); box-shadow: 0 0 30px var(--green); border: 2px solid var(--gold); color: #fff; }
-        .container { max-width: 850px; margin: 0 auto; padding: 160px 20px 80px; }
-        header { text-align: center; margin-bottom: 60px; }
-        h1 { font-family: 'Cinzel'; font-size: 3rem; color: var(--gold); }
-        .card { background: white; padding: 45px; border-radius: 15px; border: 1px solid #dce8dc; }
-        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; margin: 30px 0; }
-        .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); z-index: 2; color: var(--gold); font-family: 'Cinzel'; }
+        :root {
+            --gold: #d4af37;
+            --deep-green: #1a3317;
+            --vibrant-green: #2d5a27;
+            --paper: #f5fcf5;
+            --text-main: #1a3317;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--paper);
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Adjusted Logo - Moves upward as you scroll (Absolute position) */
+        #celestial-logo {
+            position: absolute; z-index: 9999; width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
+            left: 30px; top: 80px;
+            background: var(--vibrant-green); 
+            border: 3px double var(--gold); 
+            box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
+            color: #fff;
+        }
+
+        nav {
+            background-color: rgba(26, 51, 23, 0.98);
+            padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .nav-links a {
+            color: white; text-decoration: none;
+            font-family: 'Cinzel', serif; font-size: 0.8rem; margin-left: 20px;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+
+        .main-header { padding: 40px 0; }
+        .main-header h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--vibrant-green); margin: 0; }
+        .main-header p { font-family: 'Cinzel'; color: var(--gold); letter-spacing: 3px; font-weight: bold; }
+
+        /* Main Portrait */
+        .saint-portrait {
+            width: 100%; max-width: 600px; border: 12px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); margin: 20px auto 40px;
+            display: block;
+        }
+
+        .content-box {
+            text-align: left; background: white; padding: 40px;
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 60px; border-left: 5px solid var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif; color: var(--vibrant-green);
+            font-size: 1.8rem; margin-bottom: 20px; display: block;
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: var(--vibrant-green); color: var(--gold);
+            padding: 40px; border-radius: 8px; margin: 40px 0;
+            font-style: italic; font-size: 1.3rem; line-height: 1.8;
+            border: 2px solid var(--gold); text-align: center;
+        }
+
+        /* Video Gallery */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .video-card { text-align: left; }
+        .vid-box {
+            position: relative; width: 100%; padding-bottom: 56.25%;
+            background: #000; border-radius: 8px; overflow: hidden;
+            border: 2px solid var(--gold); cursor: pointer;
+        }
+        .vid-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.6); z-index: 2; color: var(--gold);
+            font-family: 'Cinzel'; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;
+        }
         .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        .video-title { display: block; font-family: 'Cinzel'; color: var(--vibrant-green); font-weight: bold; margin: 15px 0 8px; }
+        .video-desc { font-size: 0.9rem; color: #555; font-style: italic; line-height: 1.4; }
+
+        .footer {
+            background: #0d1a0b; color: #888; padding: 50px 20px;
+            text-align: center; border-top: 4px solid var(--gold); margin-top: 60px;
+        }
+        .footer b { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            #celestial-logo { display: none; }
+            .main-header h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
+
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-    <div class="container">
-        <header>
-            <h1>Akka Mahadevi</h1>
-            <p style="font-family: 'Cinzel'; letter-spacing: 5px;">OCTOBER</p>
-        </header>
-        <div class="card">
-            <p>Akka Mahadevi was a rebel saint who walked the path of divine love with unmatched courage. Her Vacanas are timeless expressions of the soul's yearning for the Infinite.</p>
-            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/kv8ZsleTCCs?autoplay=1\' allowfullscreen></iframe>'">
-                <div class="vid-overlay">▶ TOUCH TO WITNESS</div>
-            </div>
+
+    <nav>
+        <a href="#" style="font-family: 'Cinzel'; color: var(--gold); font-weight: bold; text-decoration: none;">AKKA MAHADEVI</a>
+        <div class="nav-links">
+            <a href="#about">The Story</a>
+            <a href="#videos">Divine Witness</a>
         </div>
+    </nav>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>Akka Mahadevi</h1>
+            <p>October 2026</p>
+        </header>
+
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC0qRDqoeL9COGQ0Zcg8RH0T0h0WypSrPMAw&s" 
+             alt="Akka Mahadevi" class="saint-portrait">
+
+        <section id="about" class="content-box">
+            <h2 class="section-title">The Complete Story of a Rebel Saint</h2>
+            <p>Akka Mahadevi (1130–1160) was a legendary mystic who broke every rule of her time to find God. Born in Udutadi, Karnataka, she was a devotee of Lord Shiva from childhood. She didn't just pray to Him; she fell in love with Him, calling Him <b>Chennamallikarjuna</b> (The Lord White as Jasmine).</p>
+            
+            <p>Her life took a turn when King Kaushika fell in love with her beauty. Despite her refusals, she was forced into a marriage on three conditions. When the King broke his promise, Akka did something that shocked the 12th century: she renounced the palace, her riches, and even her clothes. She declared that her body belonged to God, not to a man, and walked away covering her form only with her long hair.</p>
+
+            <p>She traveled to Kalyana, where she joined the <i>Anubhava Mantapa</i>, a gathering of the greatest saints of the age. There, the great Basavanna and Allama Prabhu recognized her deep wisdom and gave her the title <b>"Akka"</b> (Elder Sister). She eventually traveled to the Kadali forest in Srisailam, where she achieved final union with her Jasmine Lord.</p>
+        </section>
+
+        <div class="quote-box">
+            "I have fallen in love with the Beautiful One,<br>
+            Who knows no death, has no form, no boundaries.<br>
+            Listen, O Lord white as jasmine,<br>
+            Chennamallikarjuna is my only husband."
+        </div>
+
+        <section id="videos">
+            <h2 class="section-title">Witness the Divine Radiance</h2>
+            <div class="video-grid">
+                
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'kv8ZsleTCCs')">
+                        <div class="vid-overlay"><span>THE FEARLESS DEVOTEE</span></div>
+                    </div>
+                    <span class="video-title">The South Indian Meera Bai</span>
+                    <p class="video-desc">Ever wondered how a 12th-century woman challenged an entire kingdom with nothing but her hair and her faith? Step into the life of the fearless Akka Mahadevi.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'p1fCufjYj6I')">
+                        <div class="vid-overlay"><span>GURU CHAGANTI'S DISCOURSE</span></div>
+                    </div>
+                    <span class="video-title">A Journey of the Soul</span>
+                    <p class="video-desc">Experience a deep, emotional journey through Akka's life as narrated by Guru Chaganti Koteswara Rao Garu. Discover the hidden spiritual meanings behind her radical choices.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="vid-box" onclick="playV(this,'JEsZffJk0jE')">
+                        <div class="vid-overlay"><span>THE RADIANCE OF DEVI</span></div>
+                    </div>
+                    <span class="video-title">Body vs. Soul</span>
+                    <p class="video-desc">How does one lose all "body-identification" and see only the Infinite? A brief, powerful look at why Akka Mahadevi is considered the living radiance of the Divine.</p>
+                </div>
+
+            </div>
+        </section>
     </div>
+
+    <footer class="footer">
+        <b>Bhakthi Heritage Art Calendar 2026 Project</b><br>
+        Art: <b>Sweta Sairam</b> | Content Curation: <b>Sai Mallesh</b><br>
+        &copy; 2026
+    </footer>
+
+    <script>
+        function playV(container, id) {
+            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+    </script>
 </body>
 </html>
