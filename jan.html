@@ -53,7 +53,7 @@
         }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: #000; }
 
-        /* CELESTIAL ORB (MOON/SUN LOGO) */
+        /* CELESTIAL ORB (MOON) */
         #celestial-orb {
             position: fixed; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
@@ -98,7 +98,7 @@
             margin: 60px 0; font-style: italic;
         }
 
-        /* --- MAP FIX --- */
+        /* --- DEFAULT MAP STYLE (Desktop) --- */
         .map-frame { 
             width: 100%; 
             height: 750px; 
@@ -107,7 +107,6 @@
             display: block;
         }
         
-        /* New Instruction Styling */
         .map-instruction {
             text-align: center;
             font-family: 'Cinzel', serif;
@@ -124,7 +123,6 @@
             justify-content: center;
             gap: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            /* Visibility fix for text */
             font-weight: 700;
         }
         .map-instruction span { font-weight: bold; letter-spacing: 0.5px; }
@@ -187,61 +185,47 @@
         }
         @keyframes spinSlow { 100% { transform: rotate(360deg); } }
 
-        /* CREDITS SECTION STYLING */
+        /* CREDITS SECTION */
         .credits-section {
-            margin-top: 80px;
-            padding: 40px 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            background-color: #faf8f0;
-            border-radius: 8px;
+            margin-top: 80px; padding: 40px 20px; border-top: 1px solid #eee; text-align: center;
+            background-color: #faf8f0; border-radius: 8px;
         }
-        .credits-section p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            color: #555;
-        }
-        .credits-section b {
-            color: var(--maroon);
-        }
+        .credits-section p { margin-bottom: 15px; font-size: 1.1rem; color: #555; }
+        .credits-section b { color: var(--maroon); }
         .warriors-credit {
-            font-style: italic;
-            color: #d4af37 !important; /* Gold for Bhakthi Warriors */
-            font-weight: bold;
-            margin-top: 20px;
+            font-style: italic; color: #d4af37 !important; font-weight: bold; margin-top: 20px;
         }
 
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* --- MOBILE ADJUSTMENTS (THE CRITICAL FIXES) --- */
         @media (max-width: 600px) {
             
-            /* 1. MOON FIX: Move to Top-Left and shrink it */
+            /* 1. MOON FIX: Top Left, smaller, higher contrast */
             .orb-moon {
-                width: 80px; height: 80px;
-                top: 15px; left: 15px; /* Top Left corner */
-                font-size: 8px;
-                background: radial-gradient(circle at 30% 30%, #fff, #ddd); /* Lighter for readability */
-                z-index: 11000; /* Ensure it stays on top */
+                width: 60px; height: 60px;
+                top: 15px; left: 15px;
+                font-size: 7px;
+                background: radial-gradient(circle at 30% 30%, #fff, #eee); 
+                border: 1px solid #999;
+                z-index: 11000;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             }
-            .orb-sun {
-                width: 70px; height: 70px;
-                top: 10px; left: 50%; 
-            }
+            .orb-sun { width: 70px; height: 70px; top: 10px; left: 50%; }
 
-            /* 2. MAP FIXES */
+            /* 2. MAP HACK: Force Desktop View on Mobile */
+            /* We set width to 200% (approx 750px) then scale down by 0.5 to fit 100% */
             .map-frame { 
-                height: 500px; 
-                width: 100%;
-                /* Add background to iframe so it doesn't look broken while loading */
-                background: #fdfaf0 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="%23d4af37" stroke-width="4" fill="none" opacity="0.5"/></svg>') center no-repeat;
+                width: 200%; 
+                height: 700px;
+                transform: scale(0.5);
+                transform-origin: 0 0; 
+                margin-bottom: -350px; /* Pull up layout to hide the white space from scaling */
+                background: #fdfaf0; /* Fallback color */
             }
 
             .next-chapter { padding: 50px 20px; }
             .next-chapter h3 { font-size: 2rem; }
             .btn-step { font-size: 0.9rem; padding: 12px 20px; } 
-            
-            /* Instruction tweak for mobile */
             .map-instruction { flex-direction: column; gap: 5px; text-align: center; padding: 15px; font-size: 0.9rem; }
-            .map-instruction span { font-size: 1.1rem; color: #000; } /* Ensure text is dark and visible */
         }
 
         .footer { background: #1a0404; color: #666; padding: 40px 20px; text-align: center; margin-top: 0;}
@@ -445,7 +429,7 @@
 
                 title_vibrations: "పవిత్ర ప్రకంపనలు",
                 vid1_title: "ఒకటి (1) యొక్క విలువ",
-                vid1_desc: "సద్గురు మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
+                vid1_desc: "సద్గుರು మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
                 vid2_title: "భావోద్వేగ తీవ్రత",
                 vid2_desc: "భక్తి యోగం అంటే మన భావోద్వేగ తీవ్రతతో పరిమితులను దాటడం. భక్తుడిగా జీవించడం ఎంత అందంగా ఉంటుందో సద్గురు వివరిస్తున్నారు.",
                 vid3_title: "యాత్ర: నామదేవుని కథ",
