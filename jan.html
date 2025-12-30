@@ -23,7 +23,7 @@
         body.lang-kn, body.lang-kn h1, body.lang-kn h2, body.lang-kn p, body.lang-kn .map-instruction, body.lang-kn button { font-family: 'Noto Sans Kannada', 'Lora', serif; }
         body.lang-te, body.lang-te h1, body.lang-te h2, body.lang-te p, body.lang-te .map-instruction, body.lang-te button { font-family: 'Noto Sans Telugu', 'Lora', serif; }
 
-        /* --- 1. LANGUAGE GATEWAY (FIRST SCREEN) --- */
+        /* --- 1. LANGUAGE GATEWAY --- */
         #lang-gateway {
             position: fixed; inset: 0; background: #000; z-index: 20000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -33,7 +33,6 @@
         
         .lang-title { color: var(--gold); font-family: 'Cinzel'; font-size: 1.5rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
         .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
         .lang-select-btn {
             background: transparent; border: 1px solid var(--gold); color: #fff;
             padding: 15px 30px; font-family: 'Cinzel'; font-size: 1.2rem; cursor: pointer;
@@ -41,7 +40,7 @@
         }
         .lang-select-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
 
-        /* --- 2. MAIN GATEWAY (SECOND SCREEN) --- */
+        /* --- 2. MAIN GATEWAY --- */
         #gateway-overlay {
             position: fixed; inset: 0; background: var(--dark); z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -109,42 +108,43 @@
             margin: 60px 0; font-style: italic;
         }
 
-        /* --- MAP CONTAINER (DESKTOP DEFAULT) --- */
-        .map-container {
+        /* --- SMART MAP SCALER --- */
+        #map-wrapper-outer {
             width: 100%;
-            overflow: visible; 
-            margin-bottom: 0;
+            overflow: hidden; /* No scrollbars ever */
+            position: relative;
+            /* Height is set by JS */
+            transition: height 0.3s ease;
+            margin-bottom: 30px;
+            background: #fdfaf0;
+        }
+
+        #map-wrapper-inner {
+            width: 1200px; /* FIXED WIDTH: This ensures map renders Desktop layout with names */
+            height: 1350px; /* FIXED HEIGHT: Ensures Kerala/TN are visible */
+            transform-origin: 0 0; /* Scale from top-left */
+            position: absolute;
+            top: 0; left: 0;
         }
 
         .map-frame { 
             width: 100%; 
-            height: 750px; 
+            height: 100%; 
             border: none; 
             background: transparent; 
-            display: block;
         }
         
         .map-instruction {
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            color: var(--maroon);
-            margin-top: 10px; 
-            margin-bottom: 60px;
-            font-size: 1rem;
-            background: #fffdf5; 
-            padding: 20px;
-            border-radius: 8px;
+            text-align: center; font-family: 'Cinzel', serif; color: var(--maroon);
+            margin-top: 10px; margin-bottom: 60px; font-size: 1rem;
+            background: #fffdf5; padding: 20px; border-radius: 8px;
             border: 1px solid rgba(212, 175, 55, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            font-weight: 700;
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03); font-weight: 700;
         }
         .map-instruction span { font-weight: bold; letter-spacing: 0.5px; }
 
-        /* VIDEO CARDS */
+        /* VIDEO CARDS & TEASER */
         .vibration-card { 
             background: white; border-radius: 8px; padding: 30px; margin-bottom: 60px; 
             border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
@@ -159,7 +159,6 @@
         }
         .vid-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* MYSTIC PORTAL TEASER */
         .next-chapter {
             margin-top: 120px; padding: 80px 40px; text-align: center; position: relative;
             background: radial-gradient(circle at center bottom, #382408 0%, #1a0505 50%, #000000 100%);
@@ -206,38 +205,15 @@
             font-style: italic; color: #d4af37 !important; font-weight: bold; margin-top: 20px;
         }
 
-        /* --- MOBILE SPECIFIC FIXES --- */
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 600px) {
-            
-            /* 1. MOON FIX: High contrast, smaller, pinned top-left */
             .orb-moon {
-                width: 60px; height: 60px;
-                top: 15px; left: 15px;
-                font-size: 7px;
-                background: radial-gradient(circle at 30% 30%, #fff, #eee); 
-                border: 1px solid #999;
-                z-index: 11000;
+                width: 60px; height: 60px; top: 15px; left: 15px;
+                font-size: 7px; background: radial-gradient(circle at 30% 30%, #fff, #eee); 
+                border: 1px solid #999; z-index: 11000;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             }
             .orb-sun { width: 70px; height: 70px; top: 10px; left: 50%; }
-
-            /* 2. MAP SCROLL FIX (VERTICAL & HORIZONTAL) */
-            .map-container {
-                overflow: auto; /* Scrolls both ways */
-                -webkit-overflow-scrolling: touch;
-                width: 100%;
-                height: 600px; /* Fixed window height */
-                border-radius: 4px;
-                border: 1px solid rgba(0,0,0,0.1);
-                margin-bottom: 10px;
-                background: #fdfaf0;
-            }
-            .map-frame { 
-                width: 1100px; /* Wide enough for text labels */
-                height: 1300px; /* Tall enough for Kerala/TN */
-                background: #fdfaf0; 
-            }
-
             .next-chapter { padding: 50px 20px; }
             .next-chapter h3 { font-size: 2rem; }
             .btn-step { font-size: 0.9rem; padding: 12px 20px; } 
@@ -287,13 +263,15 @@
 
                 <div class="bridge" data-i18n="bridge_text">"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win."</div>
 
-                <div class="map-container">
-                    <iframe src="map3.html" class="map-frame" scrolling="no" loading="lazy"></iframe>
+                <div id="map-wrapper-outer">
+                    <div id="map-wrapper-inner">
+                        <iframe src="map3.html" class="map-frame" scrolling="no" loading="lazy"></iframe>
+                    </div>
                 </div>
                 
                 <div class="map-instruction">
                     <span style="font-size: 1.5rem;">👆</span> 
-                    <span data-i18n="map_instruction">Pan (scroll) in all directions to explore the full map. Click on a Saint's name to learn about them.</span>
+                    <span data-i18n="map_instruction">Click on a Saint's name on the map to learn about them.</span>
                 </div>
 
                 <h2 data-i18n="title_vibrations">Sacred Vibrations</h2>
@@ -362,10 +340,7 @@
                 title_roots: "Why is this important?",
                 text_roots: "In a world that changes every day, we often feel lost or distracted. We need something to hold onto.<br><br><span class='roots-emphasis'>Culture is our root system.</span> Without it, we drift; with it, we stand tall. We are sharing this journey not to teach you academic history, but to help you find your own anchor. When you know where you come from, you have the strength to face where you are going.",
                 bridge_text: "\"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win.\"",
-                
-                // INSTRUCTION (UPDATED)
-                map_instruction: "Pan (scroll) in all directions to explore the full map. Click on a Saint's name to learn about them.",
-
+                map_instruction: "Click on a Saint's name on the map to learn about them.",
                 title_vibrations: "Sacred Vibrations",
                 vid1_title: "The Value of the One",
                 vid1_desc: "In this discourse, Sadguru Madhusudhan Sai shares a beautiful analogy: <b>\"Behind the number 1, any amount of zeroes will only add to its value. But if you remove that 1, no matter how many zeroes you add, the value is still zero.\"</b> When Bhakthi is the '1', everything else gains value.",
@@ -389,10 +364,7 @@
                 title_roots: "यह महत्वपूर्ण क्यों है?",
                 text_roots: "ऐसी दुनिया में जो हर दिन बदलती है, हम अक्सर खोया हुआ या विचलित महसूस करते हैं। हमें कुछ पकड़ने की जरूरत है।<br><br><span class='roots-emphasis'>संस्कृति हमारी जड़ है।</span> इसके बिना हम बह जाते हैं; इसके साथ हम गर्व से खड़े रहते हैं। हम यह यात्रा अकादमिक इतिहास सिखाने के लिए नहीं, बल्कि आपको अपना लंगर खोजने में मदद करने के लिए साझा कर रहे हैं। जब आप जानते हैं कि आप कहां से आए हैं, तो आपके पास यह सामना करने की ताकत होती है कि आप कहां जा रहे हैं।",
                 bridge_text: "\"यह मानचित्र केवल भूगोल नहीं है। यह भारत का आध्यात्मिक तंत्रिका तंत्र है।\"",
-                
-                // INSTRUCTION HINDI
-                map_instruction: "पूरा नक्शा देखने के लिए पैन करें। उनके बारे में जानने के लिए संत के नाम पर क्लिक करें।",
-
+                map_instruction: "उनके बारे में जानने के लिए संत के नाम पर क्लिक करें।",
                 title_vibrations: "पवित्र स्पंदन",
                 vid1_title: "एक (1) का मूल्य",
                 vid1_desc: "सद्गुरु मधुसूदन साई एक सुंदर उपमा देते हैं: \"नंबर 1 के पीछे कितने भी शून्य लगाओ, मूल्य बढ़ता है। लेकिन अगर आप उस 1 को हटा दें, तो केवल शून्य रह जाते हैं।\" भक्ति जीवन का वह '1' है।",
@@ -416,10 +388,7 @@
                 title_roots: "ಇದು ಏಕೆ ಮುಖ್ಯ?",
                 text_roots: "ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತಿರುವ ಜಗತ್ತಿನಲ್ಲಿ, ನಾವು ಆಗಾಗ್ಗೆ ಕಳೆದುಹೋದಂತೆ ಭಾವಿಸುತ್ತೇವೆ. ನಮಗೆ ಹಿಡಿದಿಡಲು ಏನಾದರೂ ಬೇಕು.<br><br><span class='roots-emphasis'>ಸಂಸ್ಕೃತಿಯೇ ನಮ್ಮ ಬೇರು.</span> ಅದಿಲ್ಲದೆ ನಾವು ಅಲೆದಾಡುತ್ತೇವೆ; ಅದಿದ್ದರೆ ನಾವು ಎತ್ತರವಾಗಿ ನಿಲ್ಲುತ್ತೇವೆ. ನಾವು ನಿಮಗೆ ಇತಿಹಾಸವನ್ನು ಕಲಿಸಲು ಅಲ್ಲ, ನಿಮ್ಮ ಸ್ವಂತ ಆಧಾರವನ್ನು ಕಂಡುಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡಲು ಈ ಪ್ರಯಾಣವನ್ನು ಹಂಚಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ. ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ ಎಂದು ತಿಳಿದಾಗ, ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ಎದುರಿಸುವ ಶಕ್ತಿ ನಿಮಗಿರುತ್ತದೆ.",
                 bridge_text: "\"ಈ ನಕ್ಷೆಯು ಕೇವಲ ಭೂಗೋಳವಲ್ಲ. ಇದು ಭಾರತದ ಆಧ್ಯಾತ್ಮಿಕ ನರಮಂಡಲ.\"",
-                
-                // INSTRUCTION KANNADA
-                map_instruction: "ಪೂರ್ಣ ನಕ್ಷೆಯನ್ನು ಅನ್ವೇಷಿಸಲು ಸರಿಸಿ. ಸಂತರ ಬಗ್ಗೆ ತಿಳಿಯಲು ಅವರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
-
+                map_instruction: "ಸಂತರ ಬಗ್ಗೆ ತಿಳಿಯಲು ಅವರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
                 title_vibrations: "ಪವಿತ್ರ ಕಂಪನಗಳು",
                 vid1_title: "ಒಂದರ (1) ಮೌಲ್ಯ",
                 vid1_desc: "ಸದ್ಗುರು ಮಧುಸೂದನ್ ಸಾಯಿ ಹೇಳುತ್ತಾರೆ: \"ಸಂಖ್ಯೆ 1 ರ ಹಿಂದೆ ಸೊನ್ನೆಗಳನ್ನು ಸೇರಿಸಿದರೆ ಮೌಲ್ಯ ಹೆಚ್ಚುತ್ತದೆ. ಆದರೆ 1 ನ್ನು ತೆಗೆದರೆ, ಉಳಿಯುವುದು ಬರೀ ಶೂನ್ಯ.\" ಭಕ್ತಿಯೇ ಆ '1'.",
@@ -443,10 +412,7 @@
                 title_roots: "ఇది ఎందుకు ముఖ్యం?",
                 text_roots: "ప్రతిరోజూ మారుతున్న ఈ ప్రపంచంలో, మనం తరచుగా దారి తప్పినట్లు భావిస్తాము. మనకు ఆధారం కావాలి.<br><br><span class='roots-emphasis'>సంస్కృతి మన మూల వ్యవస్థ.</span> అది లేకపోతే మనం కొట్టుకుపోతాం; అది ఉంటే మనం నిలబడతాం. మీకు చరిత్ర నేర్పించడానికి కాదు, మీ స్వంత మూలాన్ని కనుగొనడంలో సహాయపడటానికి ఈ ప్రయాణాన్ని పంచుకుంటున్నాము. మీరు ఎక్కడి నుండి వచ్చారో తెలిసినప్పుడు, మీరు ఎక్కడికి వెళుతున్నారో ఎదుర్కునే బలం మీకు ఉంటుంది.",
                 bridge_text: "\"ఈ మ్యాప్ కేవలం భౌగోళికం కాదు. ఇది భారతదేశపు ఆధ్యాత్మిక నాడీ వ్యవస్థ.\"",
-                
-                // INSTRUCTION TELUGU
-                map_instruction: "పూర్తి మ్యాప్‌ను చూడటానికి స్క్రీన్‌ను జరపండి. సంతు గురించి తెలుసుకోవడానికి వారి పేరుపై క్లిక్ చేయండి.",
-
+                map_instruction: "సంతు గురించి తెలుసుకోవడానికి వారి పేరుపై క్లిక్ చేయండి.",
                 title_vibrations: "పవిత్ర ప్రకంపనలు",
                 vid1_title: "ఒకటి (1) యొక్క విలువ",
                 vid1_desc: "సద్గురు మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
@@ -489,6 +455,33 @@
             orb.classList.add('orb-sun');
             orb.innerHTML = "BHAKTHI<br>2026";
         }
+
+        /* --- JS MAP SCALER --- */
+        // This function forces the map to render at 1200px (Desktop Width)
+        // and scales it down to fit the current screen.
+        function scaleMap() {
+            const outer = document.getElementById('map-wrapper-outer');
+            const inner = document.getElementById('map-wrapper-inner');
+            
+            if(!outer || !inner) return;
+
+            const availableWidth = outer.offsetWidth;
+            const contentWidth = 1200; // Force Desktop rendering to show names
+            const contentHeight = 1350; // Force Desktop height to show Kerala/TN
+
+            // Calculate scale ratio
+            const scale = availableWidth / contentWidth;
+            
+            // Apply scale
+            inner.style.transform = `scale(${scale})`;
+            
+            // Adjust the outer container height so it fits the scaled map snugly
+            outer.style.height = (contentHeight * scale) + 'px';
+        }
+
+        // Run scale on load and resize
+        window.addEventListener('load', scaleMap);
+        window.addEventListener('resize', scaleMap);
 
         window.addEventListener('scroll', function() {
             const orb = document.getElementById('celestial-orb');
