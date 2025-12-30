@@ -53,7 +53,7 @@
         }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: #000; }
 
-        /* CELESTIAL ORB */
+        /* CELESTIAL ORB (MOON/SUN LOGO) */
         #celestial-orb {
             position: fixed; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
@@ -124,6 +124,8 @@
             justify-content: center;
             gap: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            /* Visibility fix for text */
+            font-weight: 700;
         }
         .map-instruction span { font-weight: bold; letter-spacing: 0.5px; }
 
@@ -209,15 +211,37 @@
             margin-top: 20px;
         }
 
-        /* Responsive Mobile Adjustments */
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 600px) {
+            
+            /* 1. MOON FIX: Move to Top-Left and shrink it */
+            .orb-moon {
+                width: 80px; height: 80px;
+                top: 15px; left: 15px; /* Top Left corner */
+                font-size: 8px;
+                background: radial-gradient(circle at 30% 30%, #fff, #ddd); /* Lighter for readability */
+                z-index: 11000; /* Ensure it stays on top */
+            }
+            .orb-sun {
+                width: 70px; height: 70px;
+                top: 10px; left: 50%; 
+            }
+
+            /* 2. MAP FIXES */
+            .map-frame { 
+                height: 500px; 
+                width: 100%;
+                /* Add background to iframe so it doesn't look broken while loading */
+                background: #fdfaf0 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="%23d4af37" stroke-width="4" fill="none" opacity="0.5"/></svg>') center no-repeat;
+            }
+
             .next-chapter { padding: 50px 20px; }
             .next-chapter h3 { font-size: 2rem; }
-            .map-frame { height: 500px; } 
             .btn-step { font-size: 0.9rem; padding: 12px 20px; } 
             
             /* Instruction tweak for mobile */
             .map-instruction { flex-direction: column; gap: 5px; text-align: center; padding: 15px; font-size: 0.9rem; }
+            .map-instruction span { font-size: 1.1rem; color: #000; } /* Ensure text is dark and visible */
         }
 
         .footer { background: #1a0404; color: #666; padding: 40px 20px; text-align: center; margin-top: 0;}
@@ -261,7 +285,7 @@
 
                 <div class="bridge" data-i18n="bridge_text">"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win."</div>
 
-                <iframe src="map3.html" class="map-frame" scrolling="no"></iframe>
+                <iframe src="map3.html" class="map-frame" scrolling="no" loading="lazy"></iframe>
                 
                 <div class="map-instruction">
                     <span style="font-size: 1.5rem;">👆</span> 
@@ -421,7 +445,7 @@
 
                 title_vibrations: "పవిత్ర ప్రకంపనలు",
                 vid1_title: "ఒకటి (1) యొక్క విలువ",
-                vid1_desc: "సద్ಗುರು మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
+                vid1_desc: "సద్గురు మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
                 vid2_title: "భావోద్వేగ తీవ్రత",
                 vid2_desc: "భక్తి యోగం అంటే మన భావోద్వేగ తీవ్రతతో పరిమితులను దాటడం. భక్తుడిగా జీవించడం ఎంత అందంగా ఉంటుందో సద్గురు వివరిస్తున్నారు.",
                 vid3_title: "యాత్ర: నామదేవుని కథ",
