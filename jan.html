@@ -19,17 +19,38 @@
         body, html { margin: 0; padding: 0; font-family: 'Lora', serif; background: var(--paper); overflow-x: hidden; }
 
         /* Multilingual Fonts */
-        body.lang-hi, body.lang-hi h1, body.lang-hi h2, body.lang-hi p, body.lang-hi .map-instruction { font-family: 'Noto Sans Devanagari', 'Lora', serif; }
-        body.lang-kn, body.lang-kn h1, body.lang-kn h2, body.lang-kn p, body.lang-kn .map-instruction { font-family: 'Noto Sans Kannada', 'Lora', serif; }
-        body.lang-te, body.lang-te h1, body.lang-te h2, body.lang-te p, body.lang-te .map-instruction { font-family: 'Noto Sans Telugu', 'Lora', serif; }
+        body.lang-hi, body.lang-hi h1, body.lang-hi h2, body.lang-hi p, body.lang-hi .map-instruction, body.lang-hi button { font-family: 'Noto Sans Devanagari', 'Lora', serif; }
+        body.lang-kn, body.lang-kn h1, body.lang-kn h2, body.lang-kn p, body.lang-kn .map-instruction, body.lang-kn button { font-family: 'Noto Sans Kannada', 'Lora', serif; }
+        body.lang-te, body.lang-te h1, body.lang-te h2, body.lang-te p, body.lang-te .map-instruction, body.lang-te button { font-family: 'Noto Sans Telugu', 'Lora', serif; }
 
-        /* GATEWAY */
+        /* --- 1. LANGUAGE GATEWAY (FIRST SCREEN) --- */
+        #lang-gateway {
+            position: fixed; inset: 0; background: #000; z-index: 20000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1s ease;
+        }
+        #lang-gateway.hidden { opacity: 0; pointer-events: none; }
+        
+        .lang-title { color: var(--gold); font-family: 'Cinzel'; font-size: 1.5rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        .lang-select-btn {
+            background: transparent; border: 1px solid var(--gold); color: #fff;
+            padding: 15px 30px; font-family: 'Cinzel'; font-size: 1.2rem; cursor: pointer;
+            transition: 0.3s; min-width: 140px;
+        }
+        .lang-select-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+
+        /* --- 2. MAIN GATEWAY (SECOND SCREEN) --- */
         #gateway-overlay {
             position: fixed; inset: 0; background: var(--dark); z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; color: white; padding: 30px; 
+            opacity: 0; pointer-events: none;
             transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.82, 0.01, 0.77, 1);
         }
+        #gateway-overlay.active { opacity: 1; pointer-events: all; }
+
         .gateway-content { max-width: 600px; animation: fadeIn 3s ease; position: relative;}
         .gateway-content h1 { font-family: 'Cinzel'; color: var(--gold); font-size: 2.5rem; margin-bottom: 20px; }
         .gateway-content p { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 40px; color: #e0e0e0; }
@@ -41,25 +62,16 @@
         }
         .btn-step:hover { background: var(--gold); color: var(--dark); box-shadow: 0 0 20px var(--gold); }
 
-        /* LANGUAGE SWITCHER */
-        .lang-switch {
-            position: absolute; top: -80px; right: 0; 
-            display: flex; gap: 10px; justify-content: center; width: 100%;
-        }
-        .lang-btn {
-            background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--gold);
-            padding: 5px 10px; cursor: pointer; font-family: 'Cinzel'; font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .lang-btn:hover, .lang-btn.active { background: var(--gold); color: #000; }
-
-        /* CELESTIAL ORB (MOON) */
+        /* CELESTIAL ORB */
         #celestial-orb {
             position: fixed; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: 'Cinzel'; font-weight: bold; z-index: 10001;
             transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            opacity: 0; 
         }
+        #celestial-orb.visible { opacity: 1; }
+
         .orb-moon {
             width: 120px; height: 120px; top: 15%; left: 10%;
             background: radial-gradient(circle at 30% 30%, #f5f5f5, #b0b0b0);
@@ -88,7 +100,6 @@
         h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0; }
 
         .article-text { font-size: 1.2rem; line-height: 2; text-align: justify; color: #2d241e; }
-        
         .roots-emphasis { color: #a0522d; font-weight: 700; }
 
         .bridge { 
@@ -98,7 +109,13 @@
             margin: 60px 0; font-style: italic;
         }
 
-        /* --- DEFAULT MAP STYLE (Desktop) --- */
+        /* --- MAP CONTAINER (DESKTOP DEFAULT) --- */
+        .map-container {
+            width: 100%;
+            overflow: visible; 
+            margin-bottom: 0;
+        }
+
         .map-frame { 
             width: 100%; 
             height: 750px; 
@@ -144,16 +161,10 @@
 
         /* MYSTIC PORTAL TEASER */
         .next-chapter {
-            margin-top: 120px;
-            padding: 80px 40px;
-            text-align: center;
-            position: relative;
+            margin-top: 120px; padding: 80px 40px; text-align: center; position: relative;
             background: radial-gradient(circle at center bottom, #382408 0%, #1a0505 50%, #000000 100%);
-            border-radius: 12px;
-            overflow: hidden;
-            color: #fff;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            border: 1px solid #331f00;
+            border-radius: 12px; overflow: hidden; color: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 1px solid #331f00;
         }
         .next-chapter::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -164,8 +175,7 @@
             content: ''; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
             width: 60%; height: 100px;
             background: radial-gradient(ellipse at center, rgba(255, 200, 50, 0.4) 0%, transparent 70%);
-            filter: blur(40px);
-            pointer-events: none;
+            filter: blur(40px); pointer-events: none;
         }
         .next-chapter h3 {
             font-family: 'Cinzel', serif; font-size: 2.8rem; margin: 0 0 20px 0;
@@ -185,7 +195,7 @@
         }
         @keyframes spinSlow { 100% { transform: rotate(360deg); } }
 
-        /* CREDITS SECTION */
+        /* CREDITS */
         .credits-section {
             margin-top: 80px; padding: 40px 20px; border-top: 1px solid #eee; text-align: center;
             background-color: #faf8f0; border-radius: 8px;
@@ -196,10 +206,10 @@
             font-style: italic; color: #d4af37 !important; font-weight: bold; margin-top: 20px;
         }
 
-        /* --- MOBILE ADJUSTMENTS (THE CRITICAL FIXES) --- */
+        /* --- MOBILE SPECIFIC FIXES --- */
         @media (max-width: 600px) {
             
-            /* 1. MOON FIX: Top Left, smaller, higher contrast */
+            /* 1. MOON FIX: High contrast, smaller, pinned top-left */
             .orb-moon {
                 width: 60px; height: 60px;
                 top: 15px; left: 15px;
@@ -211,15 +221,21 @@
             }
             .orb-sun { width: 70px; height: 70px; top: 10px; left: 50%; }
 
-            /* 2. MAP HACK: Force Desktop View on Mobile */
-            /* We set width to 200% (approx 750px) then scale down by 0.5 to fit 100% */
+            /* 2. MAP SCROLL FIX (VERTICAL & HORIZONTAL) */
+            .map-container {
+                overflow: auto; /* Scrolls both ways */
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+                height: 600px; /* Fixed window height */
+                border-radius: 4px;
+                border: 1px solid rgba(0,0,0,0.1);
+                margin-bottom: 10px;
+                background: #fdfaf0;
+            }
             .map-frame { 
-                width: 200%; 
-                height: 700px;
-                transform: scale(0.5);
-                transform-origin: 0 0; 
-                margin-bottom: -350px; /* Pull up layout to hide the white space from scaling */
-                background: #fdfaf0; /* Fallback color */
+                width: 1100px; /* Wide enough for text labels */
+                height: 1300px; /* Tall enough for Kerala/TN */
+                background: #fdfaf0; 
             }
 
             .next-chapter { padding: 50px 20px; }
@@ -233,16 +249,18 @@
 </head>
 <body>
 
+    <div id="lang-gateway">
+        <h1 class="lang-title">Namaste / Welcome</h1>
+        <div class="lang-grid">
+            <button class="lang-select-btn" onclick="startJourney('en')">ENGLISH</button>
+            <button class="lang-select-btn" onclick="startJourney('hi')">हिंदी</button>
+            <button class="lang-select-btn" onclick="startJourney('kn')">ಕನ್ನಡ</button>
+            <button class="lang-select-btn" onclick="startJourney('te')">తెలుగు</button>
+        </div>
+    </div>
+
     <div id="gateway-overlay">
         <div class="gateway-content">
-            
-            <div class="lang-switch">
-                <button class="lang-btn active" onclick="setLang('en')">EN</button>
-                <button class="lang-btn" onclick="setLang('hi')">HI</button>
-                <button class="lang-btn" onclick="setLang('kn')">KN</button>
-                <button class="lang-btn" onclick="setLang('te')">TE</button>
-            </div>
-
             <h1 data-i18n="gateway_title">A New Beginning for 2026</h1>
             <p data-i18n="gateway_text">Every great discovery can begin with a single step. As we step into 2026, let us choose to start with light. With a smile on your face and courage in your heart, begin the most beautiful discovery—the journey back to yourself.</p>
             <button class="btn-step" onclick="stepInto()" data-i18n="btn_enter">STEP VIRTUALLY INTO BHAKTHI</button>
@@ -269,11 +287,13 @@
 
                 <div class="bridge" data-i18n="bridge_text">"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win."</div>
 
-                <iframe src="map3.html" class="map-frame" scrolling="no" loading="lazy"></iframe>
+                <div class="map-container">
+                    <iframe src="map3.html" class="map-frame" scrolling="no" loading="lazy"></iframe>
+                </div>
                 
                 <div class="map-instruction">
                     <span style="font-size: 1.5rem;">👆</span> 
-                    <span data-i18n="map_instruction">Click on a Saint's name on the map to learn about them.</span>
+                    <span data-i18n="map_instruction">Pan (scroll) in all directions to explore the full map. Click on a Saint's name to learn about them.</span>
                 </div>
 
                 <h2 data-i18n="title_vibrations">Sacred Vibrations</h2>
@@ -343,8 +363,8 @@
                 text_roots: "In a world that changes every day, we often feel lost or distracted. We need something to hold onto.<br><br><span class='roots-emphasis'>Culture is our root system.</span> Without it, we drift; with it, we stand tall. We are sharing this journey not to teach you academic history, but to help you find your own anchor. When you know where you come from, you have the strength to face where you are going.",
                 bridge_text: "\"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win.\"",
                 
-                // INSTRUCTION
-                map_instruction: "Click on a Saint's name on the map to learn about them.",
+                // INSTRUCTION (UPDATED)
+                map_instruction: "Pan (scroll) in all directions to explore the full map. Click on a Saint's name to learn about them.",
 
                 title_vibrations: "Sacred Vibrations",
                 vid1_title: "The Value of the One",
@@ -371,7 +391,7 @@
                 bridge_text: "\"यह मानचित्र केवल भूगोल नहीं है। यह भारत का आध्यात्मिक तंत्रिका तंत्र है।\"",
                 
                 // INSTRUCTION HINDI
-                map_instruction: "उनके बारे में जानने के लिए मानचित्र पर किसी भी संत के नाम पर क्लिक करें।",
+                map_instruction: "पूरा नक्शा देखने के लिए पैन करें। उनके बारे में जानने के लिए संत के नाम पर क्लिक करें।",
 
                 title_vibrations: "पवित्र स्पंदन",
                 vid1_title: "एक (1) का मूल्य",
@@ -398,7 +418,7 @@
                 bridge_text: "\"ಈ ನಕ್ಷೆಯು ಕೇವಲ ಭೂಗೋಳವಲ್ಲ. ಇದು ಭಾರತದ ಆಧ್ಯಾತ್ಮಿಕ ನರಮಂಡಲ.\"",
                 
                 // INSTRUCTION KANNADA
-                map_instruction: "ಅವರ ಬಗ್ಗೆ ತಿಳಿಯಲು ನಕ್ಷೆಯಲ್ಲಿರುವ ಸಂತರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+                map_instruction: "ಪೂರ್ಣ ನಕ್ಷೆಯನ್ನು ಅನ್ವೇಷಿಸಲು ಸರಿಸಿ. ಸಂತರ ಬಗ್ಗೆ ತಿಳಿಯಲು ಅವರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
 
                 title_vibrations: "ಪವಿತ್ರ ಕಂಪನಗಳು",
                 vid1_title: "ಒಂದರ (1) ಮೌಲ್ಯ",
@@ -425,11 +445,11 @@
                 bridge_text: "\"ఈ మ్యాప్ కేవలం భౌగోళికం కాదు. ఇది భారతదేశపు ఆధ్యాత్మిక నాడీ వ్యవస్థ.\"",
                 
                 // INSTRUCTION TELUGU
-                map_instruction: "వారి గురించి తెలుసుకోవడానికి మ్యాప్‌లోని సంతు పేరుపై క్లిక్ చేయండి.",
+                map_instruction: "పూర్తి మ్యాప్‌ను చూడటానికి స్క్రీన్‌ను జరపండి. సంతు గురించి తెలుసుకోవడానికి వారి పేరుపై క్లిక్ చేయండి.",
 
                 title_vibrations: "పవిత్ర ప్రకంపనలు",
                 vid1_title: "ఒకటి (1) యొక్క విలువ",
-                vid1_desc: "సద్గుರು మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
+                vid1_desc: "సద్గురు మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
                 vid2_title: "భావోద్వేగ తీవ్రత",
                 vid2_desc: "భక్తి యోగం అంటే మన భావోద్వేగ తీవ్రతతో పరిమితులను దాటడం. భక్తుడిగా జీవించడం ఎంత అందంగా ఉంటుందో సద్గురు వివరిస్తున్నారు.",
                 vid3_title: "యాత్ర: నామదేవుని కథ",
@@ -441,15 +461,25 @@
             }
         };
 
-        function setLang(lang) {
+        // --- NEW LOGIC FOR FLOW ---
+        function startJourney(lang) {
+            // 1. Set the language
             document.body.className = 'lang-' + lang;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-
+            
+            // 2. Update all text on the page
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
+
+            // 3. Fade out Language Screen
+            document.getElementById('lang-gateway').classList.add('hidden');
+
+            // 4. Fade in Introduction Gateway & Moon
+            setTimeout(() => {
+                document.getElementById('gateway-overlay').classList.add('active');
+                document.getElementById('celestial-orb').classList.add('visible');
+            }, 500);
         }
 
         function stepInto() { 
