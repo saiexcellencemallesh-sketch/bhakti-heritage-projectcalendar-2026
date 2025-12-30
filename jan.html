@@ -110,26 +110,34 @@
             margin: 60px 0; font-style: italic;
         }
 
-        /* --- MAP CONTAINER WITH BOX --- */
+        /* --- MAP STYLING (RESPONSIVE) --- */
         .map-container {
             width: 100%;
-            overflow: visible; 
-            margin-bottom: 0;
-            background: #fffdf5; /* Slightly lighter background inside box */
-            /* THE REQUESTED BOX STYLING */
+            /* Auto height allows map to grow vertically as needed */
+            height: auto; 
+            margin-bottom: 20px;
+            background: #fffdf5; 
             border: 8px double var(--gold);
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             padding: 10px;
+            /* CRITICAL: No overflow hidden, let it be fully visible */
+            overflow: visible;
         }
         
-        /* THE MAP ITSELF */
-        svg { width: 100%; height: auto; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1)); }
+        /* The SVG fills the container width */
+        svg { 
+            width: 100%; 
+            height: auto; 
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1)); 
+            display: block; /* Removes bottom gap */
+        }
 
         .saint-group { cursor: pointer; transition: all 0.2s ease; transform-origin: center; }
         .saint-group:hover { transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6)); }
         .saint-group:hover text { fill: var(--highlight-color); font-weight: 900; }
 
+        /* Default Saint Label (Desktop) */
         .saint-label {
             font-family: 'Cinzel', serif; font-size: 10px; font-weight: 700;
             fill: #5c4a3d; paint-order: stroke; stroke: var(--paper); stroke-width: 2.5px;
@@ -162,8 +170,8 @@
 
         .map-instruction {
             text-align: center; font-family: 'Cinzel', serif; color: var(--maroon);
-            margin-top: 20px; margin-bottom: 60px; font-size: 1rem;
-            background: #fffdf5; padding: 20px; border-radius: 8px;
+            margin-top: 5px; margin-bottom: 60px; font-size: 1rem;
+            background: #fffdf5; padding: 15px; border-radius: 8px;
             border: 1px solid rgba(212, 175, 55, 0.4);
             display: flex; align-items: center; justify-content: center; gap: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03); font-weight: 700;
@@ -200,17 +208,33 @@
             }
             .orb-sun { width: 70px; height: 70px; top: 10px; left: 50%; }
 
-            /* SCROLLABLE MAP WINDOW FOR MOBILE + BOX STYLING */
+            /* MOBILE MAP FIXES */
             .map-container {
-                overflow: auto; -webkit-overflow-scrolling: touch;
-                width: 100%; height: 600px; /* Window height */
-                border: 6px double var(--gold); /* Slightly thinner border for mobile */
-                margin-bottom: 10px; background: #fffdf5; padding: 5px;
+                /* Make it fit the screen */
+                width: 100%; 
+                /* Remove fixed height so it grows to show full map */
+                height: auto; 
+                /* NO SCROLLING */
+                overflow: visible;
+                border: 4px double var(--gold);
+                padding: 5px;
             }
-            /* MAKE SVG HUGE INSIDE WINDOW SO TEXT IS READABLE */
-            .map-container svg { 
-                width: 1200px; height: 1300px; 
+            
+            /* SVG fits width */
+            svg { 
+                width: 100%; 
+                height: auto; 
             }
+
+            /* CRITICAL TEXT FIX FOR MOBILE READABILITY */
+            .saint-label {
+                font-size: 18px; /* Increased from 10px so it's readable when map is small */
+                font-weight: 900;
+                stroke-width: 4px; /* Thicker outline for contrast */
+            }
+            
+            /* Adjust markers to balance large text */
+            .saint-marker { stroke-width: 1px; }
 
             .next-chapter { padding: 50px 20px; }
             .next-chapter h3 { font-size: 2rem; }
@@ -324,8 +348,7 @@
                 </div>
                 
                 <div class="map-instruction">
-                    <span style="font-size: 1.5rem;">👆</span> 
-                    <span data-i18n="map_instruction">Pan (scroll) in all directions to explore the full map. Click on a Saint's name to learn about them.</span>
+                    <span data-i18n="map_instruction">Click on a Saint's name to learn about them.</span>
                 </div>
 
                 <div id="infoBox" class="info-cloud">
@@ -391,7 +414,7 @@
                 title_roots: "Why is this important?",
                 text_roots: "In a world that changes every day, we often feel lost or distracted. We need something to hold onto.<br><br><span class='roots-emphasis'>Culture is our root system.</span> Without it, we drift; with it, we stand tall. We are sharing this journey not to teach you academic history, but to help you find your own anchor. When you know where you come from, you have the strength to face where you are going.",
                 bridge_text: "\"This map is not just geography. It is the spiritual nervous system of India. Each light represents a soul who refused to let the darkness win.\"",
-                map_instruction: "Pan (scroll) in all directions to explore the full map. Click on a Saint's name to learn about them.",
+                map_instruction: "Click on a Saint's name to learn about them.",
                 title_vibrations: "Sacred Vibrations",
                 vid1_title: "The Value of the One",
                 vid1_desc: "In this discourse, Sadguru Madhusudhan Sai shares a beautiful analogy: <b>\"Behind the number 1, any amount of zeroes will only add to its value. But if you remove that 1, no matter how many zeroes you add, the value is still zero.\"</b> When Bhakthi is the '1', everything else gains value.",
@@ -403,7 +426,7 @@
                 teaser_text_intro: "The journey has just begun. Every month, we will introduce you to one light from the galaxy of saints shown in the map above. We will dive deep into their life, their song, and their message.",
                 teaser_text_climax: "Next month, a new light rises from the dust of history to whisper a secret in your ear.",
                 teaser_cta: "Stay tuned for February.",
-                // NEW CREDITS
+                // CREDITS
                 credits_art: "Art by <b>Swetcha Art</b> &nbsp;|&nbsp; Content curation by <b>Sai Prema Photography</b>",
                 credits_warriors: "Inspiration, guidance and screenplay - All credits to <b>Bhakthi Warriors</b>",
                 credits_soon: "You are going to meet them soon in the next months. Be ready!",
@@ -420,7 +443,7 @@
                 title_roots: "यह महत्वपूर्ण क्यों है?",
                 text_roots: "ऐसी दुनिया में जो हर दिन बदलती है, हम अक्सर खोया हुआ या विचलित महसूस करते हैं। हमें कुछ पकड़ने की जरूरत है।<br><br><span class='roots-emphasis'>संस्कृति हमारी जड़ है।</span> इसके बिना हम बह जाते हैं; इसके साथ हम गर्व से खड़े रहते हैं। हम यह यात्रा अकादमिक इतिहास सिखाने के लिए नहीं, बल्कि आपको अपना लंगर खोजने में मदद करने के लिए साझा कर रहे हैं। जब आप जानते हैं कि आप कहां से आए हैं, तो आपके पास यह सामना करने की ताकत होती है कि आप कहां जा रहे हैं।",
                 bridge_text: "\"यह मानचित्र केवल भूगोल नहीं है। यह भारत का आध्यात्मिक तंत्रिका तंत्र है।\"",
-                map_instruction: "पूरा नक्शा देखने के लिए पैन करें। उनके बारे में जानने के लिए संत के नाम पर क्लिक करें।",
+                map_instruction: "उनके बारे में जानने के लिए संत के नाम पर क्लिक करें।",
                 title_vibrations: "पवित्र स्पंदन",
                 vid1_title: "एक (1) का मूल्य",
                 vid1_desc: "सद्गुरु मधुसूदन साई एक सुंदर उपमा देते हैं: \"नंबर 1 के पीछे कितने भी शून्य लगाओ, मूल्य बढ़ता है। लेकिन अगर आप उस 1 को हटा दें, तो केवल शून्य रह जाते हैं।\" भक्ति जीवन का वह '1' है।",
@@ -432,7 +455,7 @@
                 teaser_text_intro: "यात्रा अभी शुरू हुई है। हर महीने हम आपको मानचित्र के एक संत से मिलवाएंगे। हम उनके जीवन, उनके गीत और उनके संदेश में गहराई से उतरेंगे।",
                 teaser_text_climax: "अगले महीने, इतिहास की धूल से एक नया प्रकाश उठेगा और आपके कान में एक रहस्य फुसफुसाएगा।",
                 teaser_cta: "फरवरी के लिए बने रहें।",
-                // NEW CREDITS
+                // CREDITS
                 credits_art: "कला: <b>स्वेच्छा आर्ट</b> &nbsp;|&nbsp; सामग्री संयोजन: <b>साई प्रेमा फोटोग्राफी</b>",
                 credits_warriors: "प्रेरणा, मार्गदर्शन और पटकथा - सारा श्रेय <b>भक्ति वॉरियर्स</b> को",
                 credits_soon: "आप जल्द ही अगले महीनों में उनसे मिलेंगे। तैयार रहें!",
@@ -449,7 +472,7 @@
                 title_roots: "ಇದು ಏಕೆ ಮುಖ್ಯ?",
                 text_roots: "ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತಿರುವ ಜಗತ್ತಿನಲ್ಲಿ, ನಾವು ಆಗಾಗ್ಗೆ ಕಳೆದುಹೋದಂತೆ ಭಾವಿಸುತ್ತೇವೆ. ನಮಗೆ ಹಿಡಿದಿಡಲು ಏನಾದರೂ ಬೇಕು.<br><br><span class='roots-emphasis'>ಸಂಸ್ಕೃತಿಯೇ ನಮ್ಮ ಬೇರು.</span> ಅದಿಲ್ಲದೆ ನಾವು ಅಲೆದಾಡುತ್ತೇವೆ; ಅದಿದ್ದರೆ ನಾವು ಎತ್ತರವಾಗಿ ನಿಲ್ಲುತ್ತೇವೆ. ನಾವು ನಿಮಗೆ ಇತಿಹಾಸವನ್ನು ಕಲಿಸಲು ಅಲ್ಲ, ನಿಮ್ಮ ಸ್ವಂತ ಆಧಾರವನ್ನು ಕಂಡುಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡಲು ಈ ಪ್ರಯಾಣವನ್ನು ಹಂಚಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ. ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ ಎಂದು ತಿಳಿದಾಗ, ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ಎದುರಿಸುವ ಶಕ್ತಿ ನಿಮಗಿರುತ್ತದೆ.",
                 bridge_text: "\"ಈ ನಕ್ಷೆಯು ಕೇವಲ ಭೂಗೋಳವಲ್ಲ. ಇದು ಭಾರತದ ಆಧ್ಯಾತ್ಮಿಕ ನರಮಂಡಲ.\"",
-                map_instruction: "ಪೂರ್ಣ ನಕ್ಷೆಯನ್ನು ಅನ್ವೇಷಿಸಲು ಸರಿಸಿ. ಸಂತರ ಬಗ್ಗೆ ತಿಳಿಯಲು ಅವರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+                map_instruction: "ಸಂತರ ಬಗ್ಗೆ ತಿಳಿಯಲು ಅವರ ಹೆಸರಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
                 title_vibrations: "ಪವಿತ್ರ ಕಂಪನಗಳು",
                 vid1_title: "ಒಂದರ (1) ಮೌಲ್ಯ",
                 vid1_desc: "ಸದ್ಗುರು ಮಧುಸೂದನ್ ಸಾಯಿ ಹೇಳುತ್ತಾರೆ: \"ಸಂಖ್ಯೆ 1 ರ ಹಿಂದೆ ಸೊನ್ನೆಗಳನ್ನು ಸೇರಿಸಿದರೆ ಮೌಲ್ಯ ಹೆಚ್ಚುತ್ತದೆ. ಆದರೆ 1 ನ್ನು ತೆಗೆದರೆ, ಉಳಿಯುವುದು ಬರೀ ಶೂನ್ಯ.\" ಭಕ್ತಿಯೇ ಆ '1'.",
@@ -461,7 +484,7 @@
                 teaser_text_intro: "ಪ್ರಯಾಣ ಈಗಷ್ಟೇ ಶುರುವಾಗಿದೆ. ಮುಂದಿನ ತಿಂಗಳು, ಇತಿಹಾಸದ ಪುಟಗಳಿಂದ ಹೊಸ ಬೆಳಕು ಉದಯಿಸಲಿದೆ. ಅವರ ಜೀವನ ಮತ್ತು ಸಂದೇಶವನ್ನು ನಾವು ಅರಿಯೋಣ.",
                 teaser_text_climax: "ಮುಂದಿನ ತಿಂಗಳು, ಹೊಸ ಬೆಳಕು ಉದಯಿಸಿ ನಿಮ್ಮ ಕಿವಿಯಲ್ಲಿ ರಹಸ್ಯವನ್ನು ಪಿಸುಗುಟ್ಟಲಿದೆ.",
                 teaser_cta: "ಫೆಬ್ರವರಿಗಾಗಿ ನಿರೀಕ್ಷಿಸಿ.",
-                // NEW CREDITS
+                // CREDITS
                 credits_art: "ಕಲೆ: <b>ಸ್ವೇಚ್ಛಾ ಆರ್ಟ್</b> &nbsp;|&nbsp; ವಿಷಯ ಸಂಗ್ರಹಣೆ: <b>ಸಾಯಿ ಪ್ರೇಮಾ ಫೋಟೋಗ್ರಫಿ</b>",
                 credits_warriors: "ಸ್ಫೂರ್ತಿ, ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಚಿತ್ರಕಥೆ - ಎಲ್ಲಾ ಶ್ರೇಯಸ್ಸು <b>ಭಕ್ತಿ ವಾರಿಯರ್ಸ್‌ಗೆ</b>",
                 credits_soon: "ಮುಂದಿನ ತಿಂಗಳುಗಳಲ್ಲಿ ನೀವು ಅವರನ್ನು ಭೇಟಿಯಾಗಲಿದ್ದೀರಿ. ಸಿದ್ಧರಾಗಿರಿ!",
@@ -478,7 +501,7 @@
                 title_roots: "ఇది ఎందుకు ముఖ్యం?",
                 text_roots: "ప్రతిరోజూ మారుతున్న ఈ ప్రపంచంలో, మనం తరచుగా దారి తప్పినట్లు భావిస్తాము. మనకు ఆధారం కావాలి.<br><br><span class='roots-emphasis'>సంస్కృతి మన మూల వ్యవస్థ.</span> అది లేకపోతే మనం కొట్టుకుపోతాం; అది ఉంటే మనం నిలబడతాం. మీకు చరిత్ర నేర్పించడానికి కాదు, మీ స్వంత మూలాన్ని కనుగొనడంలో సహాయపడటానికి ఈ ప్రయాణాన్ని పంచుకుంటున్నాము. మీరు ఎక్కడి నుండి వచ్చారో తెలిసినప్పుడు, మీరు ఎక్కడికి వెళుతున్నారో ఎదుర్కునే బలం మీకు ఉంటుంది.",
                 bridge_text: "\"ఈ మ్యాప్ కేవలం భౌగోళికం కాదు. ఇది భారతదేశపు ఆధ్యాత్మిక నాడీ వ్యవస్థ.\"",
-                map_instruction: "పూర్తి మ్యాప్‌ను చూడటానికి స్క్రీన్‌ను జరపండి. సంతు గురించి తెలుసుకోవడానికి వారి పేరుపై క్లిక్ చేయండి.",
+                map_instruction: "సంతు గురించి తెలుసుకోవడానికి వారి పేరుపై క్లిక్ చేయండి.",
                 title_vibrations: "పవిత్ర ప్రకంపనలు",
                 vid1_title: "ఒకటి (1) యొక్క విలువ",
                 vid1_desc: "సద్గురు మధుసూదన్ సాయి ఒక చక్కని ఉదాహరణ చెప్పారు: \"అంకె 1 వెనుక ఎన్ని సున్నాలున్నా విలువ పెరుగుతుంది. కానీ 1 తీసేస్తే మిగిలేది సున్నా మాత్రమే.\" జీవితంలో భక్తి ఆ '1' వంటిది.",
@@ -490,15 +513,15 @@
                 teaser_text_intro: "ప్రయాణం ఇప్పుడే మొదలైంది. ప్రతి నెల, ఈ మ్యాప్‌లోని ఒక సంతు గురించి మనం లోతుగా తెలుసుకుందాం.",
                 teaser_text_climax: "వచ్చే నెలలో, చరిత్ర నుండి ఒక కొత్త వెలుగు ఉద్భవించి మీ చెవిలో ఒక రహస్యాన్ని చెబుతుంది.",
                 teaser_cta: "ఫిబ్రవరి కోసం వేచి ఉండండి.",
-                // NEW CREDITS
+                // CREDITS
                 credits_art: "కళ: <b>స్వేచ్ఛా ఆర్ట్</b> &nbsp;|&nbsp; కంటెంట్ క్యూరేషన్: <b>సాయి ప్రేమ ఫోటోగ్రఫీ</b>",
-                credits_warriors: "స్ఫూర్తి, మార్గదర్శకత్వం మరియు స్క్రీన్ ప్లే - అంతా <b>భక్తి వారియర్స్</b> కే చెందుతుంది",
+                credits_warriors: "స్ఫೂರ್తి, మార్గదర్శకత్వం మరియు స్క్రీన్ ప్లే - అంతా <b>భక్తి వారియర్స్</b> కే చెందుతుంది",
                 credits_soon: "రాబోయే నెలల్లో మీరు వారిని కలుసుకోబోతున్నారు. సిద్ధంగా ఉండండి!",
                 footer_text: "భక్తి హెరిటేజ్ ఆర్ట్ క్యాలెండర్ 2026"
             }
         };
 
-        // --- MAP NAMES DATABASE (unchanged from previous) ---
+        // --- MAP NAMES DATABASE ---
         const saintNames = {
             'lalded': { en: 'Lal Ded', hi: 'लल डेड', kn: 'ಲಲ್ ಡೇಡ್', te: 'లల్ దేడ్' },
             'nundrishi': { en: 'Nund Rishi', hi: 'नुंद ऋषि', kn: 'ನಂದ ಋಷಿ', te: 'నుంద్ రిషి' },
@@ -517,7 +540,7 @@
             'tukaram': { en: 'Tukaram', hi: 'तुकाराम', kn: 'ತುಕಾರಾಂ', te: 'తుకారాం' },
             'jnaneshwar': { en: 'Jnaneshwar', hi: 'ज्ञानेश्वर', kn: 'ಜ್ಞಾನೇಶ್ವರ', te: 'జ్ఞానేశ్వర్' },
             'namdev': { en: 'Namdev', hi: 'नामदेव', kn: 'ನಾಮದೇವ', te: 'నామదేవ్' },
-            'eknath': { en: 'Eknath', hi: 'एकनाथ', kn: 'ಏಕನಾಥ', te: 'ఏకనాథ్' },
+            'eknath': { en: 'Eknath', hi: 'एकनाथ', kn: 'ಏಕನಾಥ', te: 'ಏಕನಾಥ್' },
             'ramdas': { en: 'Ramdas', hi: 'रामदास', kn: 'ರಾಮದಾಸ್', te: 'రామదాసు' },
             'saibaba': { en: 'Sai Baba', hi: 'साईं बाबा', kn: 'ಸಾಯಿ ಬಾಬಾ', te: 'సాయి బాబా' },
             'janabai': { en: 'Janabai', hi: 'जनाबाई', kn: 'ಜನಾಬಾಯಿ', te: 'జనాబాయి' },
@@ -536,10 +559,10 @@
             'jayadeva': { en: 'Jayadeva', hi: 'जयदेव', kn: 'ಜಯದೇವ', te: 'జయదేవ' },
             'bhimabhoi': { en: 'Bhima Bhoi', hi: 'भीम भोई', kn: 'ಭೀಮ ಭೋಯಿ', te: 'భీమ భోయి' },
             'basavanna': { en: 'Basavanna', hi: 'बसवन्ना', kn: 'ಬಸವಣ್ಣ', te: 'బసవన్న' },
-            'akkamahadevi': { en: 'Akka Mahadevi', hi: 'अक्का महादेवी', kn: 'ಅಕ್ಕಮಹಾದೇವಿ', te: 'అక్క మహాదేవి' },
+            'akkamahadevi': { en: 'Akka Mahadevi', hi: 'अक्का महादेवी', kn: 'ಅಕ್ಕಮಹಾದೇವಿ', te: 'అಕ್ಕ ಮಹದೇವಿ' },
             'allama': { en: 'Allama Prabhu', hi: 'अल्लमा प्रभु', kn: 'ಅಲ್ಲಮ ಪ್ರಭು', te: 'అల్లమ ప్రభు' },
             'purandara': { en: 'Purandara Dasa', hi: 'पुरंदर दास', kn: 'ಪುರಂದರ ದಾಸ', te: 'ಪುರಂದರ దాస' },
-            'madhvacharya': { en: 'Madhvacharya', hi: 'मध्वाचार्य', kn: 'ಮಧ್ವಾಚಾರ್ಯ', te: 'మధ్వాచార్య' },
+            'madhvacharya': { en: 'Madhvacharya', hi: 'मध्वाचार्य', kn: 'ಮಧ್ವಾಚಾರ್ಯ', te: 'ಮಧ್ವಾಚಾರ್ಯ' },
             'ramadasu': { en: 'Ramadasu', hi: 'रामदासु', kn: 'ರಾಮದಾಸು', te: 'రామదాసు' },
             'annamacharya': { en: 'Annamacharya', hi: 'अन्नमाचार्य', kn: 'ಅನ್ನಮಾಚಾರ್ಯ', te: 'అన్నమాచార్య' },
             'vemana': { en: 'Vemana', hi: 'वेमन', kn: 'ವೇಮನ', te: 'వేమన' },
@@ -554,29 +577,22 @@
             'ramana': { en: 'Ramana', hi: 'रमण', kn: 'ರಮಣ', te: 'రమణ' }
         };
 
-        // --- MAP DETAILS (Placeholder English) ---
+        // --- MAP DETAILS (Placeholder) ---
         const saintDetails = {
             'lalded': { contribution: 'Created Vatsun poetry style.', impact: 'Bridged Shaivism and Sufism.', fact: 'Wandered as an ascetic.' },
             'kabir': { contribution: 'Dohas challenging dogma.', impact: 'Influenced Bhakti deeply.', fact: 'A weaver belonging to no religion.' },
-            'tulsidas': { contribution: 'Ramcharitmanas.', impact: 'Made Ramayana accessible.', fact: 'Reincarnation of Valmiki.' },
-            // Add full details or fetch dynamically
+            'tulsidas': { contribution: 'Ramcharitmanas.', impact: 'Made Ramayana accessible.', fact: 'Reincarnation of Valmiki.' }
         };
 
         // --- LOGIC ---
         function startJourney(lang) {
             currentLang = lang;
             document.body.className = 'lang-' + lang;
-            
-            // 1. Text Content
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
-
-            // 2. Map Labels
             updateMapLabels(lang);
-
-            // 3. UI Transition
             document.getElementById('lang-gateway').classList.add('hidden');
             setTimeout(() => {
                 document.getElementById('gateway-overlay').classList.add('active');
@@ -608,9 +624,7 @@
             orb.innerHTML = "BHAKTHI<br>2026";
         }
 
-        // --- MAP POPUP LOGIC ---
         const cloud = document.getElementById('infoBox');
-
         function showInfo(event, id) {
             event.stopPropagation();
             let name = saintNames[id] ? saintNames[id][currentLang] : id;
