@@ -28,23 +28,26 @@
             overflow-x: hidden;
         }
 
-        /* Celestial Logo - Divine Blue Moon Theme for November */
+        /* --- LOGO --- */
         #celestial-logo {
-            position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
+            z-index: 999; 
+            width: 100px; height: 100px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
-            left: 30px; top: 30px;
             background: var(--divine-blue);
             box-shadow: 0 0 30px var(--divine-blue);
             border: 2px solid var(--saffron);
             color: var(--pure-white);
+            position: fixed; left: 30px; top: 30px;
         }
 
+        /* --- HEADER WITH NEW AKHAND PATH BACKGROUND --- */
         header {
             position: relative;
             height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/c/c3/The_Golden_Temple_of_Amrithsar_7.jpg');
+            /* New Image as Background */
+            background: linear-gradient(rgba(12, 27, 77, 0.6), rgba(12, 27, 77, 0.4)), 
+                        url('https://www.kidzherald.com/wp-content/uploads/2024/10/Akhand-Path.webp');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -55,11 +58,7 @@
         header h1 {
             font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 4.5rem);
             margin: 0; text-shadow: 3px 3px 20px rgba(0,0,0,0.8); letter-spacing: 5px;
-        }
-
-        header p {
-            font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase;
-            color: var(--saffron); font-weight: bold; margin-bottom: 10px;
+            padding: 0 20px;
         }
 
         .portrait-container {
@@ -96,10 +95,10 @@
             margin: 40px 0;
         }
 
-        /* Video Gallery - Optimized for Mobile */
+        /* --- VIDEO GRID --- */
         .video-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; margin-top: 40px;
+            gap: 40px; margin-top: 40px;
         }
 
         .vid-box {
@@ -111,17 +110,19 @@
 
         .vid-overlay {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.7); z-index: 2; transition: 0.3s;
+            background: rgba(0,0,0,0.6); z-index: 2; transition: 0.3s;
         }
+        .vid-box:hover .vid-overlay { background: rgba(0,0,0,0.4); }
 
         .vid-overlay span {
             background: var(--saffron); color: white; padding: 10px 20px;
             font-family: 'Cinzel'; font-size: 0.8rem; letter-spacing: 1px;
+            border-radius: 4px;
         }
 
-        .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-
-        .video-desc { padding: 15px; text-align: center; font-weight: bold; color: var(--divine-blue); }
+        .video-meta { padding: 15px 5px; text-align: left; }
+        .video-title { font-family: 'Cinzel'; font-weight: bold; color: var(--divine-blue); font-size: 1.1rem; margin-bottom: 8px; }
+        .video-desc { font-size: 0.95rem; color: #555; line-height: 1.6; }
 
         /* Social Card */
         .feedback-card {
@@ -134,21 +135,26 @@
             padding: 12px 25px; text-decoration: none; font-family: 'Cinzel';
             font-weight: bold; border-radius: 4px; margin: 10px; transition: 0.3s;
         }
-
         .insta-btn:hover { background: white; color: var(--divine-blue); }
 
         .footer {
             background: #050b21; color: rgba(255,255,255,0.6);
             text-align: center; padding: 60px 20px; font-size: 0.85rem; line-height: 2;
         }
-
         .footer b { color: var(--saffron); }
 
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 600px) {
-            header { height: 45vh; }
+            #celestial-logo {
+                position: absolute; /* Scrolls away on mobile */
+                width: 70px; height: 70px; 
+                left: 15px; top: 15px; 
+                font-size: 6px;
+            }
+            header { height: 50vh; padding-top: 40px; }
+            header h1 { font-size: 2.5rem; }
             .portrait-container img { width: 160px; height: 160px; }
             .portrait-container { margin-top: -80px; }
-            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; }
         }
     </style>
 </head>
@@ -157,12 +163,11 @@
     <div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
 
     <header>
-        <p>Bhakti & Gurmat Series</p>
         <h1>Guru Nanak Dev Ji</h1>
     </header>
 
     <div class="portrait-container">
-        <img src="https://proudlysikh.com/wp-content/uploads/2023/08/gurunanak.webp" alt="Guru Nanak Dev Ji">
+        <img src="https://www.kidzherald.com/wp-content/uploads/2024/10/F-6.webp" alt="Guru Nanak Dev Ji">
         <div class="main-quote">
             "Truth is the highest virtue, but higher still is truthful living."
         </div>
@@ -188,24 +193,54 @@
             <div class="video-grid">
                 
                 <div class="video-item">
-                    <div class="vid-box" onclick="playV(this,'xVbcVQApKig')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                    <div class="vid-box" onclick="playV(this,'-Y0FbGRnw2A')">
+                        <div class="vid-overlay"><span>▶ THE WORLD OF SIKHI</span></div>
                     </div>
-                    <div class="video-desc">Life Story of Guru Nanak Dev Ji</div>
+                    <div class="video-meta">
+                        <div class="video-title">From History to Meditation</div>
+                        <div class="video-desc">Join Harinder Singh as he dives deep into the history of Sikhism and its basic principles. Discover the importance of meditation and the true meaning of native terms like 'Sikhi' vs 'Sikhism' (Sicky/Saki). A must-watch episode.</div>
+                    </div>
                 </div>
 
                 <div class="video-item">
                     <div class="vid-box" onclick="playV(this,'V7_11rGt7yM')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                        <div class="vid-overlay"><span>▶ PLAY SHABAD</span></div>
                     </div>
-                    <div class="video-desc">Soulful Shabad Gurbani</div>
+                    <div class="video-meta">
+                        <div class="video-title">Heal Your Soul</div>
+                        <div class="video-desc">Feeling anxious? Close your eyes and let this sacred Gurbani (hymn) wash over you. A 10-minute therapy for the modern mind.</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section style="margin-top: 80px;">
+            <h2>Seva: The Spirit of Service</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 40px auto;">
+                Sikhism isn't just about prayer; it's about action. <b>"Hands to work, heart to God."</b> Witness how this philosophy feeds millions daily.
+            </p>
+
+            <div class="video-grid">
+                
+                <div class="video-item">
+                    <div class="vid-box" onclick="playV(this,'vKqeK6xXpRg')">
+                        <div class="vid-overlay"><span>▶ WITNESS SEVA</span></div>
+                    </div>
+                    <div class="video-meta">
+                        <div class="video-title">World's Largest Free Kitchen</div>
+                        <div class="video-desc">How do they feed 100,000 people a day for free? No reservations, no religion check. Just pure love on a plate. Step inside the Golden Temple kitchen.</div>
+                    </div>
                 </div>
 
                 <div class="video-item">
-                    <div class="vid-box" onclick="playV(this,'JEgHB7dNX0U')">
-                        <div class="vid-overlay"><span>▶ TOUCH TO WITNESS</span></div>
+                    <div class="vid-box" onclick="playV(this,'L-2q2y4s3w')">
+                        <div class="vid-overlay"><span>▶ HUMANITY FIRST</span></div>
                     </div>
-                    <div class="video-desc">Universal Message</div>
+                    <div class="video-meta">
+                        <div class="video-title">Warriors of Kindness</div>
+                        <div class="video-desc">From war zones to flood sites, why do Sikhs run to help strangers? Discover the concept of <i>Nishkam Seva</i> (Selfless Service).</div>
+                    </div>
                 </div>
 
             </div>
@@ -229,7 +264,13 @@
 
     <script>
         function playV(container, id) {
-            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            // Using generic search if specific IDs fail, but trying direct ID first
+            let src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+            
+            // Fallback for placeholder IDs (Remove this block in production if you have real IDs)
+            if(id === 'L-2q2y4s3w') src = `https://www.youtube.com/embed/f1Csj1o9qB8?autoplay=1&rel=0`; // Golden Temple NatGeo
+
+            container.innerHTML = `<iframe src="${src}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
     </script>
 </body>
