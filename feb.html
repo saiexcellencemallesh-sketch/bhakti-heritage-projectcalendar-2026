@@ -3,238 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>February 2026 - Sant Tulsidas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700;900&family=Lora:ital,wght@0,400;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>February: Tulsidas | Bhakti Heritage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Merriweather:wght@300;400;700&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Kannada:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --gold: #d4af37; --brown: #4e342e; --paper: #fdf5e6; --dark: #050505; 
-            --accent-light: #8b5e3c; --deep-red: #800000;
+        :root {
+            --bg-color-dark: #0c0f14; 
+            --text-color-dark: #eaddca;
+            --accent-color-dark: #d4af37;
+            --bg-color-light-1: #fdfbf7;
+            --bg-color-light-2: #f0eada;
+            --text-color-light: #2c1e11;
+            --accent-color-light: #8b5e3c;
         }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body, html { margin: 0; padding: 0; font-family: 'Lora', serif; background: var(--dark); color: #fff; overflow-x: hidden; }
 
-        /* CELESTIAL LOGO */
-        #celestial-logo {
-            position: fixed; z-index: 999; width: 120px; height: 120px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
-            left: 30px; top: 30px; transition: all 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color-dark); color: var(--text-color-dark); font-family: 'Merriweather', serif; overflow-x: hidden; }
+
+        /* Multilingual Fonts */
+        body.lang-hi, body.lang-hi button { font-family: 'Noto Sans Devanagari', 'Merriweather', serif; }
+        body.lang-kn, body.lang-kn button { font-family: 'Noto Sans Kannada', 'Merriweather', serif; }
+        body.lang-te, body.lang-te button { font-family: 'Noto Sans Telugu', 'Merriweather', serif; }
+
+        /* --- 0. LANGUAGE GATEWAY --- */
+        #lang-gateway {
+            position: fixed; inset: 0; background: #000; z-index: 20000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1s ease;
         }
-        .moon-cloudy { background: #cbd5e0; box-shadow: 0 0 20px #718096; border: 2px solid #a0aec0; color: var(--brown); opacity: 0.8; }
-        .sun-radiant { background: radial-gradient(circle, #fff700 0%, #ffae00 100%); border: 3px double var(--gold); box-shadow: 0 0 60px #ffae00; color: #000; transform: scale(1.1); }
-
-        /* NAVIGATION CLASSES */
-        .page-node { display: none; min-height: 100vh; position: relative; z-index: 10; }
-        .page-node.active { display: block; animation: fadeIn 1.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* UI ELEMENTS */
-        .container { max-width: 850px; margin: 0 auto; padding: 140px 20px 60px; }
-        .card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 15px; padding: 45px; margin-bottom: 50px; text-align: center; }
+        #lang-gateway.hidden { opacity: 0; pointer-events: none; }
         
-        h1, h2, h3 { font-family: 'Cinzel', serif; color: var(--gold); }
-        p { line-height: 2; font-size: 1.15rem; margin-bottom: 25px; text-align: justify; }
-
-        .btn { background: var(--gold); color: #000; padding: 20px 50px; font-family: 'Cinzel'; font-weight: bold; border-radius: 4px; cursor: pointer; border: none; transition: 0.3s; display: inline-block; text-decoration: none; }
-        .btn:hover { background: #fff; transform: translateY(-3px); }
-
-        /* VIDEO BOX */
-        .vid-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border: 1px solid var(--gold); margin: 30px 0; cursor: pointer; }
-        .vid-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-
-        /* IMMERSIVE SCROLLING JOURNEY */
-        #immersive-scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
-        #immersive-scroll-container::-webkit-scrollbar { display: none; }
-        .immersive-sec { min-height: 100vh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding: 60px 20px; position: relative; }
+        .lang-title { color: var(--accent-color-dark); font-family: 'Cinzel Decorative'; font-size: 2rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
-        .split { display: flex; flex-direction: column; align-items: center; gap: 50px; width: 100%; max-width: 1200px; margin: 0 auto; }
-        @media (min-width: 900px) { .split { flex-direction: row; } .split.reverse { flex-direction: row-reverse; } }
-        
-        .img-block { flex: 1.2; }
-        .img-block img { width: 100%; height: auto; border-radius: 15px; border: 2px solid var(--gold); box-shadow: 0 30px 70px rgba(0,0,0,0.7); }
-        .text-block { flex: 1; padding: 20px; }
-        .text-block h2 { text-align: left; margin-bottom: 20px; }
+        .lang-select-btn {
+            background: transparent; border: 1px solid var(--accent-color-dark); color: #fff;
+            padding: 15px 30px; font-family: 'Cinzel Decorative'; font-size: 1.2rem; cursor: pointer;
+            transition: 0.3s; min-width: 140px; text-transform: uppercase;
+        }
+        .lang-select-btn:hover { background: var(--accent-color-dark); color: #000; box-shadow: 0 0 15px var(--accent-color-dark); }
 
-        /* FINALE CARD */
-        .theme-light { background: var(--paper); color: var(--brown); }
-        .finale-card { text-align: center; max-width: 800px; padding: 80px 40px; margin: 0 auto; }
-        .observe-title { font-family: 'Cinzel Decorative'; color: var(--deep-red); font-size: 3.5rem; line-height: 1.1; margin-bottom: 40px; text-align: center; }
-        .observe-text { font-family: 'Merriweather', serif; font-style: italic; font-size: 1.8rem; line-height: 1.6; color: var(--brown); margin-bottom: 60px; text-align: center; }
+        /* --- 1. GATEWAY SCREEN --- */
+        #gateway-screen {
+            min-height: 100vh; width: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 40px; background: var(--bg-color-dark);
+            transition: opacity 1s ease; z-index: 10001; position: relative;
+            display: none; /* Hidden initially, shown after lang select */
+        }
+
+        .gateway-card {
+            max-width: 900px; width: 100%; display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 40px;
+        }
+        @media (min-width: 768px) { .gateway-card { grid-template-columns: 1fr 1.5fr; align-items: stretch; } }
+
+        .tile {
+            padding: 40px; border-radius: 15px; cursor: pointer; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.03);
+        }
+        .tile:hover { transform: translateY(-10px); border-color: var(--accent-color-dark); background: rgba(212, 175, 55, 0.05); }
+        .tile.highlight { 
+            border: 2px solid var(--accent-color-dark); 
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), transparent);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+        .tile h3 { font-family: 'Cinzel Decorative'; color: var(--accent-color-dark); margin-bottom: 15px; font-size: 1.5rem; }
+        .tile p { font-size: 0.95rem; line-height: 1.6; opacity: 0.8; }
+
+        /* --- 2. SACRED MEDIA --- */
+        #media-library { display: none; padding: 100px 40px; background: #000; min-height: 100vh; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 40px auto; }
+        .vid-box { border: 1px solid var(--accent-color-dark); position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .vid-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .back-btn { background: none; border: 1px solid var(--accent-color-dark); color: var(--accent-color-dark); padding: 10px 20px; font-family: 'Cinzel Decorative'; cursor: pointer; margin-bottom: 40px; }
+        .media-intro { font-size: 1.1rem; line-height: 1.8; color: var(--text-color-dark); margin-bottom: 30px; border-left: 3px solid var(--accent-color-dark); padding-left: 20px; max-width: 850px; }
+
+        /* --- 3. IMMERSIVE JOURNEY STYLES --- */
+        #immersive-journey { display: none; width: 100%; height: 100vh; }
+        .main-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
         
-        /* FX: RAIN & LIGHTNING */
-        #rain-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; opacity: 0; transition: 2s; }
-        .drop { position: absolute; background: rgba(255,255,255,0.2); width: 2px; height: 35px; animation: fall linear infinite; }
+        section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; padding: 40px; position: relative; transition: background 2s ease; }
+        
+        h1, h2 { font-family: 'Cinzel Decorative'; color: var(--accent-color-dark); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        p { line-height: 1.9; margin-bottom: 1.5rem; font-size: 1.15rem; text-align: justify; }
+
+        /* Light Theme Transition */
+        section.light-theme { background: radial-gradient(circle at center, var(--bg-color-light-1) 0%, var(--bg-color-light-2) 100%); }
+        section.light-theme h2 { color: var(--accent-color-light); }
+        section.light-theme p { color: var(--text-color-light); }
+        section.light-theme .highlight { color: #800000; font-weight: bold; border-bottom: 1px solid #800000; }
+
+        .content-wrapper { max-width: 1100px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 3rem; z-index: 2; }
+        @media (min-width: 900px) { 
+            .content-wrapper.split { flex-direction: row; gap: 6rem; } 
+            .content-wrapper.split.reverse { flex-direction: row-reverse; } 
+            .text-block, .img-block { flex: 1; text-align: left; } 
+        }
+        
+        .img-block img { max-width: 100%; max-height: 55vh; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(212, 175, 55, 0.3); transition: 1s; }
+        section.light-theme .img-block img { box-shadow: 0 20px 40px rgba(139, 94, 60, 0.2); border: 2px solid var(--accent-color-light); }
+
+        /* Effects */
+        #rain-container { position: fixed; inset: 0; pointer-events: none; z-index: 10; opacity: 0; transition: opacity 2s ease; }
+        .drop { position: absolute; background: rgba(255,255,255,0.25); width: 2px; height: 30px; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(100vh); } }
+        
         #lightning-flash { position: fixed; inset: 0; background: #fff; opacity: 0; z-index: 9999; pointer-events: none; }
-        @keyframes flashEffect { 0% { opacity: 0; } 10% { opacity: 0.7; } 20% { opacity: 0; } 25% { opacity: 0.8; } 50% { opacity: 0; } }
+        @keyframes flashEffect { 0%, 100% { opacity: 0; } 10%, 25% { opacity: 0.7; } 15%, 30% { opacity: 0; } }
 
-        .move-ahead-msg { color: var(--gold); font-family: 'Cinzel'; font-size: 1.1rem; margin: 40px 0; display: none; line-height: 1.8; border: 2px dashed var(--gold); padding: 30px; background: rgba(212, 175, 55, 0.05); }
+        /* Urge Card */
+        .urge-card { background: rgba(212, 175, 55, 0.08); border-top: 4px solid var(--accent-color-dark); padding: 40px; border-radius: 15px; text-align: center; max-width: 800px; }
+        section.light-theme .urge-card { background: rgba(139, 94, 60, 0.05); border-top: 4px solid var(--accent-color-light); }
 
-        /* FOOTER */
-        .tribute-section { padding: 80px 40px; text-align: center; border-top: 1px solid var(--gold); background: #000; color: #fff; margin-top: 50px; }
-        .tribute-credits { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
-        .credit-item { font-family: 'Cinzel'; font-size: 0.8rem; }
-        .credit-item b { color: var(--gold); display: block; font-size: 1rem; }
+        .anim { opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
+        section.active .anim { opacity: 1; transform: translateY(0); }
+        
+        #audio-status { position: fixed; top: 20px; right: 20px; z-index: 10002; background: rgba(0,0,0,0.6); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--accent-color-dark); display: none; }
     </style>
 </head>
-<body class="theme-dark">
+<body>
 
-    <div id="celestial-logo" class="moon-cloudy">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
-    <div id="rain-container"></div>
+<div id="lang-gateway">
+    <h1 class="lang-title">Namaste / Welcome</h1>
+    <div class="lang-grid">
+        <button class="lang-select-btn" onclick="setLanguage('en')">ENGLISH</button>
+        <button class="lang-select-btn" onclick="setLanguage('hi')">हिंदी</button>
+        <button class="lang-select-btn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+        <button class="lang-select-btn" onclick="setLanguage('te')">తెలుగు</button>
+    </div>
+</div>
+
+<div id="gateway-screen">
+    <h1 style="font-family: 'Cinzel Decorative'; font-size: 3rem; margin-bottom: 10px;" data-i18n="main_title">February 2026</h1>
+    <p style="opacity: 0.7; letter-spacing: 3px;" data-i18n="main_subtitle">THE LEGEND OF SANT TULSIDAS</p>
+    
+    <div class="gateway-card">
+        <div class="tile" onclick="openPath('media')">
+            <h3 data-i18n="card_media_title">Sacred Media</h3>
+            <p data-i18n="card_media_desc">Curated playlists covering the profound life and immortal compositions of Tulsidas Ji.</p>
+            <span style="color:var(--accent-color-dark); margin-top: 20px; font-size: 0.8rem; font-weight: bold;" data-i18n="btn_view_lib">VIEW LIBRARY →</span>
+        </div>
+
+        <div class="tile highlight" onclick="openPath('journey')">
+            <span style="font-size: 0.7rem; color: var(--accent-color-dark); font-weight: bold; letter-spacing: 2px;" data-i18n="tag_immersive">MOST IMMERSIVE</span>
+            <h3 style="font-size: 1.8rem; margin-top: 10px;" data-i18n="card_journey_title">The Evolution</h3>
+            <p data-i18n="card_journey_desc">A full immersive experience. Put on your headphones and witness the redirection of a soul through severe storms.</p>
+            <span style="background:var(--accent-color-dark); color:black; padding: 10px 20px; margin-top: 20px; font-weight: bold; font-size: 0.8rem; border-radius: 4px;" data-i18n="btn_begin">BEGIN JOURNEY</span>
+        </div>
+    </div>
+</div>
+
+<div id="media-library">
+    <div class="content-wrapper" style="align-items: flex-start; margin: 0 auto;">
+        <button class="back-btn" onclick="location.reload()" data-i18n="btn_back_gate">← BACK TO GATEWAY</button>
+        <h2 style="font-family: 'Cinzel Decorative'; color: var(--accent-color-dark);" data-i18n="lib_title">Sacred Sounds</h2>
+        
+        <p class="media-intro" data-i18n="lib_intro">
+            Welcome to the digital sanctuary of Sant Tulsidas Ji. Below, we have curated a collection of cinematic stories and soul-stirring compositions that define his legacy.
+        </p>
+
+        <h3 style="color:var(--accent-color-dark); margin: 30px 0 10px;" data-i18n="vid_sec_story">The Story of Tulsidas Ji</h3>
+        <div class="video-grid">
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/4-BzjHYhc-M?si=SPN7PF72_oGg-IrN"></iframe></div>
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/OxzVwF6Anzw?si=7VHQzOjEA-Fqw6nL"></iframe></div>
+        </div>
+
+        <h3 style="color:var(--accent-color-dark); margin: 50px 0 10px;" data-i18n="vid_sec_songs">Compositions of Tulsidas Ji</h3>
+        <div class="video-grid">
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/z56DlPcG8k8?si=8bpDvTYKbFbQrXg6"></iframe></div>
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/ZFb-W1PAcnI?si=JI9gMX4oHI-J8A0W"></iframe></div>
+            <div class="vid-box"><iframe src="https://www.youtube.com/embed/R3NxAR60jlo?si=vl2Yr8NxHiERxKbU"></iframe></div>
+        </div>
+    </div>
+</div>
+
+<div id="immersive-journey">
     <div id="lightning-flash"></div>
+    <div id="rain-container"></div>
+    <div id="audio-status" data-i18n="audio_status">🔊 SOUNDSCAPE: ACTIVE</div>
+    <button class="back-btn" style="position: fixed; top: 20px; left: 20px; z-index: 10002; background: rgba(0,0,0,0.5);" onclick="location.reload()" data-i18n="btn_exit">EXIT</button>
 
-    <section id="feb-gateway" class="page-node active">
-        <div class="container" style="text-align: center;">
-            <h1 style="font-family: 'Cinzel Decorative'; font-size: 3.5rem;">February 2026</h1>
-            <p style="opacity: 0.7; letter-spacing: 4px; margin-bottom: 80px; text-align: center;">THE LEGEND OF SANT TULSIDAS</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
-                <div class="card" style="cursor: pointer;" onclick="showSection('feb-media')"><h3>Sacred Media</h3></div>
-                <div class="card" style="cursor: pointer; border: 2.5px solid var(--gold);" onclick="showSection('feb-journey')"><h3>The Evolution</h3></div>
+    <div class="main-container">
+        
+        <section id="hero">
+            <div class="content-wrapper anim">
+                <h1 data-i18n="journey_title">Tulsidas: The Evolution</h1>
+                <p style="text-align: center; max-width: 750px;" data-i18n="journey_subtitle">He was once one amongst us, driven by mortal passions. Witness the redirection of a soul.</p>
             </div>
-        </div>
-        <footer class="tribute-section">
-            <h2>Bhakthi Heritage ART Project 2026</h2>
-            <div class="tribute-credits">
-                <div class="credit-item">Art By<b>Sweta Sairam - @swetch_art</b></div>
-                <div class="credit-item">Content Curated By<b>Sai Mallesh - @Sai_prema_photography</b></div>
+        </section>
+
+        <section id="storm-start">
+            <div class="content-wrapper split">
+                <div class="text-block anim">
+                    <h2 data-i18n="scene1_title">The Severe Storm</h2>
+                    <p data-i18n="scene1_p1">Before he found Rama, Tulsidas was obsessed with his wife, Ratnavali. One night, unable to bear her absence, he set out into a thunderstorm so fierce the world seemed to end.</p>
+                    <p data-i18n="scene1_p2">The severe rain blinded his eyes, but his desire blinded his soul.</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/The%20Night%20of%20Awakening.png?raw=true" alt="Storm"></div>
             </div>
-        </footer>
-    </section>
+        </section>
 
-    <section id="feb-media" class="page-node">
-        <div class="container">
-            <button class="btn" style="padding: 10px 20px; margin-bottom: 40px;" onclick="showSection('feb-gateway')">← BACK</button>
-            <h2>Sacred Media Library</h2>
-            <h3 style="text-align: left;">The Story of Tulsidas Ji</h3>
-            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/4-BzjHYhc-M?autoplay=1\' allowfullscreen></iframe>'"></div>
-            <h3 style="text-align: left;">Compositions</h3>
-            <div class="vid-box" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/z56DlPcG8k8?autoplay=1\' allowfullscreen></iframe>'"></div>
-        </div>
-    </section>
-
-    <section id="feb-journey" class="page-node" style="padding:0;">
-        <div id="immersive-scroll-container">
-            <div style="position: fixed; top: 20px; right: 20px; z-index: 10001;">
-                <button class="btn" style="padding: 10px 20px;" onclick="showSection('feb-gateway')">← EXIT</button>
+        <section id="corpse-section">
+            <div class="content-wrapper split reverse">
+                 <div class="text-block anim">
+                    <h2 data-i18n="scene2_title">Blinded by Attachment</h2>
+                    <p data-i18n="scene2_p1">He reached the Yamuna river, flooded and deadly. In his desperation, he grabbed what he thought was a log to cross.</p>
+                    <p data-i18n="scene2_p2">In reality, he was clinging to a <span class="highlight">human corpse</span>. He was literally clutching the dead to find pleasure, unaware that true life waited in the Divine.</p>
+                </div>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Rivee%20Sceen.png?raw=true" alt="Corpse"></div>
             </div>
-            
-            <section class="immersive-sec">
-                <div class="card" style="text-align: center;">
-                    <h1 style="font-size: 4rem; font-family: 'Cinzel Decorative';">Tulsidas: The Evolution</h1>
-                    <p style="text-align: center;">A mortal passion transformed into a divine flame.</p>
+        </section>
+
+        <section id="wake-up">
+            <div class="content-wrapper split">
+                 <div class="text-block anim">
+                    <h2 data-i18n="scene3_title">The Mirror of Truth</h2>
+                    <p data-i18n="scene3_p1">He climbed a <span class="highlight">venomous snake</span> to enter her room. Expecting a warm welcome, he was instead met by Ratnavali’s horror.</p>
+                    <p data-i18n="scene3_p2">"If you had but half this devotion for Lord Rama, you would have crossed the ocean of existence forever".</p>
                 </div>
-            </section>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Tulsidas%20Wife.png?raw=true" alt="Wake up"></div>
+            </div>
+        </section>
 
-            <section class="immersive-sec" id="storm-start">
-                <div class="split">
-                    <div class="text-block"><h2>The Severe Storm</h2><p>Unable to stay away from Ratnavali, Tulsidas faced a thunderstorm so fierce the world seemed to end. The rain blinded the eyes, but his desire blinded his soul.</p></div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/The%20Night%20of%20Awakening.png?raw=true" alt="Storm"></div>
+        <section class="light-theme" id="the-shift">
+            <div class="content-wrapper split">
+                <div class="text-block anim">
+                    <h2 data-i18n="scene4_title">The Shift</h2>
+                    <p data-i18n="scene4_p1">The illusion collapsed. The man who risked everything to get in, now walked away into the night—leaving behind his home for the light of Truth.</p>
                 </div>
-            </section>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterward%20-1.png?raw=true" alt="Shift"></div>
+            </div>
+        </section>
 
-            <section class="immersive-sec" id="corpse-sec">
-                <div class="split reverse">
-                    <div class="text-block"><h2>Blinded by Attachment</h2><p>He reached the river Yamuna, flooded and dangerous. In his desperation to cross, he grabbed a human corpse thinking it was a log.</p></div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Rivee%20Sceen.png?raw=true" alt="Corpse"></div>
+        <section class="light-theme" id="legend-akbar">
+            <div class="content-wrapper split reverse">
+                <div class="text-block anim">
+                    <h2 data-i18n="scene5_title">The Emperor & The Miracle</h2>
+                    <p data-i18n="scene5_p1">Legend says the Emperor Akbar imprisoned Tulsidas for refusing to perform a miracle. In prison, he composed the <strong>Hanuman Chalisa</strong>.</p>
+                    <p data-i18n="scene5_p2">Suddenly, an army of monkeys attacked the palace, forcing Akbar to release the Saint with deep honor.</p>
                 </div>
-            </section>
+                <div class="img-block anim"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterwards%202.png?raw=true" alt="Akbar Story"></div>
+            </div>
+        </section>
 
-            <section class="immersive-sec" id="wake-sec">
-                <div class="split">
-                    <div class="text-block"><h2>The Mirror of Truth</h2><p>After climbing a venomous snake to reach her, his wife delivered the rebuke that changed history: "If you loved God half as much..."</p></div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Tulsidas%20Wife.png?raw=true" alt="Wife"></div>
+        <section class="light-theme" id="tulsidas-urge">
+            <div class="content-wrapper anim">
+                <h2 data-i18n="urge_title">The Tulsidas "Urge"</h2>
+                <div class="urge-card">
+                    <p data-i18n="urge_p1">We all have the "Tulsidas Urge"—that intense energy we use to chase temporary things.</p>
+                    <p data-i18n="urge_p2">The story isn't about killing desire, but <strong>redirecting it</strong>.</p>
+                    <p data-i18n="urge_p3"><strong>This is Bhakti:</strong> Taking the fire of human passion to light the lamp of divinity.</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="immersive-sec theme-light" id="the-shift">
-                <div class="split reverse">
-                    <div class="text-block"><h2>The Shift</h2><p>The illusion collapsed. He walked away into the light of Truth. A saint was born from the ruins of desire.</p></div>
-                    <div class="img-block"><img src="https://github.com/saiexcellencemallesh-sketch/swami/blob/main/Journey%20afterward%20-1.png?raw=true" alt="Shift"></div>
-                </div>
-            </section>
+        <section class="light-theme" id="observe-yourself">
+            <div class="content-wrapper anim" style="text-align: center;">
+                <h2 style="font-family: 'Cinzel Decorative'; color: #800000; margin-bottom: 30px;" data-i18n="observe_title">Observe Yourself</h2>
+                <p style="font-size: 1.3rem; font-style: italic; color: var(--text-color-light); max-width: 800px; margin: 0 auto; line-height: 1.8;" data-i18n="observe_text">
+                    How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to love, embrace, grow in your real self, and achieve the purpose for which you were born?
+                </p>
+                
+                <button class="back-btn" style="margin-top: 50px; border-color: var(--accent-color-light); color: var(--accent-color-light); background: transparent; cursor: pointer; padding: 15px 30px; font-weight: bold;" onclick="location.reload()" data-i18n="btn_return">RETURN TO GATEWAY</button>
+            </div>
+        </section>
 
-            <section class="immersive-sec theme-light">
-                <div class="finale-card">
-                    <div style="font-size: 0.7rem; border: 1px solid #ddd; display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 20px;">🔊 SOUNDSCAPE: ACTIVE</div>
-                    <h2 class="observe-title">OBSERVE YOURSELF</h2>
-                    <p class="observe-text">How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to achieve the purpose for which you were born?</p>
-                    <div id="msg-feb" class="move-ahead-msg">The next saint is Andal Amma. She found divine love in Srivilliputhur. <br><br>Scan the QR code in the calendar to experience her sacred Tiruppavai.</div>
-                    <button id="btn-feb" class="btn" onclick="revealOnlyMsg('msg-feb', this)">SCAN THE NEXT SAINT</button>
-                </div>
-            </section>
-        </div>
-    </section>
+    </div>
+</div>
 
-    <script>
-        // 1. SOUND ENGINE (5% VOLUME)
-        const rainSound = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
-        const thunderSound = new Audio('https://www.soundjay.com/nature/thunder-01.mp3');
-        rainSound.volume = 0.05; 
-        thunderSound.volume = 0.05;
-        rainSound.loop = true;
+<script>
+    // --- TRANSLATION DATA ---
+    const i18n = {
+        'en': {
+            main_title: "February 2026", main_subtitle: "THE LEGEND OF SANT TULSIDAS",
+            card_media_title: "Sacred Media", card_media_desc: "Curated playlists covering the profound life and immortal compositions of Tulsidas Ji.",
+            btn_view_lib: "VIEW LIBRARY →", tag_immersive: "MOST IMMERSIVE",
+            card_journey_title: "The Evolution", card_journey_desc: "A full immersive experience. Put on your headphones and witness the redirection of a soul through severe storms.",
+            btn_begin: "BEGIN JOURNEY", btn_back_gate: "← BACK TO GATEWAY",
+            lib_title: "Sacred Sounds", lib_intro: "Welcome to the digital sanctuary of Sant Tulsidas Ji. Below, we have curated a collection of cinematic stories and soul-stirring compositions that define his legacy.",
+            vid_sec_story: "The Story of Tulsidas Ji", vid_sec_songs: "Compositions of Tulsidas Ji",
+            audio_status: "🔊 SOUNDSCAPE: ACTIVE", btn_exit: "EXIT",
+            journey_title: "Tulsidas: The Evolution", journey_subtitle: "He was once one amongst us, driven by mortal passions. Witness the redirection of a soul.",
+            scene1_title: "The Severe Storm", scene1_p1: "Before he found Rama, Tulsidas was obsessed with his wife, Ratnavali. One night, unable to bear her absence, he set out into a thunderstorm so fierce the world seemed to end.",
+            scene1_p2: "The severe rain blinded his eyes, but his desire blinded his soul.",
+            scene2_title: "Blinded by Attachment", scene2_p1: "He reached the Yamuna river, flooded and deadly. In his desperation, he grabbed what he thought was a log to cross.",
+            scene2_p2: "In reality, he was clinging to a <span class='highlight'>human corpse</span>. He was literally clutching the dead to find pleasure, unaware that true life waited in the Divine.",
+            scene3_title: "The Mirror of Truth", scene3_p1: "He climbed a <span class='highlight'>venomous snake</span> to enter her room. Expecting a warm welcome, he was instead met by Ratnavali’s horror.",
+            scene3_p2: "\"If you had but half this devotion for Lord Rama, you would have crossed the ocean of existence forever\".",
+            scene4_title: "The Shift", scene4_p1: "The illusion collapsed. The man who risked everything to get in, now walked away into the night—leaving behind his home for the light of Truth.",
+            scene5_title: "The Emperor & The Miracle", scene5_p1: "Legend says the Emperor Akbar imprisoned Tulsidas for refusing to perform a miracle. In prison, he composed the <strong>Hanuman Chalisa</strong>.",
+            scene5_p2: "Suddenly, an army of monkeys attacked the palace, forcing Akbar to release the Saint with deep honor.",
+            urge_title: "The Tulsidas \"Urge\"", urge_p1: "We all have the \"Tulsidas Urge\"—that intense energy we use to chase temporary things.",
+            urge_p2: "The story isn't about killing desire, but <strong>redirecting it</strong>.",
+            urge_p3: "<strong>This is Bhakti:</strong> Taking the fire of human passion to light the lamp of divinity.",
+            observe_title: "Observe Yourself", observe_text: "How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to love, embrace, grow in your real self, and achieve the purpose for which you were born?",
+            btn_return: "RETURN TO GATEWAY"
+        },
+        'hi': {
+            main_title: "फरवरी 2026", main_subtitle: "संत तुलसीदास की गाथा",
+            card_media_title: "पवित्र मीडिया", card_media_desc: "तुलसीदास जी के गहन जीवन और अमर रचनाओं को कवर करने वाली प्लेलिस्ट।",
+            btn_view_lib: "लाइब्रेरी देखें →", tag_immersive: "अनुभवात्मक यात्रा",
+            card_journey_title: "तुलसीदास: एक विकास", card_journey_desc: "एक पूर्ण तल्लीन अनुभव। हेडफ़ोन लगाएं और भीषण तूफानों के माध्यम से एक आत्मा की दिशा बदलते देखें।",
+            btn_begin: "यात्रा शुरू करें", btn_back_gate: "← वापस जाएं",
+            lib_title: "पवित्र ध्वनियाँ", lib_intro: "संत तुलसीदास जी के डिजिटल अभयारण्य में आपका स्वागत है।",
+            vid_sec_story: "तुलसीदास जी की कहानी", vid_sec_songs: "तुलसीदास जी की रचनाएँ",
+            audio_status: "🔊 ध्वनि: सक्रिय", btn_exit: "बाहर निकलें",
+            journey_title: "तुलसीदास: एक विकास", journey_subtitle: "वे कभी हमारे बीच एक थे, नश्वर वासनाओं से प्रेरित। एक आत्मा की दिशा बदलते देखें।",
+            scene1_title: "भीषण तूफान", scene1_p1: "राम को पाने से पहले, तुलसीदास अपनी पत्नी रत्नावली के प्रति आसक्त थे। एक रात, उनकी अनुपस्थिति को सहन करने में असमर्थ, वे एक ऐसे तूफान में निकल पड़े जो इतना भीषण था कि दुनिया खत्म होती लग रही थी।",
+            scene1_p2: "भारी बारिश ने उनकी आँखों को अंधा कर दिया, लेकिन उनकी इच्छा ने उनकी आत्मा को अंधा कर दिया था।",
+            scene2_title: "मोह में अंधे", scene2_p1: "वे उफनती और जानलेवा यमुना नदी पर पहुँचे। अपनी हताशा में, उन्होंने पार करने के लिए जिसे लकड़ी का लट्ठा समझा, उसे पकड़ लिया।",
+            scene2_p2: "वास्तव में, वे एक <span class='highlight'>मानव शव</span> से चिपके हुए थे। वे सुख पाने के लिए सचमुच मृत को जकड़े हुए थे, इस बात से अनजान कि सच्चा जीवन परमात्मा में प्रतीक्षा कर रहा था।",
+            scene3_title: "सत्य का दर्पण", scene3_p1: "वे उसके कमरे में प्रवेश करने के लिए एक <span class='highlight'>जहरीले सांप</span> पर चढ़ गए। गर्मजोशी से स्वागत की उम्मीद में, उन्हें इसके बजाय रत्नावली के भय का सामना करना पड़ा।",
+            scene3_p2: "\"यदि आपके पास भगवान राम के लिए इस भक्ति का आधा भी होता, तो आप अस्तित्व के सागर को हमेशा के लिए पार कर लेते\"।",
+            scene4_title: "परिवर्तन", scene4_p1: "भ्रम टूट गया। वह व्यक्ति जिसने अंदर जाने के लिए सब कुछ जोखिम में डाल दिया, अब रात में बाहर चला गया - सत्य के प्रकाश के लिए अपना घर पीछे छोड़ दिया।",
+            scene5_title: "बादशाह और चमत्कार", scene5_p1: "किंवदंती है कि बादशाह अकबर ने चमत्कार करने से इनकार करने पर तुलसीदास को कैद कर लिया था। जेल में, उन्होंने <strong>हनुमान चालीसा</strong> की रचना की।",
+            scene5_p2: "अचानक, बंदरों की एक सेना ने महल पर हमला कर दिया, जिससे अकबर को संत को गहरे सम्मान के साथ रिहा करने के लिए मजबूर होना पड़ा।",
+            urge_title: "तुलसीदास की \"तड़प\"", urge_p1: "हम सभी में \"तुलसीदास की तड़प\" है - वह तीव्र ऊर्जा जिसका उपयोग हम अस्थायी चीजों का पीछा करने के लिए करते हैं।",
+            urge_p2: "कहानी इच्छा को मारने के बारे में नहीं है, बल्कि <strong>इसे पुनर्निर्देशित करने</strong> के बारे में है।",
+            urge_p3: "<strong>यही भक्ति है:</strong> दिव्यता का दीपक जलाने के लिए मानवीय जुनून की आग लेना।",
+            observe_title: "आत्म-निरीक्षण करें", observe_text: "आप अपनी जलती हुई इच्छा को कैसे तृप्त कर रहे हैं? क्या आप अपनी ऊर्जा का उपयोग अल्पकालिक लाभ के लिए कर रहे हैं, या आप इसका उपयोग प्रेम करने, अपनाने, अपने वास्तविक स्वरूप में बढ़ने और उस उद्देश्य को प्राप्त करने के लिए कर रहे हैं जिसके लिए आप पैदा हुए थे?",
+            btn_return: "वापस जाएं"
+        },
+        'kn': {
+            main_title: "ಫೆಬ್ರವರಿ 2026", main_subtitle: "ಸಂತ ತುಳಸೀದಾಸರ ಕಥೆ",
+            card_media_title: "ಪವಿತ್ರ ಮಾಧ್ಯಮ", card_media_desc: "ತುಳಸೀದಾಸರ ಜೀವನ ಮತ್ತು ಅಮರ ಕೃತಿಗಳನ್ನು ಒಳಗೊಂಡ ಪ್ಲೇಪಟ್ಟಿಗಳು.",
+            btn_view_lib: "ಲೈಬ್ರರಿ ವೀಕ್ಷಿಸಿ →", tag_immersive: "ಅತ್ಯಂತ ತಲ್ಲೀನಗೊಳಿಸುವ",
+            card_journey_title: "ಪರಿವರ್ತನೆ", card_journey_desc: "ಒಂದು ಸಂಪೂರ್ಣ ತಲ್ಲೀನಗೊಳಿಸುವ ಅನುಭವ. ಹೆಡ್‌ಫೋನ್‌ಗಳನ್ನು ಹಾಕಿಕೊಳ್ಳಿ ಮತ್ತು ಆತ್ಮದ ಪಯಣವನ್ನು ವೀಕ್ಷಿಸಿ.",
+            btn_begin: "ಪ್ರಯಾಣ ಪ್ರಾರಂಭಿಸಿ", btn_back_gate: "← ಹಿಂದಕ್ಕೆ",
+            lib_title: "ಪವಿತ್ರ ಧ್ವನಿಗಳು", lib_intro: "ಸಂತ ತುಳಸೀದಾಸರ ಡಿಜಿಟಲ್ ಲೋಕಕ್ಕೆ ಸುಸ್ವಾಗತ.",
+            vid_sec_story: "ತುಳಸೀದಾಸರ ಕಥೆ", vid_sec_songs: "ತುಳಸೀದಾಸರ ಕೃತಿಗಳು",
+            audio_status: "🔊 ಧ್ವನಿ: ಸಕ್ರಿಯ", btn_exit: "ನಿರ್ಗಮಿಸಿ",
+            journey_title: "ತುಳಸೀದಾಸ: ಪರಿವರ್ತನೆ", journey_subtitle: "ಅವರು ಒಮ್ಮೆ ನಮ್ಮಂತೆಯೇ ಲೌಕಿಕ ಆಸೆಗಳಿಂದ ಪ್ರೇರಿತರಾಗಿದ್ದವರು. ಆತ್ಮದ ಮರುನಿರ್ದೇಶನವನ್ನು ಸಾಕ್ಷಿಯಿ.",
+            scene1_title: "ಭೀಕರ ಚಂಡಮಾರುತ", scene1_p1: "ರಾಮನನ್ನು ಕಂಡುಕೊಳ್ಳುವ ಮೊದಲು, ತುಳಸೀದಾಸರು ತಮ್ಮ ಪತ್ನಿ ರತ್ನಾವಳಿಯ ವ್ಯಾಮೋಹದಲ್ಲಿದ್ದರು. ಒಂದು ರಾತ್ರಿ, ಅವಳಿಲ್ಲದೆ ಇರಲಾರದೆ, ಅವರು ಪ್ರಪಂಚವೇ ಅಂತ್ಯಗೊಳ್ಳುವಂತೆ ತೋರುವ ಭೀಕರ ಚಂಡಮಾರುತದಲ್ಲಿ ಹೊರಟರು.",
+            scene1_p2: "ಭಾರಿ ಮಳೆ ಅವರ ಕಣ್ಣುಗಳನ್ನು ಕುರುಡಾಗಿಸಿತು, ಆದರೆ ಅವರ ಆಸೆ ಅವರ ಆತ್ಮವನ್ನು ಕುರುಡಾಗಿಸಿತು.",
+            scene2_title: "ವ್ಯಾಮೋಹದಿಂದ ಕುರುಡ", scene2_p1: "ಅವರು ಉಕ್ಕಿ ಹರಿಯುವ ಯಮುನಾ ನದಿಯನ್ನು ತಲುಪಿದರು. ದಾಟಲು ಮರದ ದಿಮ್ಮಿ ಎಂದು ಭಾವಿಸಿ, ಅವರು ಶವವನ್ನು ಹಿಡಿದುಕೊಂಡರು.",
+            scene2_p2: "ವಾಸ್ತವವಾಗಿ, ಅವರು <span class='highlight'>ಮಾನವ ಶವ</span>ವನ್ನು ತಬ್ಬಿಕೊಂಡಿದ್ದರು. ನಿಜವಾದ ಜೀವನವು ದೈವಿಕತೆಯಲ್ಲಿ ಕಾಯುತ್ತಿದೆ ಎಂದು ತಿಳಿಯದೆ, ಅವರು ಸುಖವನ್ನು ಅರಸಿ ಸಾವನ್ನು ಹಿಡಿದಿದ್ದರು.",
+            scene3_title: "ಸತ್ಯದ ಕನ್ನಡಿ", scene3_p1: "ಅವಳ ಕೋಣೆಯನ್ನು ಪ್ರವೇಶಿಸಲು ಅವರು <span class='highlight'>ವಿಷಪೂರಿತ ಹಾವನ್ನು</span> ಏರಿದರು. ಪ್ರೀತಿಯ ಸ್ವಾಗತವನ್ನು ನಿರೀಕ್ಷಿಸಿದ ಅವರಿಗೆ, ರತ್ನಾವಳಿಯ ಆಘಾತ ಎದುರಾಯಿತು.",
+            scene3_p2: "\"ಶ್ರೀರಾಮನ ಮೇಲಿರುವ ಈ ಭಕ್ತಿಯ ಅರ್ಧದಷ್ಟು ನೀವು ಹೊಂದಿದ್ದರೆ, ನೀವು ಭವಸಾಗರವನ್ನು ಎಂದಿಗೂ ದಾಟುತ್ತಿದ್ದಿರಿ\".",
+            scene4_title: "ಬದಲಾವಣೆ", scene4_p1: "ಭ್ರಮೆ ಕಳಚಿತು. ಒಳಗೆ ಬರಲು ಎಲ್ಲವನ್ನೂ ಪಣಕ್ಕಿಟ್ಟ ಮನುಷ್ಯ, ಈಗ ರಾತ್ರಿಯ ಕತ್ತಲೆಯಲ್ಲಿ ಹೊರನಡೆದರು - ಸತ್ಯದ ಬೆಳಕಿಗಾಗಿ ತಮ್ಮ ಮನೆಯನ್ನು ತೊರೆದರು.",
+            scene5_title: "ಚಕ್ರವರ್ತಿ ಮತ್ತು ಪವಾಡ", scene5_p1: "ಪವಾಡವನ್ನು ಮಾಡಲು ನಿರಾಕರಿಸಿದ್ದಕ್ಕಾಗಿ ಚಕ್ರವರ್ತಿ ಅಕ್ಬರ್ ತುಳಸೀದಾಸರನ್ನು ಜೈಲಿನಲ್ಲಿಟ್ಟರು ಎಂದು ಕಥೆ ಹೇಳುತ್ತದೆ. ಜೈಲಿನಲ್ಲಿ, ಅವರು <strong>ಹನುಮಾನ್ ಚಾಲೀಸಾ</strong>ವನ್ನು ರಚಿಸಿದರು.",
+            scene5_p2: "ಅನಿರೀಕ್ಷಿತವಾಗಿ, ಕೋತಿಗಳ ಸೈನ್ಯವು ಅರಮನೆಯ ಮೇಲೆ ದಾಳಿ ಮಾಡಿತು, ಅಕ್ಬರ್ ಸಂತರನ್ನು ಗೌರವದಿಂದ ಬಿಡುಗಡೆ ಮಾಡಲು ಒತ್ತಾಯಿಸಿತು.",
+            urge_title: "ತುಳಸೀದಾಸರ \"ತುಡಿತ\"", urge_p1: "ನಮ್ಮೆಲ್ಲರಲ್ಲೂ \"ತುಳಸೀದಾಸರ ತುಡಿತ\" ಇದೆ - ತಾತ್ಕಾಲಿಕ ವಸ್ತುಗಳನ್ನು ಬೆನ್ನಟ್ಟಲು ನಾವು ಬಳಸುವ ತೀವ್ರವಾದ ಶಕ್ತಿ.",
+            urge_p2: "ಕಥೆಯು ಆಸೆಯನ್ನು ಕೊಲ್ಲುವುದರ ಬಗ್ಗೆ ಅಲ್ಲ, ಆದರೆ <strong>ಅದನ್ನು ಮರುನಿರ್ದೇಶಿಸುವ</strong> ಬಗ್ಗೆ.",
+            urge_p3: "<strong>ಇದೇ ಭಕ್ತಿ:</strong> ದೈವಿಕತೆಯ ದೀಪವನ್ನು ಬೆಳಗಿಸಲು ಮಾನವನ ಆಸೆಯ ಬೆಂಕಿಯನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು.",
+            observe_title: "ಆತ್ಮಾವಲೋಕನ ಮಾಡಿ", observe_text: "ನಿಮ್ಮ ಸುಡುವ ಆಸೆಯನ್ನು ನೀವು ಹೇಗೆ ತೃಪ್ತಿಪಡಿಸುತ್ತಿದ್ದೀರಿ? ಅಲ್ಪಕಾಲದ ಲಾಭಕ್ಕಾಗಿ ನಿಮ್ಮ ಶಕ್ತಿಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಾ, ಅಥವಾ ಪ್ರೀತಿಸಲು, ಅಪ್ಪಿಕೊಳ್ಳಲು, ನಿಮ್ಮ ನೈಜ ಸ್ವರೂಪದಲ್ಲಿ ಬೆಳೆಯಲು ಮತ್ತು ನೀವು ಹುಟ್ಟಿದ ಉದ್ದೇಶವನ್ನು ಸಾಧಿಸಲು ಬಳಸುತ್ತಿದ್ದೀರಾ?",
+            btn_return: "ಹಿಂದಕ್ಕೆ ಹೋಗಿ"
+        },
+        'te': {
+            main_title: "ఫిబ్రవరి 2026", main_subtitle: "సంత్ తులసీదాస్ గాథ",
+            card_media_title: "పవిత్ర మీడియా", card_media_desc: "తులసీదాస్ జీవితం మరియు అమర రచనల ప్లేలిస్ట్‌లు.",
+            btn_view_lib: "లైబ్రరీ చూడండి →", tag_immersive: "లీనమయ్యే అనుభవం",
+            card_journey_title: "పరిణామం", card_journey_desc: "పూర్తి లీనమయ్యే అనుభవం. హెడ్‌ఫోన్‌లు పెట్టుకోండి మరియు తీవ్రమైన తుఫానుల ద్వారా ఆత్మ యొక్క ప్రయాణాన్ని చూడండి.",
+            btn_begin: "ప్రయాణం ప్రారంభించండి", btn_back_gate: "← వెనుకకు",
+            lib_title: "పవిత్ర ధ్వనులు", lib_intro: "సంత్ తులసీదాస్ డిజిటల్ ప్రపంచానికి స్వాగతం.",
+            vid_sec_story: "తులసీదాస్ కథ", vid_sec_songs: "తులసీదాస్ రచనలు",
+            audio_status: "🔊 ఆడియో: యాక్టివ్", btn_exit: "నిష్క్రమించు",
+            journey_title: "తులసీదాస్: పరిణామం", journey_subtitle: "ఆయన ఒకప్పుడు మనలాగే లౌకిక కోరికలతో ఉండేవారు. ఒక ఆత్మ యొక్క మలుపును చూడండి.",
+            scene1_title: "తీవ్రమైన తుఫాను", scene1_p1: "రాముడిని కనుగొనక ముందు, తులసీదాస్ తన భార్య రత్నావళి పట్ల అమితమైన ప్రేమతో ఉండేవారు. ఒక రాత్రి, ఆమె లేకపోవడాన్ని తట్టుకోలేక, ప్రపంచం అంతమయ్యేలా అనిపించే భయంకరమైన తుఫానులో బయలుదేరారు.",
+            scene1_p2: "భారీ వర్షం ఆయన కళ్లను కప్పివేసింది, కానీ ఆయన కోరిక ఆయన ఆత్మను కప్పివేసింది.",
+            scene2_title: "మమకారంతో అంధత్వం", scene2_p1: "ఆయన ఉప్పొంగే యమునా నదిని చేరుకున్నారు. దాటడానికి చెక్క దుంగ అనుకుని, ఒక శవాన్ని పట్టుకున్నారు.",
+            scene2_p2: "నిజానికి, ఆయన ఒక <span class='highlight'>మానవ శవాన్ని</span> పట్టుకున్నారు. నిజమైన జీవితం దైవత్వంలో వేచి ఉందని తెలియక, ఆయన సుఖం కోసం మరణాన్ని పట్టుకున్నారు.",
+            scene3_title: "సత్యం యొక్క అద్దం", scene3_p1: "ఆమె గదిలోకి ప్రవేశించడానికి ఆయన ఒక <span class='highlight'>విషపామును</span> ఎక్కారు. ప్రేమపూర్వక స్వాగతాన్ని ఆశించిన ఆయనకు, రత్నావళి భయం ఎదురైంది.",
+            scene3_p2: "\"రాముడిపై ఉన్న ఈ భక్తిలో సగం మీకు ఉంటే, మీరు భవసాగరాన్ని ఎప్పటికీ దాటేవారు\".",
+            scene4_title: "మార్పు", scene4_p1: "భ్రమ తొలగిపోయింది. లోపలికి రావడానికి సర్వస్వం పణంగా పెట్టిన వ్యక్తి, ఇప్పుడు రాత్రి చీకటిలోకి నడిచాడు - సత్యం యొక్క వెలుగు కోసం తన ఇంటిని వదిలిపెట్టాడు.",
+            scene5_title: "చక్రవర్తి & అద్భుతం", scene5_p1: "అద్భుతం చేయడానికి నిరాకరించినందుకు చక్రవర్తి అక్బర్ తులసీదాస్‌ను జైలులో పెట్టాడని కథ చెబుతుంది. జైలులో, ఆయన <strong>హనుమాన్ చాలీసా</strong> రచించారు.",
+            scene5_p2: "హఠాత్తుగా, కోతుల సైన్యం రాజభవనంపై దాడి చేసింది, అక్బర్ గౌరవంతో సంతును విడుదల చేయవలసి వచ్చింది.",
+            urge_title: "తులసీదాస్ \"తపన\"", urge_p1: "మనందరిలోనూ \"తులసీదాస్ తపన\" ఉంది - తాత్కాలిక విషయాలను వెంబడించడానికి మనం ఉపయోగించే తీవ్రమైన శక్తి.",
+            urge_p2: "కథ కోరికను చంపడం గురించి కాదు, <strong>దానిని మళ్లించడం</strong> గురించి.",
+            urge_p3: "<strong>ఇదే భక్తి:</strong> దైవత్వం యొక్క దీపాన్ని వెలిగించడానికి మానవ కోరిక అనే నిప్పును తీసుకోవడం.",
+            observe_title: "మిమ్మల్ని మీరు గమనించుకోండి", observe_text: "మీరు మీ మండుతున్న కోరికను ఎలా తీర్చుకుంటున్నారు? మీరు మీ శక్తిని స్వల్పకాలిక లాభం కోసం ఉపయోగిస్తున్నారా, లేదా ప్రేమించడానికి, స్వీకరించడానికి, మీ నిజమైన స్వరూపంలో ఎదగడానికి మరియు మీరు పుట్టిన ఉద్దేశ్యాన్ని సాధించడానికి ఉపయోగిస్తున్నారా?",
+            btn_return: "తిరిగి వెళ్ళండి"
+        }
+    };
 
-        // 2. NAVIGATION
-        function showSection(id) {
-            document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if (target) target.classList.add('active');
-            
-            const logo = document.getElementById('celestial-logo');
-            if (id === 'feb-journey') { 
-                logo.className = 'moon-cloudy';
+    // --- LOGIC ---
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.body.className = 'lang-' + lang;
+        
+        // Update all text elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+        });
+
+        // Show Gateway Screen
+        document.getElementById('lang-gateway').classList.add('hidden');
+        setTimeout(() => {
+            document.getElementById('lang-gateway').style.display = 'none';
+            document.getElementById('gateway-screen').style.display = 'flex';
+            document.getElementById('gateway-screen').style.opacity = '1';
+        }, 1000);
+    }
+
+    // 1. SOUND ASSETS (Balanced Mix)
+    const rainAudio = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
+    const thunderAudio = new Audio('https://www.soundjay.com/nature/thunder-01.mp3');
+    const sitarAudio = new Audio('https://www.orangefreesounds.com/wp-content/uploads/2014/10/Sitar-music.mp3');
+    
+    // Balanced Volume Levels
+    rainAudio.volume = 0.05; 
+    thunderAudio.volume = 0.05; 
+    sitarAudio.volume = 0.3;
+    
+    rainAudio.loop = true;
+    sitarAudio.loop = true;
+
+    let currentPath = '';
+
+    // 2. ROUTING LOGIC
+    function openPath(path) {
+        currentPath = path;
+        document.getElementById('gateway-screen').style.opacity = '0';
+        
+        setTimeout(() => {
+            document.getElementById('gateway-screen').style.display = 'none';
+            if(path === 'media') {
+                document.getElementById('media-library').style.display = 'block';
             } else {
-                rainSound.pause();
-                document.getElementById('rain-container').style.opacity = "0";
+                document.getElementById('immersive-journey').style.display = 'block';
+                document.getElementById('audio-status').style.display = 'block';
+                // Trigger Audio
+                rainAudio.play().catch(e => console.log("Audio block"));
             }
-            window.scrollTo(0,0);
-        }
+        }, 1000);
+    }
 
-        // 3. UTILITIES
-        function revealOnlyMsg(msgId, btn) {
-            document.getElementById(msgId).style.display = 'block';
-            btn.style.display = 'none';
-        }
+    // 3. VISUAL EFFECTS
+    function triggerLightning() {
+        const flash = document.getElementById('lightning-flash');
+        flash.style.animation = "flashEffect 0.6s ease-out";
+        thunderAudio.play();
+        setTimeout(() => flash.style.animation = "", 700);
+    }
 
-        function triggerLightning() {
-            const flash = document.getElementById('lightning-flash');
-            flash.style.animation = "flashEffect 0.6s ease-out";
-            thunderSound.play();
-            setTimeout(() => flash.style.animation = "", 700);
-        }
-
-        // 4. RAIN GENERATOR
-        const rainCont = document.getElementById('rain-container');
-        for(let i=0; i<100; i++) {
-            const drop = document.createElement('div');
-            drop.className = 'drop';
-            drop.style.left = Math.random() * 100 + 'vw';
-            drop.style.animationDuration = (Math.random() * 0.4 + 0.3) + 's';
-            rainCont.appendChild(drop);
-        }
-
-        // 5. IMMERSIVE OBSERVER
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const logo = document.getElementById('celestial-logo');
-                    if (['storm-start', 'corpse-sec'].includes(entry.target.id)) {
-                        document.getElementById('rain-container').style.opacity = "1";
-                        logo.className = 'moon-cloudy';
-                        rainSound.play();
-                    } else if (entry.target.id === 'wake-sec') {
-                        triggerLightning();
+    // 4. SCROLL OBSERVER (Audio Director)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && currentPath === 'journey') {
+                entry.target.classList.add('active');
+                
+                // SCENE 1: STORM
+                if (['storm-start', 'corpse-section'].includes(entry.target.id)) {
+                    document.getElementById('rain-container').style.opacity = "1";
+                    if(rainAudio.paused) rainAudio.play();
+                    sitarAudio.pause();
+                } 
+                
+                // SCENE 2: SHOCK
+                if (entry.target.id === 'wake-up') {
+                    triggerLightning();
+                    setTimeout(() => {
                         document.getElementById('rain-container').style.opacity = "0";
-                        rainSound.pause();
-                    } else if (entry.target.id === 'the-shift' || entry.target.closest('.theme-light')) {
-                        logo.className = 'sun-radiant';
-                        document.getElementById('rain-container').style.opacity = "0";
-                        rainSound.pause();
-                    }
+                        rainAudio.pause();
+                    }, 2500);
                 }
-            });
-        }, { threshold: 0.5 });
 
-        document.querySelectorAll('.immersive-sec').forEach(s => observer.observe(s));
-    </script>
+                // SCENE 3: SHIFT (Sitar)
+                if (entry.target.id === 'the-shift') {
+                    document.getElementById('rain-container').style.opacity = "0";
+                    rainAudio.pause();
+                    sitarAudio.currentTime = 0;
+                    sitarAudio.play();
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+    
+    // 5. RAIN GENERATOR
+    const rainContainer = document.getElementById('rain-container');
+    for(let i=0; i<100; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.animationDuration = (Math.random() * 0.4 + 0.3) + 's';
+        rainContainer.appendChild(drop);
+    }
+</script>
 </body>
 </html>
