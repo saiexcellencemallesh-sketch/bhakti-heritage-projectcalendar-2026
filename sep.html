@@ -27,9 +27,11 @@
             line-height: 1.8;
         }
 
-        /* Celestial Logo - Radiant Sun Theme for September */
+        /* Celestial Logo - Radiant Sun Theme */
+        /* Changed to absolute so it doesn't float over content while scrolling */
         #celestial-logo {
-            position: fixed; z-index: 999; width: 110px; height: 110px; border-radius: 50%;
+            position: absolute; 
+            z-index: 999; width: 110px; height: 110px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
             left: 30px; top: 30px;
@@ -113,7 +115,7 @@
 
         .miracle-box h3 { font-family: 'Cinzel', serif; margin-top: 0; color: var(--palace-gold); }
 
-        /* Video System - 3 Card Layout */
+        /* Video System */
         .video-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px; margin-top: 40px;
@@ -142,7 +144,7 @@
 
         @media (max-width: 600px) {
             header { height: 45vh; }
-            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; }
+            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; position: absolute; }
             .portrait-container img { width: 180px; height: 180px; }
             .portrait-container { margin-top: -80px; }
         }
@@ -223,6 +225,13 @@
                     <iframe src="https://www.youtube.com/embed/6ihKc-NUwZU?si=z2A6SEn5sKKjoS2m" allowfullscreen></iframe>
                 </div>
                 <div class="video-desc">The ISKCON Perspective</div>
+            </div>
+
+            <div class="video-card">
+                <div class="iframe-wrap">
+                    <iframe src="https://www.youtube.com/embed/i8HnmuZMmbk?si=VgHDLI7KWXnBXsEg" allowfullscreen></iframe>
+                </div>
+                <div class="video-desc">New Addition</div>
             </div>
 
         </div>
