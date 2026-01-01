@@ -39,16 +39,16 @@
             padding: 12px; color: #4e342e;
         }
         
-        /* STATE 1: MOON (Intro) - SCROLLS WITH PAGE */
+        /* STATE 1: MOON (Intro) - POSITION ABSOLUTE SO IT SCROLLS UP */
         .moon { 
-            position: absolute; /* Allows it to scroll up */
+            position: absolute; 
             background: #fff; box-shadow: 0 0 40px rgba(255,255,255,0.8); border: 2px solid #eee; 
-            left: 50%; top: 60px; transform: translateX(-50%);
+            left: 50%; top: 80px; transform: translateX(-50%);
         }
         
-        /* STATE 2: SUN (Main Content) - STICKY HEADER */
+        /* STATE 2: SUN (Main Content) - POSITION FIXED SO IT STAYS */
         .sun { 
-            position: fixed; /* Stays stuck to corner */
+            position: fixed; 
             background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
             border: 3px double var(--gold); box-shadow: 0 0 60px rgba(255, 174, 0, 0.8); 
             left: 20px; top: 20px; transform: translateX(0);
@@ -81,14 +81,15 @@
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
             color: #fff; padding: 20px;
             text-align: center;
-            overflow-y: auto; /* Allows scrolling */
+            /* Allow scrolling so user can scroll moon up */
+            overflow-y: auto; 
             position: relative;
         }
         
         /* Card Positioned BELOW the Moon */
         .intro-card {
-            margin-top: 200px; /* Space for Moon */
-            margin-bottom: 50px;
+            margin-top: 240px; /* Space for Moon */
+            margin-bottom: 60px;
             max-width: 600px;
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(10px);
@@ -158,16 +159,18 @@
             border-left: 4px solid #3e2723; z-index: 2;
         }
 
-        /* Mobile Layout for Map (Stacked) */
+        /* MOBILE MAP LAYOUT: STACKED (Map on Top, Info on Bottom) */
         @media (max-width: 768px) {
             #chapter-2 { padding: 0; }
             .wooden-frame { flex-direction: column; border-width: 5px; }
+            .map-body { flex-direction: column; }
+            
+            #map { flex: 2; width: 100%; }
             #sidebar { 
-                position: absolute; bottom: 0; left: 0; width: 100%; max-width: 100%; height: 40%; 
+                flex: 1; width: 100%; max-width: 100%; 
                 border-left: none; border-top: 4px solid #3e2723; 
-                z-index: 1000; /* On top of map */
+                box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
             }
-            #map { height: 100%; } /* Map takes full space behind sidebar */
         }
 
         .map-exit-btn {
@@ -700,7 +703,7 @@
                     te: "మొదటి తెలుగు వాగ్గేయకారుడు. వెంకటేశ్వరునిపై 32,000 సంకీర్తనలు రాశారు."
                 },
                 work: { en: "Sankirtanas", hi: "संकीर्तन", kn: "ಸಂಕೀರ್ತನೆಗಳು", te: "సంకీర్తనలు" },
-                impact: { en: "Bhakti music.", hi: "भक्ति संगीत।", kn: "ಭಕ್ತಿ ಸಂಗೀತ.", te: "భక్తి సంగీతం." },
+                impact: { en: "Bhakti music.", hi: "भक्ति संगीत।", kn: "ಭಕ್ತಿ ಸಂಗೀತ.", te: "ಭಕ್ತಿ ಸಂಗೀತ." },
                 fact: { en: "Songs found on copper plates.", hi: "तांबे की प्लेटों पर गीत मिले।", kn: "ತಾಮ್ರದ ತಗಡುಗಳಲ್ಲಿ ಹಾಡುಗಳು ಲಭ್ಯವಾದವು.", te: "రాగి రేకులపై పాటలు లభించాయి." },
                 dyk: { en: "Considered incarnation of Lord's sword.", hi: "भगवान की तलवार का अवतार माना जाता है।", kn: "ದೇವರ ಕತ್ತಿಯ (ನಂದಕ) ಅವತಾರ ಎಂದು ಪರಿಗಣಿಸಲಾಗಿದೆ.", te: "స్వామి ఖడ్గం (నందకం) అవతారంగా భావిస్తారు." }
             },
@@ -713,7 +716,7 @@
                     te: "భాగవతాన్ని తెలుగులోకి అనువదించిన రైతు కవి."
                 },
                 work: { en: "Andhra Bhagavatam", hi: "आंध्र भागवतम्", kn: "ಆಂಧ್ರ ಭಾಗವತಂ", te: "ఆంధ్ర భాగవతం" },
-                impact: { en: "Natural poetry (Sahaja Kavi).", hi: "सहज कवि।", kn: "ಸಹಜ ಕವಿ.", te: "సహజ కవి." },
+                impact: { en: "Natural poetry (Sahaja Kavi).", hi: "सहज कवि।", kn: "ಸಹಜ ಕವಿ.", te: "ಸಹಜ ಕವಿ." },
                 fact: { en: "Refused to dedicate book to King.", hi: "राजा को किताब समर्पित करने से मना कर दिया।", kn: "ರಾಜನಿಗೆ ಕೃತಿ ಅರ್ಪಿಸಲು ನಿರಾಕರಿಸಿದರು.", te: "రాజుకు గ్రంథాన్ని అంకితం ఇవ్వడానికి నిరాకరించారు." },
                 dyk: { en: "Saraswati herself helped him write.", hi: "सरस्वती ने स्वयं उन्हें लिखने में मदद की।", kn: "ಸರಸ್ವತಿಯೇ ಬರೆಯಲು ನೆರವಾದಳು ಎಂದು ನಂಬಲಾಗಿದೆ.", te: "సరస్వతీ దేవి స్వయంగా రాయడానికి సాయం చేసింది." }
             },
@@ -749,7 +752,7 @@
                     en: "Grocer saint. His Abhangas defined Marathi culture.",
                     hi: "दुकानदार संत। उनके अभंगों ने मराठी संस्कृति को परिभाषित किया।",
                     kn: "ವ್ಯಾಪಾರಿ ಸಂತ. ಇವರ ಅಭಂಗಗಳು ಮರಾಠಿ ಸಂಸ್ಕೃತಿಯನ್ನು ರೂಪಿಸಿದವು.",
-                    te: "వ్యాపారిగా జీవించిన సంతు. వీరి అభంగాలు మరాఠీ సంస్కృతిని నిర్వచించాయి."
+                    te: "ವ್ಯಾಪಾರಿగా జీవించిన సంతు. వీరి అభంగాలు మరాఠీ సంస్కృతిని నిర్వచించాయి."
                 },
                 work: { en: "Abhangas", hi: "अभंग", kn: "ಅಭಂಗಗಳು", te: "అభంగాలు" },
                 impact: { en: "Varkari tradition.", hi: "वारकरी परंपरा।", kn: "ವಾರ್ಕರಿ ಸಂಪ್ರದಾಯ.", te: "వార్కరీ సంప్రదాయం." },
@@ -816,7 +819,7 @@
                     kn: "ಕೃಷ್ಣನಿಗಾಗಿ ಜೋಗಿಯಾದ ರಾಜಕುಮಾರಿ.",
                     te: "కృష్ణుడి కోసం సన్యాసినిగా మారిన రాజకుమారి."
                 },
-                work: { en: "Bhajans", hi: "भजन", kn: "ಭಜನೆಗಳು", te: "భజనలు" },
+                work: { en: "Bhajans", hi: "भजन", kn: "ಭಜನೆಗಳು", te: "ಭಜನೆಗಳು" },
                 impact: { en: "Symbol of pure devotion.", hi: "शुद्ध प्रेम और भक्ति का प्रतीक।", kn: "ಶುದ್ಧ ಭಕ್ತಿಯ ಸಂಕೇತ.", te: "స్వచ్ఛమైన భక్తికి ప్రతీక." },
                 fact: { en: "Poison turned to nectar.", hi: "विष अमृत में बदल गया।", kn: "ವಿಷ ಅಮೃತವಾಯಿತು.", te: "విషం అమృతంగా మారింది." },
                 dyk: { en: "Merged into Krishna's idol.", hi: "कृष्ण की मूर्ति में समा गईं।", kn: "ಕೃಷ್ಣನ ವಿಗ್ರಹದಲ್ಲಿ ಲೀನವಾದರು.", te: "కృష్ణుడి విగ్రహంలో ఐక్యమయ్యారు." }
@@ -855,7 +858,7 @@
                     kn: "ಚಮ್ಮಾರ ಸಂತ. ಕಾಯಕದ ಘನತೆಯನ್ನು ಸಾರಿದರು.",
                     te: "చర్మకారుడైన సంతు. శ్రమ గౌరవాన్ని చాటారు."
                 },
-                work: { en: "Bhajans", hi: "भजन (बानी)", kn: "ಭಜನೆಗಳು", te: "భజనలు" },
+                work: { en: "Bhajans", hi: "भजन (बानी)", kn: "ಭಜನೆಗಳು", te: "ಭಜನೆಗಳು" },
                 impact: { en: "Equality of castes.", hi: "जातिगत समानता।", kn: "ಜಾತಿ ಸಮಾನತೆ.", te: "కుల సమానత్వం." },
                 fact: { en: "Ganga appeared in his water tub.", hi: "उनकी कठौती (पानी के बर्तन) में गंगा प्रकट हुईं।", kn: "ನೀರಿನ ತೊಟ್ಟಿಯಲ್ಲಿ ಗಂಗೆ ಪ್ರತ್ಯಕ್ಷಳಾದಳು.", te: "నీటి తొట్టిలో గంగ ప్రత్యక్షమైంది." },
                 dyk: { en: "Guru of Mirabai.", hi: "वे मीराबाई के गुरु थे।", kn: "ಮೀರಾಬಾಯಿಯ ಗುರು.", te: "మీరాబాయికి గురువు." }
@@ -868,7 +871,7 @@
                     kn: "ಅಂಧ ಕವಿ. ಕೃಷ್ಣನ ಬಾಲ್ಯವನ್ನು ಅದ್ಭುತವಾಗಿ ವರ್ಣಿಸಿದರು.",
                     te: "అంధ కవి. కృష్ణుడి బాల్యాన్ని కళ్లకు కట్టినట్లు వర్ణించారు."
                 },
-                work: { en: "Sur Sagar", hi: "सूर सागर", kn: "ಸೂರ್ ಸಾಗರ್", te: "సూర్ సాగర్" },
+                work: { en: "Sur Sagar", hi: "सूर सागर", kn: "ಸೂರ್ ಸಾಗರ್", te: "సూర్ సాగರ್" },
                 impact: { en: "Bhakti literature.", hi: "भक्ति साहित्य को समृद्ध किया।", kn: "ಭಕ್ತಿ ಸಾಹಿತ್ಯ.", te: "ಭಕ್ತಿ ಸಾಹಿತ್ಯ." },
                 fact: { en: "Krishna saved him from a well.", hi: "कृष्ण ने उन्हें कुएं में गिरने से बचाया।", kn: "ಬಾವಿಯಿಂದ ಕೃಷ್ಣ ರಕ್ಷಿಸಿದನು.", te: "బావి నుండి కృష్ణుడు రక్షించాడు." },
                 dyk: { en: "Wrote 100,000 songs.", hi: "एक लाख पद रचे।", kn: "ಒಂದು ಲಕ್ಷ ಹಾಡುಗಳನ್ನು ಬರೆದರು.", te: "లక్ష పాటలు రాశారు." }
@@ -897,7 +900,7 @@
                 work: { en: "Siksastakam", hi: "शिक्षाष्टकम", kn: "ಶಿಕ್ಷಾಷ್ಟಕಂ", te: "శిక్షాష్టకం" },
                 impact: { en: "Gaudiya Vaishnavism.", hi: "गौड़ीय वैष्णव धर्म की नींव रखी।", kn: "ಗೌಡೀಯ ವೈಷ್ಣವ ಪಂಥ.", te: "గౌడీయ వైష్ణవ మత స్థాపన." },
                 fact: { en: "Popularized Hare Krishna Mantra.", hi: "हरे कृष्ण महामंत्र को घर-घर पहुँचाया।", kn: "ಹರೇ ಕೃಷ್ಣ ಮಂತ್ರವನ್ನು ಪ್ರಚಾರ ಮಾಡಿದರು.", te: "హరే కృష్ణ మంత్రాన్ని ప్రాచుర్యంలోకి తెచ్చారు." },
-                dyk: { en: "Fainted in ecstasy often.", hi: "अक्सर भक्ति में लीन होकर बेहोश हो जाते थे।", kn: "ಭಕ್ತಿಯ ಪಾರವಶ್ಯದಲ್ಲಿ ಎಚ್ಚರ ತಪ್ಪುತ್ತಿದ್ದರು.", te: "భక్తి పారవశ్యంలో తరచుగా స్పృహ కోల్పోయేవారు." }
+                dyk: { en: "Fainted in ecstasy often.", hi: "अक्सर भक्ति में लीन होकर बेहोश हो जाते थे।", kn: "ಭಕ್ತಿಯ ಪಾರವಶ್ಯದಲ್ಲಿ ಎಚ್ಚರ ತಪ್ಪುತ್ತಿದ್ದರು.", te: "ಭಕ್ತಿಯ ಪಾರವಶ್ಯದಲ್ಲಿ ಎಚ್ಚರ ತಪ್ಪುತ್ತಿದ್ದರು." }
             },
             'sankardev': {
                 name: { en: 'Sankardev', hi: 'श्रीमंत शंकरदेव', kn: 'ಶಂಕರದೇವ', te: 'శంకరదేవ్' },
@@ -908,9 +911,9 @@
                     te: "అస్సామీ పండితుడు. భక్తి ప్రచారం కోసం కళను వాడారు."
                 },
                 work: { en: "Kirtan Ghosa", hi: "कीर्तन घोषा", kn: "ಕೀರ್ತನ ಘೋಷಾ", te: "కీర్తన ఘోష" },
-                impact: { en: "Sattriya Dance.", hi: "सत्रिया नृत्य और सत्र संस्कृति।", kn: "ಸತ್ರಿಯಾ ನೃತ್ಯ.", te: "సತ్రియ ನೃತ್ಯ." },
-                fact: { en: "Established Satras.", hi: "मठों (सत्रों) की स्थापना की।", kn: "ಸತ್ರಗಳನ್ನು (ಮಠ) ಸ್ಥಾಪಿಸಿದರು.", te: "సత్రాలను (మఠాలను) స్థాపించారు." },
-                dyk: { en: "Wrote plays (Ankiya Nat).", hi: "एक अंकीय नाटक (अंकिया नट) लिखे।", kn: "ಅಂಕಿಯ ನಾಟ್ ಎಂಬ ನಾಟಕಗಳನ್ನು ಬರೆದರು.", te: "అంకియ నాట్ అనే నాటకాలు రాశారు." }
+                impact: { en: "Sattriya Dance.", hi: "सत्रिया नृत्य और सत्र संस्कृति।", kn: "ಸತ್ರಿಯಾ ನೃತ್ಯ.", te: "ಸತ್ರಿಯಾ ನೃತ್ಯ." },
+                fact: { en: "Established Satras.", hi: "मठों (सत्रों) की स्थापना की।", kn: "ಸತ್ರಗಳನ್ನು (ಮಠ) ಸ್ಥಾಪಿಸಿದರು.", te: "ಸತ್ರಗಳನ್ನು ಸ್ಥಾಪಿಸಿದರು." },
+                dyk: { en: "Wrote plays (Ankiya Nat).", hi: "एक अंकीय नाटक (अंकिया नट) लिखे।", kn: "ಅಂಕಿಯ ನಾಟ್ ಎಂಬ ನಾಟಕಗಳನ್ನು ಬರೆದರು.", te: "ಅಂಕಿಯ ನಾಟ್ ಎಂಬ ನಾಟಕಗಳನ್ನು ಬರೆದರು." }
             },
             'jayadeva': {
                 name: { en: 'Jayadeva', hi: 'जयदेव', kn: 'ಜಯದೇವ', te: 'జయదేవ' },
@@ -921,9 +924,9 @@
                     te: "మహా సంస్కృత కవి. గీత గోవిందం రాశారు."
                 },
                 work: { en: "Gita Govinda", hi: "गीत गोविंद", kn: "ಗೀತ ಗೋವಿಂದ", te: "గీత గోవిందం" },
-                impact: { en: "Odissi Dance music.", hi: "ओडिसी नृत्य और संगीत का आधार।", kn: "ಒಡಿಸ್ಸಿ ಸಂಗೀತಕ್ಕೆ ಆಧಾರ.", te: "ఒడిస్సీ సంగీతానికి మూలం." },
+                impact: { en: "Odissi Dance music.", hi: "ओडिसी नृत्य और संगीत का आधार।", kn: "ಒಡಿಸ್ಸಿ ಸಂಗೀತಕ್ಕೆ ಆಧಾರ.", te: "ಒಡಿಸ್ಸಿ ಸಂಗೀತಕ್ಕೆ ಆಧಾರ." },
                 fact: { en: "Krishna completed his verse.", hi: "स्वयं कृष्ण ने आकर उनका अधूरा श्लोक पूरा किया।", kn: "ಕೃಷ್ಣನೇ ಬಂದು ಇವರ ಶ್ಲೋಕ ಪೂರ್ಣಗೊಳಿಸಿದನು.", te: "కృష్ణుడే వచ్చి వీరి అసంపూర్ణ శ్లోకాన్ని పూర్తి చేశాడు." },
-                dyk: { en: "His wife Padmavati was a dancer.", hi: "उनकी पत्नी पद्मावती एक नर्तकी थीं जो उनके गीतों पर नृत्य करती थीं।", kn: "ಪತ್ನಿ ಪದ್ಮಾವತಿ ನೃತ್ಯಗಾರ್ತಿಯಾಗಿದ್ದರು.", te: "వారి భార్య పద్మావతి నర్తకి, ఆయన పాటలకు నాట్యం చేసేవారు." }
+                dyk: { en: "His wife Padmavati was a dancer.", hi: "उनकी पत्नी पद्मावती एक नर्तकी थीं जो उनके गीतों पर नृत्य करती थीं।", kn: "ಪತ್ನಿ ಪದ್ಮಾವತಿ ನೃತ್ಯಗಾರ್ತಿಯಾಗಿದ್ದರು.", te: "ಪತ್ನಿ ಪದ್ಮಾವತಿ ನೃತ್ಯಗಾರ್ತಿಯಾಗಿದ್ದರು." }
             },
             'vidyapati': {
                 name: { en: 'Vidyapati', hi: 'विद्यापति', kn: 'ವಿದ್ಯಾಪತಿ', te: 'విద్యాపతి' },
@@ -933,10 +936,10 @@
                     kn: "ಮೈಥಿಲಿ ಕವಿ. ರಾಧಾ-ಕೃಷ್ಣರ ಪ್ರೇಮ ಗೀತೆಗಳನ್ನು ಹಾಡಿದರು.",
                     te: "మైథిలి కవి. రాధా-కృష్ణుల ప్రేమ గీతాలకు ప్రసిద్ధి."
                 },
-                work: { en: "Padavali", hi: "पदावली", kn: "ಪದಾವಳಿ", te: "పదావళి" },
-                impact: { en: "Bengali literature.", hi: "बंगाली और मैथिली साहित्य पर प्रभाव।", kn: "ಬಂಗಾಳಿ ಸಾಹಿತ್ಯದ ಮೇಲೆ ಪ್ರಭಾವ.", te: "బెంగాలీ సాహిత్యంపై ప్రభావం." },
-                fact: { en: "Shiva served him as a servant.", hi: "भगवान शिव ने 'उगना' बनकर उनके घर सेवक के रूप में काम किया।", kn: "ಶಿವನೇ ಸೇವಕನಾಗಿ ಬಂದು ಸೇವೆ ಮಾಡಿದನು.", te: "శివుడే సేవకుడిగా మారి ఈయనకు సేవ చేశాడు." },
-                dyk: { en: "Known as Maithil Kokil.", hi: "उन्हें 'मैथिल कोकिल' कहा जाता है।", kn: "'ಮೈಥಿಲ್ ಕೋಗಿಲೆ' ಎಂದು ಕರೆಯುತ್ತಾರೆ.", te: "'మైథిల్ కోకిల' అని పిలుస్తారు." }
+                work: { en: "Padavali", hi: "पदावली", kn: "ಪದಾವಳಿ", te: "ಪದಾವಳಿ" },
+                impact: { en: "Bengali literature.", hi: "बंगाली और मैथिली साहित्य पर प्रभाव।", kn: "ಬಂಗಾಳಿ ಸಾಹಿತ್ಯದ ಮೇಲೆ ಪ್ರಭಾವ.", te: "ಬಂಗಾಳಿ ಸಾಹಿತ್ಯದ ಮೇಲೆ ಪ್ರಭಾವ." },
+                fact: { en: "Shiva served him as a servant.", hi: "भगवान शिव ने 'उगना' बनकर उनके घर सेवक के रूप में काम किया।", kn: "ಶಿವನೇ ಸೇವಕನಾಗಿ ಬಂದು ಸೇವೆ ಮಾಡಿದನು.", te: "ಶಿವನೇ ಸೇವಕನಾಗಿ ಬಂದು ಸೇವೆ ಮಾಡಿದನು." },
+                dyk: { en: "Known as Maithil Kokil.", hi: "उन्हें 'मैथिल कोकिल' कहा जाता है।", kn: "'ಮೈಥಿಲ್ ಕೋಗಿಲೆ' ಎಂದು ಕರೆಯುತ್ತಾರೆ.", te: "'ಮೈಥಿಲ್ ಕೋಗಿಲೆ' ಎಂದು ಕರೆಯುತ್ತಾರೆ." }
             },
             'lalded': {
                 name: { en: 'Lal Ded', hi: 'लल्लेश्वरी (लल डेड)', kn: 'ಲಲ್ಲೇಶ್ವರಿ (ಲಲ್ ಡೇಡ್)', te: 'లల్ దేడ్' },
@@ -948,8 +951,8 @@
                 },
                 work: { en: "Vakhs", hi: "वाख (कविताएँ)", kn: "ವಾಖ್", te: "వాఖ్" },
                 impact: { en: "Kashmiri culture.", hi: "कश्मीरी भाषा और संस्कृति की जननी।", kn: "ಕಾಶ್ಮೀರಿ ಸಂಸ್ಕೃತಿ.", te: "ಕಾಶ್ಮೀರಿ ಸಂಸ್ಕೃತಿ." },
-                fact: { en: "Roamed naked like Akka Mahadevi.", hi: "अक्का महादेवी की तरह अवधूत अवस्था में रहीं।", kn: "ಅಕ್ಕ ಮಹಾದೇವಿಯಂತೆ ದಿಗಂಬರೆಯಾಗಿದ್ದರು.", te: "అక్క మహాదేవిలా వస్త్రాలు విడిచిపెట్టారు." },
-                dyk: { en: "Revered by Hindus and Muslims.", hi: "हिंदू और मुस्लिम दोनों उनका सम्मान करते हैं।", kn: "ಹಿಂದೂ ಮತ್ತು ಮುಸ್ಲಿಮರು ಗೌರವಿಸುತ್ತಾರೆ.", te: "హిందువులు మరియు ముస్లింలు ఇద్దరూ గౌరవిస్తారు." }
+                fact: { en: "Roamed naked like Akka Mahadevi.", hi: "अक्का महादेवी की तरह अवधूत अवस्था में रहीं।", kn: "ಅಕ್ಕ ಮಹಾದೇವಿಯಂತೆ ದಿಗಂಬರೆಯಾಗಿದ್ದರು.", te: "ಅಕ್ಕ ಮಹಾದೇವಿಯಂತೆ ದಿಗಂಬರೆಯಾಗಿದ್ದರು." },
+                dyk: { en: "Revered by Hindus and Muslims.", hi: "हिंदू और मुस्लिम दोनों उनका सम्मान करते हैं।", kn: "ಹಿಂದೂ ಮತ್ತು ಮುಸ್ಲಿಮರು ಗೌರವಿಸುತ್ತಾರೆ.", te: "ಹಿಂದೂ ಮತ್ತು ಮುಸ್ಲಿಮರು ಗೌರವಿಸುತ್ತಾರೆ." }
             }
         };
 
