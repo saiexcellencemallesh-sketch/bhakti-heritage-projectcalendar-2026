@@ -21,12 +21,34 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body, html { margin: 0; padding: 0; font-family: 'Lora', serif; background: var(--paper); overflow-x: hidden; height: 100%; }
+        body, html { margin: 0; padding: 0; font-family: 'Lora', serif; background: var(--paper); overflow-x: hidden; height: 100%; transition: background 2s ease; }
 
         /* Multilingual Fonts */
         body.lang-hi { font-family: 'Noto Sans Devanagari', 'Lora', serif; }
         body.lang-kn { font-family: 'Noto Sans Kannada', 'Lora', serif; }
         body.lang-te { font-family: 'Noto Sans Telugu', 'Lora', serif; }
+
+        /* --- CELESTIAL LOGO ANIMATION --- */
+        #celestial-logo {
+            position: fixed; z-index: 9999;
+            width: 110px; height: 110px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; font-family: 'Cinzel'; font-size: 8px;
+            line-height: 1.2; font-weight: bold; pointer-events: none;
+            transition: all 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 12px; color: #4e342e;
+        }
+        /* Moon State (Intro) */
+        .moon { 
+            background: #fff; box-shadow: 0 0 30px #fff; border: 2px solid #eee; 
+            left: 50%; top: 15%; transform: translateX(-50%); /* Centered for intro */
+        }
+        /* Sun State (Main Content) */
+        .sun { 
+            background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
+            border: 3px double var(--gold); box-shadow: 0 0 50px #ffae00; 
+            left: 20px; top: 20px; transform: translateX(0); /* Top Left for content */
+        }
 
         /* --- UTILITY CLASSES --- */
         .hidden { display: none !important; }
@@ -53,7 +75,7 @@
         /* --- COMMON STYLES --- */
         .container { max-width: 850px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 2; }
         
-        h1 { font-family: 'Cinzel', serif; color: var(--gold); text-align: center; line-height: 1.2; margin-bottom: 10px; }
+        h1 { font-family: 'Cinzel', serif; color: var(--gold); text-align: center; line-height: 1.2; margin-bottom: 10px; font-size: 2.5rem; }
         h2 { 
             font-family: 'Cinzel'; color: var(--maroon); font-size: 1.8rem; 
             text-align: center; margin-top: 50px; margin-bottom: 25px; 
@@ -62,7 +84,8 @@
         
         p { font-size: 1.15rem; line-height: 2; text-align: justify; color: #2d241e; margin-bottom: 25px; }
         .roots-emphasis { color: #a0522d; font-weight: 700; border-bottom: 1px solid var(--gold); }
-        
+        .tagline { font-family: 'Cinzel'; letter-spacing: 3px; display: block; text-align: center; font-size: 0.85rem; margin-top: 5px; color: var(--gold); font-weight: bold; text-transform: uppercase; }
+
         /* Royal Divider */
         .royal-divider {
             border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(212, 175, 55, 0.75), rgba(0, 0, 0, 0));
@@ -73,16 +96,41 @@
             background: var(--paper); padding: 0 15px; color: var(--maroon); font-family: 'Cinzel Decorative'; font-size: 1.8rem;
         }
 
-        /* Quotes & Letters (From Old Jan) */
-        .letter-box { 
-            font-style: italic; border-left: 4px solid var(--gold); padding: 20px 30px; margin: 40px 0; 
-            background: rgba(212, 175, 55, 0.08); border-radius: 0 10px 10px 0; 
-            font-size: 1.25rem; color: #5c4033; 
+        /* --- CHAPTER 0: INTRO GATEWAY (New Section) --- */
+        #intro-gateway {
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, #1a0505 0%, #000 100%);
+            color: #fff; padding: 20px;
+            text-align: center;
         }
-        .letter-center { text-align: center; border: none; font-size: 1.5rem; font-family: 'Lora'; color: var(--maroon); font-style: italic; margin: 40px 0; }
+        .intro-card {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 40px; border-radius: 20px;
+            margin-top: 100px; /* Space for Moon */
+        }
+        .intro-card p { color: #ddd; text-align: center; }
+
+        .gate-btn {
+            background: var(--maroon); color: var(--gold); border: 2px solid var(--gold);
+            padding: 18px 40px; font-family: 'Cinzel'; font-size: 1.1rem; cursor: pointer; font-weight: bold;
+            margin-top: 20px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: inline-flex; align-items: center; gap: 10px; border-radius: 4px;
+        }
+        .gate-btn:hover { transform: scale(1.05); background: var(--gold); color: #000; }
 
         /* --- CHAPTER 1: THE SCROLL --- */
-        #chapter-1 { min-height: 100vh; padding-bottom: 100px; }
+        #chapter-1 { min-height: 100vh; padding: 140px 0 100px; }
+        
+        .letter { 
+            font-style: italic; border-left: 4px solid var(--gold); padding: 20px 30px; margin: 40px 0; 
+            background: rgba(212, 175, 55, 0.08); border-radius: 0 10px 10px 0; 
+            font-size: 1.25rem; color: #5c4033; text-align: left;
+        }
+        .mantra { text-align: center; border: none; font-size: 1.5rem; font-family: 'Lora'; font-style: italic; color: var(--maroon); margin: 30px 0; }
         
         .bridge { 
             background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1), transparent); 
@@ -96,13 +144,6 @@
             background: #fff9eb; border: 4px double var(--gold); border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        .gate-btn {
-            background: var(--maroon); color: var(--gold); border: 2px solid var(--gold);
-            padding: 18px 40px; font-family: 'Cinzel'; font-size: 1.3rem; cursor: pointer; font-weight: bold;
-            margin-top: 20px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .gate-btn:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
 
         /* --- CHAPTER 2: THE MAP (WOODEN FRAME) --- */
         #chapter-2 {
@@ -112,7 +153,6 @@
             padding: 20px;
         }
 
-        /* Mobile Landscape Force Logic */
         @media (max-width: 768px) and (orientation: portrait) {
             #chapter-2 {
                 width: 100vh; height: 100vw; 
@@ -125,18 +165,10 @@
         .wooden-frame {
             flex: 1; display: flex; flex-direction: row;
             border: 15px solid #3e2723;
-            /* Wood texture border */
             border-image: linear-gradient(to bottom right, #5d4037, #3e2723, #261612) 1;
-            box-shadow: 
-                inset 0 0 20px #000, 
-                0 0 0 5px #1a100d,
-                0 20px 50px rgba(0,0,0,0.8);
-            position: relative;
-            background: #fdf5e6;
-            overflow: hidden;
+            box-shadow: inset 0 0 20px #000, 0 0 0 5px #1a100d, 0 20px 50px rgba(0,0,0,0.8);
+            position: relative; background: #fdf5e6; overflow: hidden;
         }
-        
-        /* Gold rivets/inlay on frame */
         .wooden-frame::after {
             content: ''; pointer-events: none; position: absolute; inset: 0;
             border: 2px solid var(--gold); opacity: 0.6; z-index: 100; margin: 4px;
@@ -147,9 +179,7 @@
         #sidebar { 
             flex: 1; min-width: 300px; max-width: 380px; padding: 20px; overflow-y: auto; 
             background: #fdf5e6 url('https://www.transparenttextures.com/patterns/paper-fibers.png'); 
-            border-left: 4px solid #3e2723;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-            z-index: 2;
+            border-left: 4px solid #3e2723; box-shadow: -5px 0 15px rgba(0,0,0,0.2); z-index: 2;
         }
 
         .map-exit-btn {
@@ -202,6 +232,8 @@
 <body class="lang-en">
     <div class="texture"></div>
 
+    <div id="celestial-logo" class="moon">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+
     <div id="lang-gateway">
         <h1 class="lang-title">Namaste</h1>
         <div class="lang-grid">
@@ -212,32 +244,29 @@
         </div>
     </div>
 
+    <div id="intro-gateway" class="hidden">
+        <div class="intro-card fade-in">
+            <h1 data-i18n="new_begin_title" style="color:var(--gold); margin-bottom:20px;">A New Beginning for 2026</h1>
+            <p data-i18n="new_begin_text1">Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within.</p>
+            <p data-i18n="new_begin_wish">We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.</p>
+            <button class="gate-btn" onclick="enterMainScroll()">
+                <span data-i18n="btn_step_virtually">STEP VIRTUALLY INTO BHAKTHI 2026</span>
+            </button>
+        </div>
+    </div>
+
     <div id="chapter-1" class="hidden">
         <div class="container">
-            
-            <div style="text-align:center; margin-bottom:60px;">
-                <header><h1 style="font-size: 2.5rem;" data-i18n="new_begin_title">A New Beginning for 2026</h1></header>
-                <div class="card" style="background: rgba(255,255,255,0.5); padding: 30px; border-radius: 15px; margin-top: 20px;">
-                    <p data-i18n="new_begin_text1">Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within.</p>
-                    <p data-i18n="new_begin_wish">We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.</p>
-                    <button class="gate-btn" style="background:var(--gold); color:#000; font-size:1rem;" onclick="scrollToId('section-essence')">
-                        <span data-i18n="btn_step_virtually">STEP VIRTUALLY INTO BHAKTHI 2026</span>
-                    </button>
-                </div>
-            </div>
-
-            <hr class="royal-divider">
-
             <section id="section-essence">
-                <header><h1 data-i18n="essence_title">The Essence of Devotion</h1><span class="tagline" style="display:block; text-align:center; font-family:'Cinzel'; letter-spacing:3px; color:var(--maroon); margin-bottom:30px;" data-i18n="month_jan">January</span></header>
+                <header><h1 data-i18n="essence_title">The Essence of Devotion</h1><span class="tagline" data-i18n="month_jan">January</span></header>
                 
-                <div class="letter-center" data-i18n="essence_mantra">
+                <div class="mantra" data-i18n="essence_mantra">
                     "Asatoma Sadgamaya... May your darkness turn into light."
                 </div>
                 
                 <p data-i18n="essence_text1">Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience of "surrender through love." Derived from the Sanskrit root <i>bhaj</i>, meaning "to adore" or "to share," Bhakti is the path of devotion where the seeker seeks a direct, personal connection with the Divine.</p>
                 
-                <div class="letter-box" data-i18n="essence_quote">"Bhakti is not the search for God, but the discovery of God's presence within the heart through the power of love."</div>
+                <div class="letter" data-i18n="essence_quote">"Bhakti is not the search for God, but the discovery of God's presence within the heart through the power of love."</div>
             </section>
 
             <hr class="royal-divider">
@@ -298,7 +327,7 @@
 
             <div class="vid-card">
                 <h3 data-i18n="vid_move_title">2. The Bhakti Movement: A Social Revolution</h3>
-                <p data-i18n="vid_move_desc">Historically, the Bhakti Movement was a revolutionary force. It broke down rigid caste barriers and gender norms, preaching that God resides in the heart of every individual.</p>
+                <p data-i18n="vid_move_desc">Historically, the Bhakti Movement was a revolutionary force. It broke down rigid caste barriers and gender norms.</p>
                 <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/V2aDhYMspqQ?rel=0" frameborder="0" allowfullscreen></iframe></div>
             </div>
 
@@ -314,7 +343,7 @@
                 <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/Gg48H-lrZHo?rel=0" frameborder="0" allowfullscreen></iframe></div>
             </div>
             
-            <div class="letter-center" style="font-size: 1.2rem; font-weight: bold; margin-top: 60px;">
+            <div class="letter" style="text-align:center; border:none; font-weight:bold;">
                 "You don’t need the silence of the Himalayas to find the Divine. All you need is the simple will to love."
             </div>
 
@@ -340,21 +369,18 @@
         let map; 
         let markers = [];
 
-        // --- 1. TRANSLATION DATA (Merged Content) ---
+        // --- 1. TRANSLATION DATA ---
         const i18n = {
             'en': {
-                // Merged Content from Old Jan
                 new_begin_title: "A New Beginning for 2026",
                 new_begin_text1: "Every great discovery can begin with a single, simple step. As we step into 2026, let’s choose to start this chapter with joy and a smile that comes from within.",
                 new_begin_wish: "We wish you a Happy New Year filled with light and peace. With a smile on your face and courage in your heart, you can begin the most beautiful discovery—the journey back to yourself.",
                 btn_step_virtually: "STEP VIRTUALLY INTO BHAKTHI 2026",
                 essence_title: "The Essence of Devotion",
-                month_jan: "January",
+                month_jan: "JANUARY",
                 essence_mantra: "\"Asatoma Sadgamaya... May your darkness turn into light.\"",
                 essence_text1: "Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience of \"surrender through love.\" Derived from the Sanskrit root <i>bhaj</i>, meaning \"to adore\" or \"to share,\" Bhakti is the path of devotion where the seeker seeks a direct, personal connection with the Divine.",
                 essence_quote: "\"Bhakti is not the search for God, but the discovery of God's presence within the heart through the power of love.\"",
-                
-                // Original Jan 4 Content
                 title_soul: "The Soul of a Nation",
                 text_soul: "Culture is not just art; it is the invisible thread holding a civilization together. <b>Culture is the soul of any country.</b> History warns us: when a nation forgets its culture, its downfall is inevitable. But Bharath stands tall. While other ancient civilizations crumbled, the spirit of India lives on. Why? Because of its guardians.",
                 title_guardians: "The Guardians of Light",
@@ -370,18 +396,15 @@
                 map_instruction: "Click on a Saint",
                 map_disclaimer: "There are 100s of such wonderful saints. Only some are mentioned here.",
                 label_contribution: "Contribution", label_impact: "Impact", label_fact: "Sacred Legend",
-                
-                // Videos (Merged)
                 title_vibrations: "Sacred Vibrations",
                 vid1_title: "1. Mathematics and Bhakthi!", 
                 vid1_desc: "Is there any connection? Watch the below video to understand the power of 1 and the significance of bhakthi explained by Sri Madhusudan Sai.",
                 vid_move_title: "2. The Bhakti Movement: A Social Revolution",
-                vid_move_desc: "Historically, the Bhakti Movement was a revolutionary force. It broke down rigid caste barriers and gender norms, preaching that God resides in the heart of every individual.",
+                vid_move_desc: "Historically, the Bhakti Movement was a revolutionary force. It broke down rigid caste barriers and gender norms.",
                 vid3_title: "3. The Three Pillars of Practice", 
                 vid3_desc: "Traditionally, Bhakti is anchored by Shravana, Kirtana, and Smarana. You can see these practices come alive in the story of Saint Namdev.",
                 vid_song_title: "The \"Thief\" of Hearts",
                 vid_song_desc: "The viral song \"Chor\" by Justh serves as a contemporary metaphor for this surrender, asking the Divine to strip away the ego.",
-
                 teaser_title: "A New Saint Awaits...", teaser_text_intro: "The journey has just begun.",
                 teaser_text_climax: "Next month, a new light rises from the dust of history.",
                 teaser_cta: "STAY TUNED FOR FEBRUARY",
@@ -396,9 +419,8 @@
                 essence_title: "भक्ति का सार",
                 month_jan: "जनवरी",
                 essence_mantra: "\"असतो मा सद्गमय...\"",
-                essence_text1: "भक्ति केवल एक धार्मिक प्रथा नहीं है, यह 'प्रेम के माध्यम से समर्पण' का एक गहरा भावनात्मक अनुभव है।",
+                essence_text1: "Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience.",
                 essence_quote: "\"भक्ति ईश्वर की खोज नहीं है, बल्कि प्रेम की शक्ति के माध्यम से हृदय के भीतर ईश्वर की उपस्थिति की खोज है।\"",
-                
                 title_soul: "राष्ट्र की आत्मा",
                 text_soul: "संस्कृति केवल कला नहीं है; यह वह अदृश्य धागा है जो सभ्यता को जोड़ता है। <b>संस्कृति किसी भी देश की आत्मा है।</b>",
                 title_guardians: "प्रकाश के रक्षक",
@@ -435,7 +457,6 @@
                 essence_mantra: "\"ಅಸತೋಮ ಸದ್ಗಮಯ...\"",
                 essence_text1: "Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience.",
                 essence_quote: "Bhakti is not the search for God, but the discovery of God's presence within the heart.",
-
                 title_soul: "ರಾಷ್ಟ್ರದ ಆತ್ಮ",
                 text_soul: "ಸಂಸ್ಕೃತಿಯು ಕೇವಲ ಕಲೆಯಲ್ಲ; ಇದು ನಾಗರಿಕತೆಯನ್ನು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುವ ಅದೃಶ್ಯ ದಾರ. <b>ಸಂಸ್ಕೃತಿಯು ಯಾವುದೇ ದೇಶದ ಆತ್ಮ.</b>",
                 title_guardians: "ಬೆಳಕಿನ ರಕ್ಷಕರು",
@@ -472,7 +493,6 @@
                 essence_mantra: "\"అసతోమా సద్గమయ...\"",
                 essence_text1: "Bhakti is more than just a religious practice; it is a profound emotional and spiritual experience.",
                 essence_quote: "Bhakti is not the search for God, but the discovery of God's presence within the heart.",
-
                 title_soul: "జాతి ఆత్మ",
                 text_soul: "సంస్కృతి అంటే కేవలం కళ కాదు; అది నాగరికతను నిలబెట్టే అదృశ్య సూత్రం. <b>సంస్కృతి ఏ దేశానికైనా ఆత్మ వంటిది.</b>",
                 title_guardians: "జ్ఞాన రక్షకులు",
@@ -501,7 +521,7 @@
             }
         };
 
-        // --- 2. SAINT DATA (Coordinates) ---
+        // --- 2. SAINT DATA ---
         const saintsData = [
             { id: 'shankara', coords: [10.15, 76.43], era: "8th C" },
             { id: 'andal', coords: [9.51, 77.53], era: "8th C" },
@@ -539,30 +559,9 @@
 
         // --- 3. RICH CONTENT ---
         const saintDetails = {
-            'shankara': {
-                name: { en: 'Adi Shankara', hi: 'आदि शंकर', kn: 'ಆದಿ ಶಂಕರ', te: 'ఆది శంకర' },
-                bio: { en: "The master of Non-dualism, Shankara revived Sanatana Dharma through rigorous intellectual debate. He traveled the length of Bharat on foot, establishing four cardinal Mathas.", hi: "अद्वैतवाद के महान आचार्य, शंकर ने कठोर बौद्धिक बहस के माध्यम से सनातन धर्म को पुनर्जीवित किया।", kn: "ಅದ್ವೈತ ಸಿದ್ಧಾಂತದ ಪ್ರವರ್ತಕರಾದ ಆದಿ ಶಂಕರರು, ಸನಾತನ ಧರ್ಮವನ್ನು ಪುನರುಜ್ಜೀವನಗೊಳಿಸಿದರು.", te: "అద్వైత సిద్ధాంతకర్త అయిన ఆది శంకరులు, సనాతన ధర్మాన్ని పునరుద్ధరించారు." },
-                work: { en: "Advaita Vedanta", hi: "अद्वैत वेदांत", kn: "ಅದ್ವೈತ ವೇದಾಂತ", te: "అద్వైత వేదాంతం" },
-                impact: { en: "Unified diverse sects into the Shanmata system.", hi: "हिंदू धर्म का एकीकरण।", kn: "ಹಿಂದೂ ಧರ್ಮದ ಏಕೀಕರಣ.", te: "హిందూ మత ఏకీకరణ." },
-                fact: { en: "Established the 4 Mathas (Corners) of Bharat.", hi: "पैदल भारत यात्रा की।", kn: "ಕಾಲ್ನಡಿಗೆಯಲ್ಲಿ ಭಾರತ ಪರ್ಯಟನೆ.", te: "కాలినడకన భారత యాత్ర." },
-                dyk: { en: "He wrote his commentaries on the Brahma Sutras at the age of 16.", hi: "उन्होंने 16 वर्ष की आयु में भाष्य लिखे।", kn: "16ನೇ ವಯಸ್ಸಿನಲ್ಲಿ ಭಾಷ್ಯ ಬರೆದರು.", te: "16 ఏళ్ల వయసులోనే భాష్యం రాశారు." }
-            },
-            'andal': {
-                name: { en: 'Andal', hi: 'आंडाल', kn: 'ಆಂಡಾಳ್', te: 'ఆండాళ్' },
-                bio: { en: "The only female Alvar. Andal saw Lord Vishnu as her beloved and refused to marry anyone else, expressing her intense bridal devotion through immortal Tamil poetry.", hi: "एकमात्र महिला आलवार। आंडाल ने भगवान विष्णु को अपने प्रियतम के रूप में देखा।", kn: "ಏಕೈಕ ಮಹಿಳಾ ಆಳ್ವಾರ್. ಆಂಡಾಳ್ ವಿಷ್ಣುವನ್ನು ತನ್ನ ಪತಿಯಾಗಿ ಸ್ವೀಕರಿಸಿದರು.", te: "ఏకైక మహిళా ఆల్వార్. ఆండాళ్ శ్రీమహావిష్ణువును తన ప్రియుడిగా భావించారు." },
-                work: { en: "Thiruppavai", hi: "तिरुप्पवै", kn: "ತಿರುಪ್ಪಾವೈ", te: "తిరుప్పావై" },
-                impact: { en: "Her verses are the backbone of Margazhi prayers.", hi: "विवाह रहस्यवाद।", kn: "ಮಧುರ ಭಕ್ತಿ.", te: "మధుర భక్తి." },
-                fact: { en: "She merged into the deity of Lord Ranganatha.", hi: "एकमात्र महिला आलवार।", kn: "ಏಕೈಕ ಮಹಿಳಾ ಆಳ್ವಾರ್.", te: "ఏకైక ಮಹಿಳಾ ಆಳ್ವಾರ್." },
-                dyk: { en: "She secretly wore the deity's garlands before they were offered.", hi: "वह भगवान की मालाएँ पहले खुद पहन लेती थीं।", kn: "ದೇವರಿಗೆ ಅರ್ಪಿಸುವ ಹೂಮಾಲೆಯನ್ನು ತಾನು ಧರಿಸುತ್ತಿದ್ದರು.", te: "స్వామికి సమర్పించాల్సిన పూలమాలలను ముందుగా తాను ధరించేవారు." }
-            },
-            'ramanuja': {
-                name: { en: 'Ramanujacharya', hi: 'रामानुज', kn: 'ರಾಮಾನುಜ', te: 'రామానుజ' },
-                bio: { en: "The chief proponent of Qualified Non-dualism. A social revolutionary who taught that Bhakti was open to all, regardless of caste.", hi: "विशिष्टाद्वैत के प्रवर्तक। एक सामाजिक क्रांतिकारी जिन्होंने सिखाया कि भक्ति सभी के लिए है।", kn: "ವಿಶಿಷ್ಟಾದ್ವೈತ ಸಿದ್ಧಾಂತದ ಪ್ರತಿಪಾದಕರು. ಭಕ್ತಿ ಮಾರ್ಗವು ಎಲ್ಲರಿಗೂ ಮುಕ್ತವಾಗಿದೆ ಎಂದು ಬೋಧಿಸಿದರು.", te: "విశిష్టాద్వైత సిద్ధాంతకర్త. భక్తి మార్గం అందరికీ అందుబాటులో ఉంటుందని బోధించారు." },
-                work: { en: "Visishtadvaita", hi: "विशिष्टाद्वैत", kn: "ವಿಶಿಷ್ಟಾದ್ವೈತ", te: "విశిష్టాద్వైతం" },
-                impact: { en: "Organized temple rituals for major hubs.", hi: "भक्ति दर्शन।", kn: "ಭಕ್ತಿ ದರ್ಶನ.", te: "భక్తి తత్వం." },
-                fact: { en: "Called marginalized people 'Thirukulattar'.", hi: "120 वर्ष तक जीवित रहे।", kn: "120 ವರ್ಷ ಬದುಕಿದ್ದರು.", te: "120 సంవత్సరాలు జీవించారు." },
-                dyk: { en: "Shouted the secret mantra from a temple tower to all.", hi: "गोपुरम से सभी को मंत्र सुनाया।", kn: "ಗೋಪುರದ ಮೇಲಿನಿಂದ ಮಂತ್ರ ಬೋಧಿಸಿದರು.", te: "గోపురం ఎక్కి మంత్రాన్ని వినిపించారు." }
-            },
+            'shankara': { name: { en: 'Adi Shankara' }, bio: { en: "The master of Non-dualism, Shankara revived Sanatana Dharma through rigorous intellectual debate." }, work: { en: "Advaita Vedanta" }, impact: { en: "Unified diverse sects into the Shanmata system." }, fact: { en: "Established the 4 Mathas (Corners) of Bharat." }, dyk: { en: "He wrote his commentaries on the Brahma Sutras at the age of 16." } },
+            'andal': { name: { en: 'Andal' }, bio: { en: "The only female Alvar. Andal saw Lord Vishnu as her beloved and refused to marry anyone else." }, work: { en: "Thiruppavai" }, impact: { en: "Her verses are the backbone of Margazhi prayers." }, fact: { en: "She merged into the deity of Lord Ranganatha." }, dyk: { en: "She secretly wore the deity's garlands before they were offered." } },
+            'ramanuja': { name: { en: 'Ramanujacharya' }, bio: { en: "The chief proponent of Qualified Non-dualism. A social revolutionary who taught that Bhakti was open to all." }, work: { en: "Visishtadvaita" }, impact: { en: "Organized temple rituals for major hubs." }, fact: { en: "Called marginalized people 'Thirukulattar'." }, dyk: { en: "Shouted the secret mantra from a temple tower to all." } },
             'madhva': { name: { en: 'Madhvacharya' }, bio: { en: "Founder of Dualism. Established the Ashta Mathas of Udupi and popularized Krishna worship." }, work: { en: "Dvaita" }, impact: { en: "Krishna Bhakti in Karnataka." }, fact: { en: "Founder of Udupi Matha." }, dyk: { en: "Possessed immense physical strength." } },
             'basavanna': { name: { en: 'Basavanna' }, bio: { en: "Social reformer who founded the Lingayat movement. Preached 'Work is Worship'." }, work: { en: "Vachanas" }, impact: { en: "Abolished caste hierarchy." }, fact: { en: "Established Anubhava Mantapa." }, dyk: { en: "Said the human body is a moving temple." } },
             'akka': { name: { en: 'Akka Mahadevi' }, bio: { en: "A female mystic who renounced the world for Shiva. She wandered as an ascetic." }, work: { en: "Vachanas" }, impact: { en: "Female empowerment in spirituality." }, fact: { en: "Wore only her hair." }, dyk: { en: "Considered Shiva as her husband 'Chenna Mallikarjuna'." } },
@@ -599,19 +598,30 @@
             currentLang = lang;
             document.body.className = 'lang-' + lang;
             
+            // Translate
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
 
+            // State: Show Intro Gateway (Moon)
             document.getElementById('lang-gateway').classList.add('hidden');
-            document.getElementById('chapter-1').classList.remove('hidden');
-            document.getElementById('chapter-1').classList.add('fade-in');
+            document.getElementById('intro-gateway').classList.remove('hidden');
+            document.getElementById('intro-gateway').classList.add('fade-in');
         }
 
-        function scrollToId(id) {
-            const el = document.getElementById(id);
-            if(el) el.scrollIntoView({ behavior: 'smooth' });
+        function enterMainScroll() {
+            // State: Show Main Scroll (Sun)
+            document.getElementById('intro-gateway').classList.add('hidden');
+            document.getElementById('chapter-1').classList.remove('hidden');
+            document.getElementById('chapter-1').classList.add('fade-in');
+            
+            // Animate Logo from Moon to Sun
+            const logo = document.getElementById('celestial-logo');
+            logo.classList.remove('moon');
+            logo.classList.add('sun');
+            
+            window.scrollTo(0,0);
         }
 
         function enterMap() {
@@ -647,12 +657,25 @@
         }
 
         function initMap() {
-            map = L.map('map', {zoomControl: false}).setView([21.5, 79.0], 5);
+            // FIX: Max bounds to prevent panning away from India
+            const southWest = L.latLng(5, 60);
+            const northEast = L.latLng(40, 100);
+            const bounds = L.latLngBounds(southWest, northEast);
+
+            map = L.map('map', {
+                zoomControl: false,
+                maxBounds: bounds,   // Lock area
+                maxBoundsViscosity: 1.0, // Hard stop at edges
+                minZoom: 4,          // Prevent zooming out too far
+                maxZoom: 8           // Prevent zooming in too close
+            }).setView([21.5, 79.0], 5);
+            
             L.control.zoom({ position: 'topright' }).addTo(map);
 
             // Using Voyager No Labels
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
-                attribution: '© OpenStreetMap'
+                attribution: '© OpenStreetMap',
+                bounds: bounds
             }).addTo(map);
 
             saintsData.forEach(saint => {
