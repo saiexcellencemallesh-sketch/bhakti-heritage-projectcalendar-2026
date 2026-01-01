@@ -30,7 +30,7 @@
 
         /* --- CELESTIAL ANIMATION LOGO --- */
         #celestial-logo {
-            position: fixed; z-index: 9999;
+            z-index: 9999;
             width: 110px; height: 110px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             text-align: center; font-family: 'Cinzel'; font-size: 8px;
@@ -39,14 +39,16 @@
             padding: 12px; color: #4e342e;
         }
         
-        /* STATE 1: MOON (Intro) - Centered & Glowing White */
+        /* STATE 1: MOON (Intro) - SCROLLS WITH PAGE */
         .moon { 
+            position: absolute; /* Allows it to scroll up */
             background: #fff; box-shadow: 0 0 40px rgba(255,255,255,0.8); border: 2px solid #eee; 
-            left: 50%; top: 120px; transform: translateX(-50%);
+            left: 50%; top: 60px; transform: translateX(-50%);
         }
         
-        /* STATE 2: SUN (Main Content) - Top Left & Burning Gold */
+        /* STATE 2: SUN (Main Content) - STICKY HEADER */
         .sun { 
+            position: fixed; /* Stays stuck to corner */
             background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
             border: 3px double var(--gold); box-shadow: 0 0 60px rgba(255, 174, 0, 0.8); 
             left: 20px; top: 20px; transform: translateX(0);
@@ -79,11 +81,14 @@
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
             color: #fff; padding: 20px;
             text-align: center;
+            overflow-y: auto; /* Allows scrolling */
+            position: relative;
         }
         
         /* Card Positioned BELOW the Moon */
         .intro-card {
-            margin-top: 260px; /* Pushes content down so Moon doesn't overlap */
+            margin-top: 200px; /* Space for Moon */
+            margin-bottom: 50px;
             max-width: 600px;
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(10px);
@@ -130,23 +135,11 @@
         .simple-btn { background: var(--maroon); color: var(--gold); border: 2px solid var(--gold); padding: 15px 30px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; display: inline-block; margin-top: 15px; transition: 0.3s; }
         .simple-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        /* --- 4. MAP (Wooden Frame Fix) --- */
+        /* --- 4. MAP (Wooden Frame Standard) --- */
         #chapter-2 {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; z-index: 20000;
             display: flex; flex-direction: column; padding: 20px;
-        }
-
-        /* Portrait Mobile Fix: Force Landscape Rotation */
-        @media (max-width: 768px) and (orientation: portrait) {
-            #chapter-2 {
-                /* Swap dimensions to fill screen */
-                width: 100vh; height: 100vw; 
-                /* Pivot exactly in center */
-                top: 50%; left: 50%; 
-                transform: translate(-50%, -50%) rotate(90deg);
-                padding: 10px;
-            }
         }
 
         .wooden-frame {
@@ -163,6 +156,18 @@
             flex: 1; min-width: 300px; max-width: 380px; padding: 20px; overflow-y: auto; 
             background: #fdf5e6 url('https://www.transparenttextures.com/patterns/paper-fibers.png'); 
             border-left: 4px solid #3e2723; z-index: 2;
+        }
+
+        /* Mobile Layout for Map (Stacked) */
+        @media (max-width: 768px) {
+            #chapter-2 { padding: 0; }
+            .wooden-frame { flex-direction: column; border-width: 5px; }
+            #sidebar { 
+                position: absolute; bottom: 0; left: 0; width: 100%; max-width: 100%; height: 40%; 
+                border-left: none; border-top: 4px solid #3e2723; 
+                z-index: 1000; /* On top of map */
+            }
+            #map { height: 100%; } /* Map takes full space behind sidebar */
         }
 
         .map-exit-btn {
@@ -723,7 +728,7 @@
                 work: { en: "Jnaneshwari", hi: "ज्ञानेश्वरी", kn: "ಜ್ಞಾನೇಶ್ವರಿ", te: "జ్ఞానేశ్వరి" },
                 impact: { en: "Marathi literature.", hi: "मराठी साहित्य।", kn: "ಮರಾಠಿ ಸಾಹಿತ್ಯ.", te: "మరాఠీ సాహిత్యం." },
                 fact: { en: "Took Samadhi at age 21.", hi: "21 साल की उम्र में समाधि ली।", kn: "21ನೇ ವಯಸ್ಸಿನಲ್ಲಿ ಸಮಾಧಿ ಹೊಂದಿದರು.", te: "21 ఏళ్లకే సమాధి తీసుకున్నారు." },
-                dyk: { en: "Made a wall fly.", hi: "एक दीवार को हवा में उड़ाया।", kn: "ಗೋಡೆ ಹಾರುವಂತೆ ಮಾಡಿದರು.", te: "గోడను గాలిలో ఎగిరేలా చేశారు." }
+                dyk: { en: "Made a wall fly.", hi: "एक दीवार को हवा में उड़ाया।", kn: "ಗೋಡೆ ಹಾರುವಂತೆ ಮಾಡಿದರು.", te: "ಗೋಡನು ಗాలిలో ఎగిరేలా చేశారు." }
             },
             'namdev': {
                 name: { en: 'Namdev', hi: 'नामदेव', kn: 'ನಾಮದೇವ', te: 'నామదేవ్' },
@@ -864,7 +869,7 @@
                     te: "అంధ కవి. కృష్ణుడి బాల్యాన్ని కళ్లకు కట్టినట్లు వర్ణించారు."
                 },
                 work: { en: "Sur Sagar", hi: "सूर सागर", kn: "ಸೂರ್ ಸಾಗರ್", te: "సూర్ సాగర్" },
-                impact: { en: "Bhakti literature.", hi: "भक्ति साहित्य को समृद्ध किया।", kn: "ಭಕ್ತಿ ಸಾಹಿತ್ಯ.", te: "భక్తి సాహిత్యం." },
+                impact: { en: "Bhakti literature.", hi: "भक्ति साहित्य को समृद्ध किया।", kn: "ಭಕ್ತಿ ಸಾಹಿತ್ಯ.", te: "ಭಕ್ತಿ ಸಾಹಿತ್ಯ." },
                 fact: { en: "Krishna saved him from a well.", hi: "कृष्ण ने उन्हें कुएं में गिरने से बचाया।", kn: "ಬಾವಿಯಿಂದ ಕೃಷ್ಣ ರಕ್ಷಿಸಿದನು.", te: "బావి నుండి కృష్ణుడు రక్షించాడు." },
                 dyk: { en: "Wrote 100,000 songs.", hi: "एक लाख पद रचे।", kn: "ಒಂದು ಲಕ್ಷ ಹಾಡುಗಳನ್ನು ಬರೆದರು.", te: "లక్ష పాటలు రాశారు." }
             },
@@ -903,7 +908,7 @@
                     te: "అస్సామీ పండితుడు. భక్తి ప్రచారం కోసం కళను వాడారు."
                 },
                 work: { en: "Kirtan Ghosa", hi: "कीर्तन घोषा", kn: "ಕೀರ್ತನ ಘೋಷಾ", te: "కీర్తన ఘోష" },
-                impact: { en: "Sattriya Dance.", hi: "सत्रिया नृत्य और सत्र संस्कृति।", kn: "ಸತ್ರಿಯಾ ನೃತ್ಯ.", te: "సತ్రియ నృత్యం." },
+                impact: { en: "Sattriya Dance.", hi: "सत्रिया नृत्य और सत्र संस्कृति।", kn: "ಸತ್ರಿಯಾ ನೃತ್ಯ.", te: "సತ్రియ ನೃತ್ಯ." },
                 fact: { en: "Established Satras.", hi: "मठों (सत्रों) की स्थापना की।", kn: "ಸತ್ರಗಳನ್ನು (ಮಠ) ಸ್ಥಾಪಿಸಿದರು.", te: "సత్రాలను (మఠాలను) స్థాపించారు." },
                 dyk: { en: "Wrote plays (Ankiya Nat).", hi: "एक अंकीय नाटक (अंकिया नट) लिखे।", kn: "ಅಂಕಿಯ ನಾಟ್ ಎಂಬ ನಾಟಕಗಳನ್ನು ಬರೆದರು.", te: "అంకియ నాట్ అనే నాటకాలు రాశారు." }
             },
@@ -942,7 +947,7 @@
                     te: "కాశ్మీరీ యోగిని. శైవ తత్వాన్ని బోధించారు."
                 },
                 work: { en: "Vakhs", hi: "वाख (कविताएँ)", kn: "ವಾಖ್", te: "వాఖ్" },
-                impact: { en: "Kashmiri culture.", hi: "कश्मीरी भाषा और संस्कृति की जननी।", kn: "ಕಾಶ್ಮೀರಿ ಸಂಸ್ಕೃತಿ.", te: "కాశ్మీరీ సంಸ್ಕృతి." },
+                impact: { en: "Kashmiri culture.", hi: "कश्मीरी भाषा और संस्कृति की जननी।", kn: "ಕಾಶ್ಮೀರಿ ಸಂಸ್ಕೃತಿ.", te: "ಕಾಶ್ಮೀರಿ ಸಂಸ್ಕೃತಿ." },
                 fact: { en: "Roamed naked like Akka Mahadevi.", hi: "अक्का महादेवी की तरह अवधूत अवस्था में रहीं।", kn: "ಅಕ್ಕ ಮಹಾದೇವಿಯಂತೆ ದಿಗಂಬರೆಯಾಗಿದ್ದರು.", te: "అక్క మహాదేవిలా వస్త్రాలు విడిచిపెట్టారు." },
                 dyk: { en: "Revered by Hindus and Muslims.", hi: "हिंदू और मुस्लिम दोनों उनका सम्मान करते हैं।", kn: "ಹಿಂದೂ ಮತ್ತು ಮುಸ್ಲಿಮರು ಗೌರವಿಸುತ್ತಾರೆ.", te: "హిందువులు మరియు ముస్లింలు ఇద్దరూ గౌరవిస్తారు." }
             }
