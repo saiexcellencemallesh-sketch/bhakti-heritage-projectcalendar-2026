@@ -121,21 +121,31 @@
             overflow: visible; 
             margin-bottom: 0;
             background-color: #fffdf5; 
-            
-            /* INDIA MAP BACKGROUND IMAGE */
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/India_outline_map.png/600px-India_outline_map.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 90% auto; /* Adjust fit */
-            
             border: 8px double var(--gold);
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             padding: 10px;
             position: relative;
         }
+
+        /* NEW BHAKTHI MAP LAYER */
+        .map-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: auto;
+            max-height: 98%;
+            opacity: 0.5; /* 50% Transparency */
+            z-index: 0;
+            pointer-events: none;
+        }
         
-        svg { width: 100%; height: auto; display: block; }
+        svg { 
+            width: 100%; height: auto; display: block; 
+            position: relative; z-index: 1; /* Ensures Saints are above the map */
+        }
 
         .saint-group { cursor: pointer; transition: all 0.2s ease; transform-origin: center; }
         .saint-group:hover { transform: scale(1.15); filter: drop-shadow(0 0 5px var(--gold)); }
@@ -232,8 +242,8 @@
             .map-container { 
                 width: 100%; height: auto; overflow: visible; 
                 border: 4px double var(--gold); padding: 5px; 
-                background-size: 100% auto; /* Ensure map fits mobile width */
             }
+            .map-bg { width: 100%; } /* Full width map on mobile */
             svg { width: 100%; height: auto; }
 
             .saint-label { font-size: 18px; font-weight: 900; stroke-width: 4px; }
@@ -294,6 +304,8 @@
                 </div>
 
                 <div class="map-container">
+                    <img src="Bhakthi Map.png" alt="Bhakthi Map" class="map-bg">
+                    
                     <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet">
                         
                         <defs>
@@ -476,7 +488,7 @@
                 teaser_text_climax: "ಮುಂದಿನ ತಿಂಗಳು, ಹೊಸ ಬೆಳಕು ಉದಯಿಸಿ ನಿಮ್ಮ ಕಿವಿಯಲ್ಲಿ ರಹಸ್ಯವನ್ನು ಪಿಸುಗುಟ್ಟಲಿದೆ.",
                 teaser_cta: "ಫೆಬ್ರವರಿಗಾಗಿ ನಿರೀಕ್ಷಿಸಿ.",
                 credits_art: "ಕಲೆ: <b>ಸ್ವೇಚ್ಛಾ ಆರ್ಟ್</b> &nbsp;|&nbsp; ವಿಷಯ ಸಂಗ್ರಹಣೆ: <b>ಸಾಯಿ ಪ್ರೇಮಾ ಫೋಟೋಗ್ರಫಿ</b>",
-                credits_warriors: "ಸ್ಫೂರ್ತಿ, ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಚಿತ್ರಕಥೆ - ಎಲ್ಲಾ ಶ್ರೇಯಸ್ಸು <b>ಭಕ್ತಿ ವಾರಿಯರ್ಸ್‌ಗೆ</b>",
+                credits_warriors: "ಸ್ಫೂರ್ತಿ, ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಚಿತ್ರಕಥೆ - ಎಲ್ಲಾ ಶ್ರೇಯಸ್ಸು <b>ಭक्ति ವಾರಿಯರ್ಸ್‌ಗೆ</b>",
                 credits_soon: "ಮುಂದಿನ ತಿಂಗಳುಗಳಲ್ಲಿ ನೀವು ಅವರನ್ನು ಭೇಟಿಯಾಗಲಿದ್ದೀರಿ. ಸಿದ್ಧರಾಗಿರಿ!",
                 footer_text: "ಭಕ್ತಿ ಹೆರಿಟೇಜ್ ಆರ್ಟ್ ಕ್ಯಾಲೆಂಡರ್ 2026"
             },
@@ -531,7 +543,7 @@
             'tyagaraja': { en: 'Tyagaraja', hi: 'त्यागराज', kn: 'ತ್ಯಾಗರಾಜ', te: 'త్యాగరాజు' },
             'andal': { en: 'Andal', hi: 'आंडाल', kn: 'ಆಂಡಾಳ್', te: 'ఆండాళ్' },
             'ramanuja': { en: 'Ramanuja', hi: 'रामानुज', kn: 'ರಾಮಾನುಜ', te: 'రామానుజ' },
-            'shankara': { en: 'Adi Shankara', hi: 'आदि शंकर', kn: 'ಆದಿ ಶಂಕರ', te: 'ఆది శంకరాచార్య' },
+            'shankara': { en: 'Adi Shankara', hi: 'आदि शंकर', kn: 'ಆದಿ ಶಂಕರ', te: 'ఆದಿ ಶಂಕರ' },
             'basavanna': { en: 'Basavanna', hi: 'बसवन्ना', kn: 'ಬಸವಣ್ಣ', te: 'బసవన్న' }
         };
 
@@ -631,13 +643,13 @@
                 en: { contribution: 'Pancharatna Kritis.', impact: 'Carnatic Music trinity.', fact: 'Sang only for Rama.' },
                 hi: { contribution: 'पंचरत्न कृतियाँ।', impact: 'कर्नाटक संगीत के त्रिमूर्ति।', fact: 'केवल राम के लिए गाया।' },
                 kn: { contribution: 'ಪಂಚರತ್ನ ಕೃತಿಗಳು.', impact: 'ಕರ್ನಾಟದ ಸಂಗೀತದ ತ್ರಿಮೂರ್ತಿಗಳಲ್ಲಿ ಒಬ್ಬರು.', fact: 'ರಾಮನಿಗಾಗಿ ಮಾತ್ರ ಹಾಡಿದರು.' },
-                te: { contribution: 'పంచరತ್న కీర్తనలు.', impact: 'ಕರ್ణాಟక సంగీత త్రిమూర్తులు.', fact: 'రాముడి కోసమే పాడారు.' }
+                te: { contribution: 'పంచరత్న కీర్తనలు.', impact: 'ಕರ್ణాಟక సంగీత త్రిమూర్తులు.', fact: 'రాముడి కోసమే పాడారు.' }
             },
             'andal': {
                 en: { contribution: 'Tiruppavai.', impact: 'Bridal mysticism.', fact: 'Only female Alvar.' },
                 hi: { contribution: 'तिरुप्पवै।', impact: 'विवाह रहस्यवाद।', fact: 'एकमात्र महिला आलवार।' },
                 kn: { contribution: 'ತಿರುಪ್ಪಾವೈ.', impact: 'ಮಧುರ ಭಕ್ತಿ.', fact: 'ಏಕೈಕ ಮಹಿಳಾ ಆಳ್ವಾರ್.' },
-                te: { contribution: 'ತಿರುప్పಾವೈ.', impact: 'ಮಧುರ ಭಕ್ತಿ.', fact: 'ಏಕೈಕ ಮಹಿಳಾ ಆಲ್ವಾರ್.' }
+                te: { contribution: 'ತಿರುప్పಾವೈ.', impact: 'ಮಧುರ ಭಕ್ತಿ.', fact: 'ಏಕೈಕ ಮಹಿಳಾ ఆల్ವಾರ್.' }
             },
             'ramanuja': {
                 en: { contribution: 'Vishishtadvaita.', impact: 'Bhakti Philosophy.', fact: 'lived for 120 years.' },
@@ -649,7 +661,7 @@
                 en: { contribution: 'Advaita Vedanta.', impact: 'Unified Hinduism.', fact: 'Traveled India on foot.' },
                 hi: { contribution: 'अद्वैत वेदांत।', impact: 'हिंदू धर्म का एकीकरण।', fact: 'पैदल भारत यात्रा की।' },
                 kn: { contribution: 'ಅದ್ವೈತ ವೇದಾಂತ.', impact: 'ಹಿಂದೂ ಧರ್ಮದ ಏಕೀಕರಣ.', fact: 'ಕಾಲ್ನಡಿಗೆಯಲ್ಲಿ ಭಾರತ ಪರ್ಯಟನೆ.' },
-                te: { contribution: 'ಅದ್ವೈತ ವೇದಾಂತಂ.', impact: 'ಹಿಂದೂ ಮತ ಏಕೀಕರಣ.', fact: 'ಕಾಲಿ ನಡಕನ ಭಾರತ ಯಾತ್ರ.' }
+                te: { contribution: 'ಅದ್ವೈತ ವೇದಾಂತಂ.', impact: 'ಹಿಂದೂ ಮತ ಏಕೀಕರಣ.', fact: 'ಕಾಲಿ నಡಕನ ಭಾರತ ಯಾತ್ರ.' }
             },
             'basavanna': {
                 en: { contribution: 'Vachana Sahitya.', impact: 'Social Reformer.', fact: 'Established Anubhava Mantapa.' },
