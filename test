@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Reels Digest | Episode Highlights</title>
+    <style>
+        /* General Page Styling to look like an Article */
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #fdfdfd;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .subtitle {
+            color: #777;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        /* Video Section Styling */
+        article {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #222;
+            border-left: 4px solid #E1306C; /* Instagram Pink/Red accent */
+            padding-left: 15px;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .description {
+            font-size: 1.15rem;
+            margin-top: 20px;
+        }
+
+        .description p {
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 80px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Featured Reels Collection</h1>
+        <p class="subtitle">A curated look at our top 5 picks for this series.</p>
+    </header>
+
+    <article>
+        <h2>Episode 1</h2>
+        <div class="description">
+            <p>
+                <strong>The Opening Act:</strong> This video sets the stage for the collection. 
+                [Replace this text with your description of the first video. Mention the key events, the mood, or the specific topic discussed in the reel.]
+            </p>
+        </div>
+        <div class="video-container">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSWi0OoEoSi/" data-instgrm-version="14"></blockquote>
+        </div>
+    </article>
+
+    <article>
+        <h2>Highlight 2</h2>
+        <div class="description">
+            <p>
+                Moving on to the second entry, this reel captures a unique moment. 
+                [Replace this text with the description for the second video found at link DSZ2dw6ksJ9.]
+            </p>
+        </div>
+        <div class="video-container">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSZ2dw6ksJ9/" data-instgrm-version="14"></blockquote>
+        </div>
+    </article>
+
+    <article>
+        <h2>Highlight 3 (Revisit)</h2>
+        <div class="description">
+            <p>
+                This segment emphasizes the previous point or offers a second look. 
+                [Note: This link is identical to Highlight 2. You can describe why it is repeated or replace it with a different perspective.]
+            </p>
+        </div>
+        <div class="video-container">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSZ2dw6ksJ9/" data-instgrm-version="14"></blockquote>
+        </div>
+    </article>
+
+    <article>
+        <h2>Highlight 4</h2>
+        <div class="description">
+            <p>
+                <strong>Changing the Pace:</strong> In this fourth installment, the content shifts focus. 
+                [Replace this text with your description for the reel at DSg2sLaEk9_. Describe the visual style or the audio used.]
+            </p>
+        </div>
+        <div class="video-container">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DSg2sLaEk9_/" data-instgrm-version="14"></blockquote>
+        </div>
+    </article>
+
+    <article>
+        <h2>The Finale</h2>
+        <div class="description">
+            <p>
+                To wrap up our collection, this final video brings everything together. 
+                [Replace this text with the conclusion or description for the final reel at DS2LGPLkrLn.]
+            </p>
+        </div>
+        <div class="video-container">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DS2LGPLkrLn/" data-instgrm-version="14"></blockquote>
+        </div>
+    </article>
+
+    <footer>
+        <p>&copy; 2026 curated Collection. Embedded from Instagram.</p>
+    </footer>
+
+    <script async src="//www.instagram.com/embed.js"></script>
+
+</body>
+</html>
