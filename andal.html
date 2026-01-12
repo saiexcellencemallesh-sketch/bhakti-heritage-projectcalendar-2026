@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andal's Reflection</title>
+    <title>Andal's Vision - Divine Ripple</title>
     <style>
-        /* --- 1. The Ancient Room --- */
+        /* --- 1. SETTING THE ATMOSPHERE --- */
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-color: #1a0f05;
-            /* Radial gradient to simulate lamp light in center */
-            background-image: radial-gradient(circle at 50% 50%, #462e1b 0%, #0f0500 90%);
+            background-color: #0f0502;
+            background-image: radial-gradient(circle at 50% 40%, #2e1a0b 0%, #000 80%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -21,168 +20,205 @@
             overflow: hidden;
         }
 
-        /* --- 2. The Main Stage (Side by Side) --- */
+        /* --- 2. STAGE LAYOUT --- */
         .stage {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 50px; /* Space between Andal and Mirror */
-            width: 90%;
-            max-width: 1000px;
             position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 60px;
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
         }
 
-        /* --- 3. The Real Andal (Left Side) --- */
-        .real-andal-container {
+        /* --- 3. THE REAL ANDAL (LEFT) --- */
+        .andal-container {
+            position: relative;
             width: 300px;
             height: 450px;
-            position: relative;
-            /* Styling to make the image look like a figure, not a box */
-            filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.8));
-            animation: breathe 4s ease-in-out infinite;
+            animation: breathe 5s ease-in-out infinite;
         }
 
-        .real-andal-img {
+        .andal-img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Keeps aspect ratio */
-            /* We don't flip this one. This is reality. */
+            object-fit: contain;
+            filter: drop-shadow(-5px 5px 15px rgba(0,0,0,0.8));
         }
 
-        /* --- 4. The Mirror (Right Side) --- */
-        .mirror-frame {
-            width: 280px;
-            height: 400px;
+        /* The Divine Mala Glow (Heart Light) */
+        .mala-glow {
+            position: absolute;
+            top: 35%; 
+            left: 45%;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 140, 0, 0) 70%);
+            border-radius: 50%;
+            opacity: 0; /* Hidden initially */
+            mix-blend-mode: screen;
+            transition: opacity 2s ease;
+            box-shadow: 0 0 30px #ffd700;
+        }
+
+        /* --- 4. THE MIRROR (RIGHT) --- */
+        .mirror-container {
             position: relative;
-            
-            /* Arch / Mirror Shape */
-            border-radius: 140px 140px 20px 20px;
-            
-            /* Golden Frame */
-            border: 15px solid #d4af37;
-            box-shadow: 
-                0 0 15px #d4af37, /* Outer Glow */
-                inset 0 0 20px #000; /* Inner Shadow */
-            
+            width: 260px;
+            height: 380px;
+            bottom: 40px;
+            border: 15px solid #8B4513; /* Bronze/Wood */
+            border-radius: 130px 130px 20px 20px;
             background: #000;
+            box-shadow: 0 0 15px rgba(139, 69, 19, 0.5);
             overflow: hidden;
         }
 
-        /* The Reflection Layer */
+        .mirror-container::after {
+            content: ''; /* Frame Highlight */
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 2px solid #daa520;
+            border-radius: 120px 120px 15px 15px;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Reflection Logic */
         .reflection-layer {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
             background-position: center top;
-            transition: opacity 3s ease-in-out;
+            /* The Blur Transition Logic */
+            transition: opacity 1.5s ease-in-out, filter 1.5s ease-in-out, transform 3s ease;
         }
 
-        /* Mirror Andal: MUST be flipped horizontally to look like a reflection */
-        #mirror-andal {
+        /* Andal Reflection */
+        #ref-andal {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true');
-            transform: scaleX(-1); 
-            opacity: 0.8; /* Reflections are slightly dimmer */
-            z-index: 1;
+            transform: scaleX(-1);
+            opacity: 0.8;
         }
 
-        /* Mirror Vishnu */
-        #mirror-vishnu {
+        /* Vishnu Vision */
+        #ref-vishnu {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Vishnu.png?raw=true');
-            opacity: 0; /* Hidden initially */
-            z-index: 2; /* On top of Andal reflection */
+            opacity: 0; 
+            filter: blur(10px); /* Starts blurry */
+            transform: scale(1.1);
         }
 
-        /* Glass Shine Effect */
-        .glass-overlay {
+        /* Ripple Effect Classes */
+        .rippling {
+            filter: blur(8px) contrast(1.2) hue-rotate(10deg);
+            transform: scaleX(-1) scale(1.05); /* Slight distortion */
+        }
+
+        /* --- 5. TEXT --- */
+        .caption {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 70%);
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        /* --- 5. Narrative Text --- */
-        .narrative {
-            margin-top: 30px;
-            color: #ffe4b5;
-            font-size: 1.4rem;
+            bottom: 20px;
+            width: 100%;
             text-align: center;
+            color: #ffe4b5;
+            font-size: 1.3rem;
             font-style: italic;
-            height: 40px;
-            text-shadow: 0 2px 5px #000;
+            text-shadow: 0 2px 4px #000;
+            transition: opacity 1s;
         }
 
-        /* Subtle breathing animation for Real Andal */
+        /* Animations */
         @keyframes breathe {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-3px); }
         }
 
-        /* Mobile Responsive adjustment */
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .pulsing {
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .stage {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .real-andal-container, .mirror-frame {
-                width: 200px;
-                height: 300px;
-            }
+            .stage { flex-direction: column; align-items: center; gap: 20px; }
+            .andal-container { width: 220px; height: 320px; order: 2; }
+            .mirror-container { width: 180px; height: 260px; order: 1; bottom: 0; }
         }
     </style>
 </head>
 <body>
 
     <div class="stage">
-        <div class="real-andal-container">
-            <img src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true" class="real-andal-img" alt="Andal Real">
+        <div class="andal-container">
+            <img src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true" class="andal-img">
+            <div id="glow-spot" class="mala-glow"></div>
         </div>
 
-        <div class="mirror-frame">
-            <div class="glass-overlay"></div>
-            <div id="mirror-andal" class="reflection-layer"></div>
-            <div id="mirror-vishnu" class="reflection-layer"></div>
+        <div class="mirror-container">
+            <div id="ref-andal" class="reflection-layer"></div>
+            <div id="ref-vishnu" class="reflection-layer"></div>
         </div>
     </div>
 
-    <div id="story-text" class="narrative">
-        Andal looks into the mirror...
-    </div>
+    <div id="text" class="caption">Andal adorns the garland...</div>
 
     <script>
-        const vishnuLayer = document.getElementById('mirror-vishnu');
-        const textElement = document.getElementById('story-text');
+        const glowSpot = document.getElementById('glow-spot');
+        const refAndal = document.getElementById('ref-andal');
+        const refVishnu = document.getElementById('ref-vishnu');
+        const textObj = document.getElementById('text');
 
-        function playScene() {
-            // 1. Initial State
-            setTimeout(() => {
-                textElement.innerText = "Andal looks into the mirror...";
-            }, 500);
+        function playStory() {
+            // 0s: Reset
+            textObj.innerText = "Andal adorns the garland...";
+            glowSpot.style.opacity = '0';
+            glowSpot.classList.remove('pulsing');
+            refVishnu.style.opacity = '0';
+            refVishnu.style.filter = 'blur(10px)'; // Reset blur
+            refAndal.style.opacity = '0.8';
+            refAndal.classList.remove('rippling');
 
-            // 2. The Question
+            // 2s: The Feeling (Heart Glows)
             setTimeout(() => {
-                textElement.innerText = "'Is this mala worthy of Him?'";
-            }, 3000);
+                textObj.innerText = "'Is this worthy of Him?'";
+                glowSpot.style.opacity = '1';
+                glowSpot.classList.add('pulsing'); // Glow pulses
+            }, 2000);
 
-            // 3. Transformation (Only inside the mirror)
+            // 5s: The Ripple (Distortion)
             setTimeout(() => {
-                vishnuLayer.style.opacity = '1'; // Vishnu fades in
-                textElement.innerText = "Her reflection transforms...";
+                textObj.innerText = "The mirror ripples with devotion...";
+                refAndal.classList.add('rippling'); // Andal gets blurry/wobbly
             }, 5000);
 
-            // 4. Reset
+            // 6.5s: The Reveal (Vishnu appears through blur)
             setTimeout(() => {
-                vishnuLayer.style.opacity = '0'; // Vishnu fades out
-                textElement.innerText = "";
-                setTimeout(playScene, 2000); // Restart loop
-            }, 10000);
+                // Andal fades out
+                refAndal.style.opacity = '0';
+                
+                // Vishnu fades in (but starts blurry)
+                refVishnu.style.opacity = '1';
+                
+                // Slowly remove blur to clarify Vishnu
+                setTimeout(() => {
+                    refVishnu.style.filter = 'blur(0px)';
+                    textObj.innerText = "He appears within her.";
+                }, 500); 
+
+            }, 6500);
+
+            // 12s: Loop
+            setTimeout(playStory, 12000);
         }
 
-        window.onload = playScene;
+        window.onload = playStory;
     </script>
-
 </body>
 </html>
