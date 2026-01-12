@@ -3,157 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andal's Vision</title>
+    <title>Andal's Reflection</title>
     <style>
-        /* --- 1. The Temple Atmosphere --- */
+        /* --- 1. The Ancient Room --- */
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-color: #050200;
-            /* A dark, warm vignette representing a lit room */
-            background-image: radial-gradient(circle at center, #2e1a0b 0%, #000000 85%);
+            background-color: #1a0f05;
+            /* Radial gradient to simulate lamp light in center */
+            background-image: radial-gradient(circle at 50% 50%, #462e1b 0%, #0f0500 90%);
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             font-family: 'Georgia', serif;
             overflow: hidden;
         }
 
-        /* --- 2. The Grand Mirror Frame --- */
-        .mirror-wrapper {
+        /* --- 2. The Main Stage (Side by Side) --- */
+        .stage {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 50px; /* Space between Andal and Mirror */
+            width: 90%;
+            max-width: 1000px;
             position: relative;
-            width: 320px;   /* Adjust size for mobile/desktop */
-            height: 460px;
+        }
+
+        /* --- 3. The Real Andal (Left Side) --- */
+        .real-andal-container {
+            width: 300px;
+            height: 450px;
+            position: relative;
+            /* Styling to make the image look like a figure, not a box */
+            filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.8));
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        .real-andal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Keeps aspect ratio */
+            /* We don't flip this one. This is reality. */
+        }
+
+        /* --- 4. The Mirror (Right Side) --- */
+        .mirror-frame {
+            width: 280px;
+            height: 400px;
+            position: relative;
             
-            /* The Frame Design */
-            border: 12px solid #b8860b; /* Dark Gold */
-            border-radius: 160px 160px 40px 40px; /* Traditional Arch */
+            /* Arch / Mirror Shape */
+            border-radius: 140px 140px 20px 20px;
+            
+            /* Golden Frame */
+            border: 15px solid #d4af37;
             box-shadow: 
-                0 0 20px rgba(184, 134, 11, 0.4), /* Outer Gold Glow */
-                inset 0 0 50px rgba(0,0,0,0.9);   /* Inner Depth */
+                0 0 15px #d4af37, /* Outer Glow */
+                inset 0 0 20px #000; /* Inner Shadow */
             
             background: #000;
-            overflow: hidden; /* Keeps images inside the curve */
+            overflow: hidden;
         }
 
-        /* Decorative top element (optional bindu/ornament) */
-        .mirror-wrapper::before {
-            content: '♦';
+        /* The Reflection Layer */
+        .reflection-layer {
             position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #b8860b;
-            font-size: 40px;
-            text-shadow: 0 0 10px #ffd700;
-        }
-
-        /* --- 3. The Images (The Vision) --- */
-        .vision-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             height: 100%;
             background-size: cover;
-            background-position: center 20%; /* Focus on faces */
-            transition: opacity 3s ease-in-out; /* Slow, divine transition */
+            background-position: center top;
+            transition: opacity 3s ease-in-out;
         }
 
-        /* Andal (The Reality) */
-        #img-andal {
+        /* Mirror Andal: MUST be flipped horizontally to look like a reflection */
+        #mirror-andal {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true');
+            transform: scaleX(-1); 
+            opacity: 0.8; /* Reflections are slightly dimmer */
             z-index: 1;
-            /* Slight sepia to blend with the room */
-            filter: sepia(30%) contrast(110%);
         }
 
-        /* Vishnu (The Vision) */
-        #img-vishnu {
+        /* Mirror Vishnu */
+        #mirror-vishnu {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Vishnu.png?raw=true');
-            z-index: 2;
             opacity: 0; /* Hidden initially */
-            filter: brightness(1.2) sepia(10%); /* Brighter, glowing */
+            z-index: 2; /* On top of Andal reflection */
         }
 
-        /* --- 4. Special Effects --- */
-        /* Mirror Glass Shine Overlay */
-        .glass-surface {
+        /* Glass Shine Effect */
+        .glass-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.1) 100%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 70%);
             z-index: 10;
             pointer-events: none;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.8); /* Vignette inside mirror */
         }
 
-        /* --- 5. Dialogue/Subtitle --- */
-        .subtitle-area {
-            margin-top: 40px;
-            height: 60px; /* Fixed height to prevent jumping */
+        /* --- 5. Narrative Text --- */
+        .narrative {
+            margin-top: 30px;
+            color: #ffe4b5;
+            font-size: 1.4rem;
             text-align: center;
-            color: #ffe4b5; /* Light gold text */
             font-style: italic;
-            font-size: 1.2rem;
-            opacity: 0;
-            transition: opacity 1s;
-            max-width: 90%;
-            line-height: 1.5;
-            text-shadow: 0 2px 4px rgba(0,0,0,1);
+            height: 40px;
+            text-shadow: 0 2px 5px #000;
         }
 
+        /* Subtle breathing animation for Real Andal */
+        @keyframes breathe {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Mobile Responsive adjustment */
+        @media (max-width: 768px) {
+            .stage {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .real-andal-container, .mirror-frame {
+                width: 200px;
+                height: 300px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="mirror-wrapper">
-        <div class="glass-surface"></div>
-        <div id="img-andal" class="vision-layer"></div>
-        <div id="img-vishnu" class="vision-layer"></div>
+    <div class="stage">
+        <div class="real-andal-container">
+            <img src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true" class="real-andal-img" alt="Andal Real">
+        </div>
+
+        <div class="mirror-frame">
+            <div class="glass-overlay"></div>
+            <div id="mirror-andal" class="reflection-layer"></div>
+            <div id="mirror-vishnu" class="reflection-layer"></div>
+        </div>
     </div>
 
-    <div id="text-display" class="subtitle-area"></div>
+    <div id="story-text" class="narrative">
+        Andal looks into the mirror...
+    </div>
 
     <script>
-        const vishnuImg = document.getElementById('img-vishnu');
-        const textDisplay = document.getElementById('text-display');
+        const vishnuLayer = document.getElementById('mirror-vishnu');
+        const textElement = document.getElementById('story-text');
 
-        function updateText(text, duration) {
-            textDisplay.style.opacity = 0;
+        function playScene() {
+            // 1. Initial State
             setTimeout(() => {
-                textDisplay.innerHTML = text;
-                textDisplay.style.opacity = 1;
+                textElement.innerText = "Andal looks into the mirror...";
             }, 500);
-        }
 
-        function runSequence() {
-            // 0s: Start
-            updateText("Andal gazes into the mirror...", 0);
-
-            // 3s: The Thought
+            // 2. The Question
             setTimeout(() => {
-                updateText(" 'Is this mala worthy of Him?' ", 0);
+                textElement.innerText = "'Is this mala worthy of Him?'";
             }, 3000);
 
-            // 5s: The Transformation Begins
+            // 3. Transformation (Only inside the mirror)
             setTimeout(() => {
-                vishnuImg.style.opacity = 1; // Vishnu appears slowly
-                updateText("Her reflection fades... He appears.", 0);
-            }, 6000);
+                vishnuLayer.style.opacity = '1'; // Vishnu fades in
+                textElement.innerText = "Her reflection transforms...";
+            }, 5000);
 
-            // 10s: Hold the vision, then reset
+            // 4. Reset
             setTimeout(() => {
-                vishnuImg.style.opacity = 0;
-                textDisplay.style.opacity = 0;
-                // Loop back after fade out
-                setTimeout(runSequence, 3000);
-            }, 12000);
+                vishnuLayer.style.opacity = '0'; // Vishnu fades out
+                textElement.innerText = "";
+                setTimeout(playScene, 2000); // Restart loop
+            }, 10000);
         }
 
-        // Start when page loads
-        window.onload = runSequence;
+        window.onload = playScene;
     </script>
+
 </body>
 </html>
