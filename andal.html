@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andal's Vision - Anime Style</title>
+    <title>Andal's Vision - Anime Room</title>
     <style>
         /* --- 1. MAIN CONTAINER (Background Image) --- */
         body, html {
@@ -12,38 +12,46 @@
             height: 100%;
             width: 100%;
             overflow: hidden;
-            background-color: #1a0d05;
+            background-color: #2b1b0e; /* Dark brown fallback */
         }
 
         .scene-container {
             position: relative;
             width: 100%;
             height: 100%;
-            /* Using the generated ANIME image as background */
-            /* REPLACE WITH YOUR GITHUB LINK IF NEEDED */
+            /* REFERENCES THE UPLOADED FILE NAME */
             background-image: url('anime_room_mirror.jpg'); 
             background-size: cover;
             background-position: center;
             display: flex;
             justify-content: center;
-            align-items: flex-end; /* Align text to bottom */
+            align-items: flex-end;
         }
 
         /* --- 2. THE MIRROR REFLECTION AREA --- */
         /* This invisible box sits exactly over the glass in the anime image */
         .mirror-reflection-area {
             position: absolute;
-            /* Coordinates tuned for the specific anime image */
+            /* Coordinates tuned for the anime image provided */
             top: 21%;
             left: 47.5%;
             width: 31.5%;
             height: 49%;
             
-            /* Styling to blend into the anime art style */
-            box-shadow: inset 0 0 30px rgba(50, 20, 0, 0.6); /* Warm inner shadow */
-            border-radius: 4px; /* Slight rounding */
+            /* Styling to blend the flat images into the room's art style */
+            box-shadow: inset 0 0 40px rgba(43, 22, 5, 0.8); /* Inner shadow for depth */
+            border-radius: 4px; /* Slight rounding to match frame corners */
             overflow: hidden;
-            opacity: 0.9; /* Make reflections slightly translucent */
+            z-index: 10;
+        }
+
+        /* Glass Sheen Overlay (Makes it look like a surface) */
+        .glass-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 40%, rgba(255,200,100,0.1) 100%);
+            z-index: 20;
+            pointer-events: none;
         }
 
         /* --- 3. THE IMAGES --- */
@@ -53,39 +61,44 @@
             background-size: cover;
             background-position: center top;
             /* Very slow, smooth cross-fade */
-            transition: opacity 6s ease-in-out;
+            transition: opacity 5s ease-in-out;
         }
 
-        /* Andal (Reality) - Flipped & Color Graded for Anime */
+        /* Andal (Reality) - Flipped & Color Graded for Anime Room */
         #ref-andal {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true');
-            transform: scaleX(-1); /* Flip horizontally */
-            opacity: 1;
-            /* Warm sepia + contrast to match the anime lighting */
+            transform: scaleX(-1); /* Flip horizontally for mirror effect */
+            opacity: 0.85;
+            /* Sepia and Contrast helps blend the photo into the drawn background */
             filter: sepia(40%) contrast(115%) brightness(0.9);
+            z-index: 5;
         }
 
         /* Vishnu (Vision) - Clearer & Brighter */
         #ref-vishnu {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Vishnu.png?raw=true');
             opacity: 0; /* Hidden initially */
-            /* Slightly brighter to stand out as a vision */
-            filter: sepia(10%) contrast(110%) brightness(1.1);
+            /* Slightly brighter to stand out as a divine vision */
+            filter: sepia(20%) contrast(110%) brightness(1.2);
+            z-index: 6;
         }
 
         /* --- 4. TEXT --- */
         .caption {
             position: relative;
-            bottom: 5%;
+            bottom: 6%;
             color: #ffdbac; /* Light warm skin tone color for text */
             font-family: 'Georgia', serif;
-            font-size: 1.5rem;
-            text-shadow: 2px 2px 5px #3e1c05;
+            font-size: 1.4rem;
+            text-shadow: 2px 2px 4px #000;
             font-style: italic;
             opacity: 0;
             transition: opacity 2s ease;
             text-align: center;
             width: 80%;
+            background-color: rgba(0,0,0,0.4); /* Slight backing for readability */
+            padding: 10px;
+            border-radius: 10px;
         }
 
     </style>
@@ -94,6 +107,7 @@
 
     <div class="scene-container">
         <div class="mirror-reflection-area">
+            <div class="glass-overlay"></div>
             <div id="ref-andal" class="reflection-layer"></div>
             <div id="ref-vishnu" class="reflection-layer"></div>
         </div>
@@ -103,7 +117,6 @@
 
     <script>
         const vishnuLayer = document.getElementById('ref-vishnu');
-        const andalLayer = document.getElementById('ref-andal');
         const textBox = document.getElementById('text-box');
 
         function playAnimeSequence() {
@@ -116,26 +129,26 @@
             setTimeout(() => {
                 textBox.style.opacity = '0'; // Fade out old text
                 setTimeout(() => {
-                    textBox.innerText = "Her reflection slowly fades to reveal her Lord.";
+                    textBox.innerText = "The reflection reveals the Lord in her heart.";
                     textBox.style.opacity = '1'; // Fade in new text
                 }, 1000);
             }, 4000);
 
-            // 5s: Start the Slow Dissolve
+            // 5s: Start the Slow Dissolve (Vishnu Appears)
             setTimeout(() => {
-                vishnuLayer.style.opacity = '1'; // Vishnu fades IN
+                vishnuLayer.style.opacity = '1'; 
             }, 5000);
 
-            // 13s: Fade out text
+            // 12s: Fade out text
             setTimeout(() => {
                 textBox.style.opacity = '0';
-            }, 13000);
+            }, 12000);
 
-            // 16s: Reset Loop
+            // 15s: Reset Loop (Fade Vishnu Out)
             setTimeout(() => {
-                vishnuLayer.style.opacity = '0'; // Vishnu fades OUT
+                vishnuLayer.style.opacity = '0'; 
                 setTimeout(playAnimeSequence, 6000); // Wait for fade to finish before restarting
-            }, 16000);
+            }, 15000);
         }
 
         window.onload = playAnimeSequence;
