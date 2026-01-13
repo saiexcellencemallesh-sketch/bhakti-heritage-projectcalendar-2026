@@ -3,189 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andal's Vision - Elegant</title>
+    <title>Andal's Vision - Anime Style</title>
     <style>
-        /* --- 1. ATMOSPHERE (Dark & Quiet) --- */
-        body {
+        /* --- 1. MAIN CONTAINER (Background Image) --- */
+        body, html {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            background-color: #050201; /* Almost black */
-            /* A subtle spotlight effect on the center */
-            background-image: radial-gradient(circle at 50% 50%, #1f1006 0%, #000000 70%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Georgia', serif;
-            overflow: hidden;
-        }
-
-        /* --- 2. THE COMPOSITION --- */
-        .scene {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 60px; /* Elegant spacing */
-            height: 550px;
+            height: 100%;
             width: 100%;
-            max-width: 1000px;
-            position: relative;
+            overflow: hidden;
+            background-color: #1a0d05;
         }
 
-        /* --- 3. THE REAL ANDAL (Left) --- */
-        .figure-andal {
-            width: 340px;
-            height: 520px;
+        .scene-container {
             position: relative;
-            z-index: 10;
-        }
-
-        .figure-andal img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            /* Soft shadow to ground her */
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.9)); 
+            /* Using the generated ANIME image as background */
+            /* REPLACE WITH YOUR GITHUB LINK IF NEEDED */
+            background-image: url('anime_room_mirror.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Align text to bottom */
         }
 
-        /* --- 4. THE MIRROR (Right) --- */
-        .mirror-object {
-            position: relative;
-            width: 280px;
-            height: 420px;
-            bottom: 40px; /* Slight offset from bottom */
-            
-            /* The Frame - Classical & Clean */
-            border: 1px solid #5c4018; /* Thin outer definition */
-            border-radius: 150px 150px 20px 20px; /* Arch */
-            background-color: #000;
-            
-            /* Layered Shadows for Depth */
-            box-shadow: 
-                0 0 0 12px #2b1b0e, /* Dark Wood Frame */
-                0 0 0 14px #8a6d3b, /* Thin Gold Trim */
-                0 20px 50px rgba(0,0,0,1); /* Deep Shadow behind */
-            
-            overflow: hidden;
-        }
-
-        /* Inner Shadow (Vignette) inside the glass */
-        .mirror-inner-shadow {
+        /* --- 2. THE MIRROR REFLECTION AREA --- */
+        /* This invisible box sits exactly over the glass in the anime image */
+        .mirror-reflection-area {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 60px rgba(0,0,0,1);
-            z-index: 20;
-            pointer-events: none;
-            border-radius: 150px 150px 20px 20px;
+            /* Coordinates tuned for the specific anime image */
+            top: 21%;
+            left: 47.5%;
+            width: 31.5%;
+            height: 49%;
+            
+            /* Styling to blend into the anime art style */
+            box-shadow: inset 0 0 30px rgba(50, 20, 0, 0.6); /* Warm inner shadow */
+            border-radius: 4px; /* Slight rounding */
+            overflow: hidden;
+            opacity: 0.9; /* Make reflections slightly translucent */
         }
 
-        /* --- 5. THE IMAGES --- */
-        .image-layer {
+        /* --- 3. THE IMAGES --- */
+        .reflection-layer {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
             background-position: center top;
-            transition: opacity 5s ease-in-out; /* VERY SLOW FADE */
+            /* Very slow, smooth cross-fade */
+            transition: opacity 6s ease-in-out;
         }
 
-        /* Andal Reflection */
-        #img-ref-andal {
+        /* Andal (Reality) - Flipped & Color Graded for Anime */
+        #ref-andal {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true');
-            transform: scaleX(-1); /* Flipped */
-            opacity: 0.7; /* Slightly dim, like old glass */
-            filter: sepia(40%) contrast(110%);
+            transform: scaleX(-1); /* Flip horizontally */
+            opacity: 1;
+            /* Warm sepia + contrast to match the anime lighting */
+            filter: sepia(40%) contrast(115%) brightness(0.9);
         }
 
-        /* Vishnu Vision */
-        #img-ref-vishnu {
+        /* Vishnu (Vision) - Clearer & Brighter */
+        #ref-vishnu {
             background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Vishnu.png?raw=true');
-            opacity: 0; /* Hidden */
-            /* He is slightly brighter, standing out from the dark mirror */
-            filter: brightness(1.1) contrast(110%);
+            opacity: 0; /* Hidden initially */
+            /* Slightly brighter to stand out as a vision */
+            filter: sepia(10%) contrast(110%) brightness(1.1);
         }
 
-        /* Glass Sheen (Static, Elegant) */
-        .glass-sheen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 45%, rgba(255,255,255,0.02) 100%);
-            z-index: 15;
-            pointer-events: none;
-        }
-
-        /* --- 6. TEXT (Minimal) --- */
-        .subtitle {
-            position: absolute;
-            bottom: 40px;
-            color: #8a6d3b; /* Muted Gold */
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+        /* --- 4. TEXT --- */
+        .caption {
+            position: relative;
+            bottom: 5%;
+            color: #ffdbac; /* Light warm skin tone color for text */
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 5px #3e1c05;
             font-style: italic;
             opacity: 0;
             transition: opacity 2s ease;
+            text-align: center;
+            width: 80%;
         }
 
-        /* Mobile Adjustment */
-        @media (max-width: 768px) {
-            .scene { flex-direction: column; align-items: center; gap: 30px; }
-            .figure-andal { width: 200px; height: 300px; order: 2; }
-            .mirror-object { width: 180px; height: 260px; order: 1; bottom: 0; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="scene">
-        <div class="figure-andal">
-            <img src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Andal%20Amma.png?raw=true" alt="Andal">
+    <div class="scene-container">
+        <div class="mirror-reflection-area">
+            <div id="ref-andal" class="reflection-layer"></div>
+            <div id="ref-vishnu" class="reflection-layer"></div>
         </div>
 
-        <div class="mirror-object">
-            <div class="mirror-inner-shadow"></div>
-            <div class="glass-sheen"></div>
-            
-            <div id="img-ref-andal" class="image-layer"></div>
-            <div id="img-ref-vishnu" class="image-layer"></div>
-        </div>
+        <div id="text-box" class="caption">...</div>
     </div>
 
-    <div id="text-box" class="subtitle">...</div>
-
     <script>
-        const vishnuLayer = document.getElementById('img-ref-vishnu');
+        const vishnuLayer = document.getElementById('ref-vishnu');
+        const andalLayer = document.getElementById('ref-andal');
         const textBox = document.getElementById('text-box');
 
-        function gracefulSequence() {
-            // 0s: Silence/Stillness
-            textBox.style.opacity = '0';
-            vishnuLayer.style.opacity = '0';
+        function playAnimeSequence() {
+            // 0s: Start State
+            textBox.innerText = "Andal gazes into the mirror...";
+            textBox.style.opacity = '1';
+            vishnuLayer.style.opacity = '0'; // Hide Vishnu
 
-            // 2s: Gentle Text
+            // 4s: Change Text
             setTimeout(() => {
-                textBox.innerText = "Seeing Him in herself...";
-                textBox.style.opacity = '1';
-            }, 2000);
-
-            // 4s: The Slow Dissolve (5 seconds long duration in CSS)
-            setTimeout(() => {
-                vishnuLayer.style.opacity = '1';
+                textBox.style.opacity = '0'; // Fade out old text
+                setTimeout(() => {
+                    textBox.innerText = "Her reflection slowly fades to reveal her Lord.";
+                    textBox.style.opacity = '1'; // Fade in new text
+                }, 1000);
             }, 4000);
 
-            // 11s: Fade out text
+            // 5s: Start the Slow Dissolve
+            setTimeout(() => {
+                vishnuLayer.style.opacity = '1'; // Vishnu fades IN
+            }, 5000);
+
+            // 13s: Fade out text
             setTimeout(() => {
                 textBox.style.opacity = '0';
-            }, 11000);
-
-            // 13s: Fade out Vishnu (Return to Andal)
-            setTimeout(() => {
-                vishnuLayer.style.opacity = '0';
-                // Loop
-                setTimeout(gracefulSequence, 6000);
             }, 13000);
+
+            // 16s: Reset Loop
+            setTimeout(() => {
+                vishnuLayer.style.opacity = '0'; // Vishnu fades OUT
+                setTimeout(playAnimeSequence, 6000); // Wait for fade to finish before restarting
+            }, 16000);
         }
 
-        window.onload = gracefulSequence;
+        window.onload = playAnimeSequence;
     </script>
 
 </body>
