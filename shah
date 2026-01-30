@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Divine Partnership | SMSIMSR Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. CORE AESTHETICS --- */
+        :root {
+            --maroon: #800000; /* Deep Royal Maroon */
+            --gold: #D4AF37;   /* Metallic Gold */
+            --black: #121212;
+            --cream: #FAF9F6;  /* Off-white */
+            --white: #ffffff;
+            --grey: #f4f4f4;
+            --overlay: rgba(0,0,0,0.65);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--black);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* --- 2. NAVIGATION & ANIMATIONS --- */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .btn-back {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--maroon);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(128, 0, 0, 0.1);
+        }
+        .btn-back:hover { background: var(--maroon); color: var(--white); transform: translateY(-2px); }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Manu%20Shah%201.jpeg?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            padding: 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            line-height: 1.1;
+            color: var(--white);
+        }
+
+        .hero-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        .hero-quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            opacity: 0.95;
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            display: inline-block;
+            padding: 1.5rem 0;
+            max-width: 700px;
+            background: rgba(0,0,0,0.2); 
+            backdrop-filter: blur(2px);
+        }
+
+        /* --- 4. NARRATIVE SECTION --- */
+        .narrative { padding: 6rem 0; text-align: center; background: var(--white); }
+        .narrative p { max-width: 800px; margin: 0 auto 2rem; font-size: 1.25rem; color: #444; font-weight: 300; }
+        .narrative blockquote {
+            font-size: 1.8rem; color: var(--maroon); font-family: 'Playfair Display', serif;
+            margin: 4rem auto; max-width: 900px; line-height: 1.5;
+        }
+
+        /* --- 5. METRICS BAR --- */
+        .impact-bar {
+            background: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Sarla%20Hospital.png?raw=true') fixed center/cover;
+            position: relative;
+            padding: 5rem 0;
+            color: var(--white);
+        }
+        .impact-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); }
+        .stats-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 3rem; text-align: center; }
+        .stat-item h3 { font-size: 3.5rem; color: var(--gold); margin-bottom: 0.5rem; }
+        .stat-item p { text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 500; opacity: 0.8; }
+
+        /* --- 6. MENU CARDS --- */
+        .menu-section { padding: 6rem 20px; background: var(--cream); }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 3rem; color: var(--maroon); margin-bottom: 1rem; }
+        .section-header p { font-size: 1.2rem; color: #666; }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(128, 0, 0, 0.15); }
+        
+        .menu-img { height: 240px; width: 100%; object-fit: cover; transition: transform 0.5s; }
+        .menu-card:hover .menu-img { transform: scale(1.05); }
+        
+        .menu-placeholder { height: 240px; width: 100%; background: linear-gradient(135deg, #2c3e50, #000000); display: flex; align-items: center; justify-content: center; color: var(--white); }
+        .menu-placeholder.red { background: linear-gradient(135deg, var(--maroon), #400000); }
+        .menu-placeholder.teal { background: linear-gradient(135deg, #16a085, #2c3e50); }
+        
+        .menu-text { padding: 2.5rem; text-align: center; position: relative; z-index: 2; background: var(--white); }
+        .menu-text h3 { margin-bottom: 0.8rem; color: var(--black); font-size: 1.5rem; }
+        .menu-text p { font-size: 0.95rem; color: #666; margin-bottom: 1.5rem; line-height: 1.6; }
+        
+        .btn-link { 
+            display: inline-block; padding: 10px 0;
+            color: var(--maroon); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1.5px; font-weight: 700;
+            border-bottom: 2px solid transparent; transition: border 0.3s;
+        }
+        .menu-card:hover .btn-link { border-bottom: 2px solid var(--gold); }
+
+        /* --- 7. SUB-PAGE STYLES --- */
+        .sub-hero {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 5rem;
+            position: relative;
+        }
+        .sub-hero::before { content:''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2)); }
+        
+        .sub-hero-content { position: relative; z-index: 2; color: var(--white); width: 100%; text-align: center; }
+        .sub-hero h1 { font-size: 4rem; margin-bottom: 1rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .sub-hero p { font-size: 1.4rem; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+        .content-block { padding: 5rem 0; background: var(--white); }
+        .content-block.grey { background: #f9f9f9; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+        
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+        
+        /* Tables */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 2rem; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        th { background: var(--black); color: var(--gold); padding: 18px 25px; text-align: left; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 20px 25px; border-bottom: 1px solid #eee; color: #444; font-size: 0.95rem; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #fafafa; }
+        
+        .status-urgent { color: #c0392b; font-weight: 700; background: #fdedec; padding: 5px 10px; border-radius: 4px; display: inline-block; font-size: 0.8rem; }
+        .status-ok { color: #27ae60; font-weight: 700; background: #eafaf1; padding: 5px 10px; border-radius: 4px; display: inline-block; font-size: 0.8rem; }
+
+        /* Footer */
+        footer { background: var(--black); color: var(--white); text-align: center; padding: 5rem 2rem; }
+        .footer-logo { font-size: 2rem; font-family: 'Playfair Display', serif; margin-bottom: 0.5rem; }
+
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; gap: 3rem; }
+            .hero-content h1 { font-size: 3rem; }
+            .menu-card { margin-bottom: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-control" class="btn-back" onclick="goHome()">
+        <i class="fas fa-arrow-left"></i> &nbsp; Return to Proposal
+    </div>
+
+    <section id="page-home" class="page-section active">
+        
+        <header class="hero">
+            <div class="hero-content">
+                <h1>A Divine Partnership</h1>
+                <h2>A Proposal for Sri Manu Shah Ji & Smt. Rika Ji</h2>
+                <div class="hero-quote">
+                    "Namaste. It was a profound honour to host you at Sathya Sai Grama."
+                </div>
+            </div>
+        </header>
+
+        <div class="narrative container">
+            <img src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Manu%20Shah%202.jpeg?raw=true" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" alt="Shah Family">
+            
+            <p>Your presence inspired our students, and your generosity toward the Cardiac Care Wing has already begun to reshape the future of healthcare for the underprivileged. While your heart is already dedicated to Cardiac and Urgent Care, we believe you will find these four additional pillars equally meaningful.</p>
+            
+            <blockquote>
+                "In the same way that blood flows silently to give life, your family’s support can become the vital force behind these essential services."
+            </blockquote>
+        </div>
+
+        <div class="impact-bar">
+            <div class="impact-overlay"></div>
+            <div class="stats-grid container">
+                <div class="stat-item">
+                    <h3>1,324,776</h3>
+                    <p>Outpatient Visits</p>
+                </div>
+                <div class="stat-item">
+                    <h3>59,616</h3>
+                    <p>Inpatient Admissions</p>
+                </div>
+                <div class="stat-item">
+                    <h3>37,583</h3>
+                    <p>Surgeries Performed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>7,280</h3>
+                    <p>Newborns Delivered</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>The Four Pillars of Compassion</h2>
+                    <p>Click an opportunity below to explore the specific impact and requirements.</p>
+                </div>
+                
+                <div class="menu-grid">
+                    <div class="menu-card" onclick="goToPage('page-blood')">
+                        <img src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Blood%20Bank.JPG?raw=true" class="menu-img" alt="Blood Bank">
+                        <div class="menu-text">
+                            <h3>The Blood Bank</h3>
+                            <p>The Silent Lifeline of Surgery. <br>7,000+ units collected annually with 0% wastage.</p>
+                            <span class="btn-link">Review Needs</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('page-shah')">
+                        <div class="menu-placeholder red"><i class="fas fa-ambulance fa-4x"></i></div>
+                        <div class="menu-text">
+                            <h3>Shah Rapid Response Centre</h3>
+                            <p>Naming the Casualty & Diagnostics block. <br>The "Golden Hour" Frontline.</p>
+                            <span class="btn-link">Review Proposal</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('page-ot')">
+                        <div class="menu-placeholder teal"><i class="fas fa-heartbeat fa-4x"></i></div>
+                        <div class="menu-text">
+                            <h3>Cardiac OT</h3>
+                            <p>The Sanctum of Healing. <br>3,000+ free surgeries performed annually.</p>
+                            <span class="btn-link">View Clinical Data</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-card" onclick="goToPage('page-wards')">
+                        <div class="menu-placeholder"><i class="fas fa-procedures fa-4x"></i></div>
+                        <div class="menu-text">
+                            <h3>General Wards</h3>
+                            <p>Dignity in Recovery. <br>Touching the highest volume of individual lives.</p>
+                            <span class="btn-link">View Community Impact</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-logo">SMSIMSR</div>
+            <p>Sathya Sai Grama, Muddenahalli</p>
+            <p style="margin-top: 2rem; color: var(--gold); font-style: italic; font-size: 1.2rem;">"One World, One Family"</p>
+        </footer>
+    </section>
+
+    <section id="page-blood" class="page-section">
+        <div class="sub-hero" style="background-image: url('https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Blood%20Bank.JPG?raw=true');">
+            <div class="sub-hero-content container">
+                <h1>The Blood Bank</h1>
+                <p>The Silent Lifeline of Surgery</p>
+            </div>
+        </div>
+
+        <div class="content-block container">
+            <div class="two-col">
+                <div>
+                    <h2>The Vision</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">A Cardiac Wing cannot function without a Blood Bank. During open-heart surgery, a patient may require multiple units of blood. This facility is the safety net that allows our surgeons to perform miracles with confidence.</p>
+                    
+                    <h3 style="color: var(--maroon); margin-bottom: 0.5rem;">Naming Impact</h3>
+                    <p>By naming the Blood Bank, you become the guardian of the vital resource that flows through the very hearts you are helping to heal.</p>
+                </div>
+                <div style="background: var(--cream); padding: 2.5rem; border-left: 5px solid var(--maroon); border-radius: 8px;">
+                    <h3>The Shah Policy</h3>
+                    <ul style="list-style: none; margin-top: 1.5rem;">
+                        <li style="margin-bottom: 1.5rem; display: flex; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--gold); margin-right: 15px; margin-top: 5px;"></i>
+                            <span><strong>No Replacement Policy:</strong> We never ask a patient’s family to find a replacement donor in an emergency.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--gold); margin-right: 15px; margin-top: 5px;"></i>
+                            <span><strong>Free for All:</strong> Whether for a daily wage worker or a wealthy merchant, blood is never sold here. It is always a gift.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block grey">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Operational Impact Report</h2>
+                    <p>Maximizing 7,000 donations into 16,000+ life-saving therapies</p>
+                </div>
+                
+                <table>
+                    <thead><tr><th>Component</th><th>Volume</th><th>Medical Application in Chikkaballapur</th></tr></thead>
+                    <tbody>
+                        <tr><td>PRBC (Red Cells)</td><td>7,000 Units</td><td>Maternal Health (Post-delivery) & Trauma Accidents</td></tr>
+                        <tr><td>FFP (Plasma)</td><td>7,000 Units</td><td>Rural Emergencies (Snakebites) & Severe Burns</td></tr>
+                        <tr><td>Platelets</td><td>2,000 Units</td><td>CTVS Surgeries & Dengue Fever Management</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-block container">
+            <h2 style="color: #c0392b; text-align: center; margin-bottom: 1rem;">Urgent Equipment Requirements</h2>
+            <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto;">To maximize life-saving components and ensure patient safety, we need to procure the following:</p>
+            
+            <table>
+                <thead><tr><th>Equipment</th><th>Status</th><th>Clinical Significance</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Apheresis Machine</strong></td>
+                        <td><span class="status-urgent">Need to Procure</span></td>
+                        <td>Draws whole blood, separates specific components (like platelets), and returns rest to donor immediately.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thermopla (TEG)</strong></td>
+                        <td><span class="status-urgent">Need to Procure</span></td>
+                        <td>Real-time whole blood test mapping clot lifecycle to identify exactly which product is needed to stop bleeding.</td>
+                    </tr>
+                    <tr>
+                        <td>Deep Freezer -80</td>
+                        <td><span class="status-ok">Existing</span></td>
+                        <td>Long term storage of plasma components.</td>
+                    </tr>
+                    <tr>
+                        <td>Laminar Air Flow</td>
+                        <td><span class="status-ok">Existing</span></td>
+                        <td>Ensures completely sterile environment for handling.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer><p>© SMSIMSR | "One World, One Family"</p></footer>
+    </section>
+
+    <section id="page-shah" class="page-section">
+        <div class="sub-hero" style="background-color: #2c3e50;">
+            <div class="sub-hero-content container">
+                <h1>Shah Rapid Response Centre</h1>
+                <p>Naming the Casualty & Diagnostics Block</p>
+            </div>
+        </div>
+
+        <div class="content-block container">
+            <div class="two-col">
+                <div>
+                    <h2>The Frontline</h2>
+                    <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">We propose naming the entire Casualty and Diagnostics block the <strong>"Shah Wing."</strong></p> 
+                    <p>This is the busiest corridor of the hospital. It houses two critical functions: <strong>Emergency</strong> (where patients arrive in distress) and <strong>Laboratory</strong> (where the truth of their ailment is discovered).</p>
+                </div>
+                <div style="background: #f0f4f8; padding: 2.5rem; border-radius: 8px;">
+                    <h3>Performance Metrics</h3>
+                    <div style="margin-top: 1.5rem;">
+                        <h4 style="color: var(--maroon); font-size: 2.5rem; margin-bottom: 0;">&lt; 25 Mins</h4>
+                        <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;">Golden Hour Response (Arrival to Stabilization)</p>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: var(--maroon); font-size: 2.5rem; margin-bottom: 0;">150,000+</h4>
+                        <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;">Lab Tests Conducted Annually</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block grey">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Proposed Diagnostic Infrastructure</h2>
+                    <p>Bridging the gap for early cancer detection.</p>
+                </div>
+
+                <p style="max-width: 800px; margin: 0 auto 3rem; text-align: center; color: #555;">Currently, we process 300 biopsies/month. However, 8-10% are first-time cancer diagnoses often delayed by referrals. We need on-site advanced diagnostics to save lives.</p>
+
+                <table>
+                    <thead><tr><th>Focus Area</th><th>Equipment Required</th><th>Social & Clinical Impact</th></tr></thead>
+                    <tbody>
+                        <tr><td>Early Cancer Screening</td><td><strong>Liquid-Based Cytology (LBC) System</strong></td><td>Early detection of cervical cancer; reduced morbidity among women.</td></tr>
+                        <tr><td>Routine Histopathology</td><td><strong>Automated Microtome</strong></td><td>Accurate tissue diagnosis enabling timely treatment initiation.</td></tr>
+                        <tr><td>Intraoperative Support</td><td><strong>Frozen Section Cryostat</strong></td><td>Real-time diagnosis during surgery (prevents repeat surgeries).</td></tr>
+                        <tr><td>Advanced Diagnosis</td><td><strong>Immunohistochemistry (IHC) System</strong></td><td>Precise tumor classification & personalized treatment planning.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer><p>© SMSIMSR | "One World, One Family"</p></footer>
+    </section>
+
+    <section id="page-ot" class="page-section">
+        <div class="sub-hero" style="background-color: #16a085;">
+            <div class="sub-hero-content container">
+                <h1>Cardiac OT</h1>
+                <p>The Sanctum of Healing</p>
+            </div>
+        </div>
+
+        <div class="content-block container">
+            <div class="section-header">
+                <h2>Clinical Excellence</h2>
+                <p>3,000+ Annual Procedures | 0% Infection Rate</p>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <h3 style="border-bottom: 3px solid var(--gold); padding-bottom: 15px; display: inline-block;">Pediatric Interventions</h3>
+                    <p style="margin-top: 1rem; color: #666; font-style: italic;">1,200+ Children treated for Congenital Heart Defects</p>
+                    <ul style="margin-top: 1.5rem; margin-left: 1.5rem; line-height: 2; color: #444;">
+                        <li>Tetralogy of Fallot Repair</li>
+                        <li>VSD / ASD Surgical Closure</li>
+                        <li>Ozaki Procedure & Cone Repair</li>
+                        <li>Glenn Surgery & Fontan Completion</li>
+                        <li>Rastelli Surgery & PDA Ligation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="border-bottom: 3px solid var(--gold); padding-bottom: 15px; display: inline-block;">Adult Interventions</h3>
+                    <p style="margin-top: 1rem; color: #666; font-style: italic;">Complex life-saving procedures</p>
+                    <ul style="margin-top: 1.5rem; margin-left: 1.5rem; line-height: 2; color: #444;">
+                        <li>CABG (Bypass Surgery)</li>
+                        <li>Double Valve Replacement</li>
+                        <li>Mitral & Aortic Valve Repair</li>
+                        <li>MICS Surgeries</li>
+                        <li>Myxoma Excision</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <footer><p>© SMSIMSR | "One World, One Family"</p></footer>
+    </section>
+
+    <section id="page-wards" class="page-section">
+        <div class="sub-hero" style="background-color: #d35400;">
+            <div class="sub-hero-content container">
+                <h1>General Wards</h1>
+                <p>Dignity in Recovery</p>
+            </div>
+        </div>
+
+        <div class="content-block container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h2>Healing the Multitudes</h2>
+                <p style="font-size: 1.4rem; margin: 2rem 0; font-family: 'Playfair Display', serif; color: var(--maroon);">"Surgery takes 4 hours, but recovery takes 5 days."</p>
+                <p style="font-size: 1.1rem; color: #555;">For our rural patients, the General Wards are a haven of hygiene, nutrition, and care. This option touches the highest volume of individual lives, demonstrating a commitment to the comfort of the common man.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 5rem; text-align: center;">
+                <div style="padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="color: var(--maroon); font-size: 3rem;">92%</h3>
+                    <p style="text-transform: uppercase; font-size: 0.9rem;">Bed Occupancy (High Trust)</p>
+                </div>
+                <div style="padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="color: var(--maroon); font-size: 3rem;">100%</h3>
+                    <p style="text-transform: uppercase; font-size: 0.9rem;">Free Dietician-Curated Meals</p>
+                </div>
+                <div style="padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="color: var(--maroon); font-size: 3rem;">1:5</h3>
+                    <p style="text-transform: uppercase; font-size: 0.9rem;">Nurse-to-Patient Ratio (24/7)</p>
+                </div>
+            </div>
+        </div>
+        <footer><p>© SMSIMSR | "One World, One Family"</p></footer>
+    </section>
+
+    <script>
+        function goToPage(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                page.style.opacity = 0;
+                setTimeout(() => {
+                    page.classList.remove('active');
+                }, 500);
+            });
+            
+            setTimeout(() => {
+                const target = document.getElementById(pageId);
+                target.classList.add('active');
+                setTimeout(() => {
+                    target.style.opacity = 1;
+                }, 50);
+                
+                const nav = document.getElementById('nav-control');
+                window.scrollTo(0,0);
+                
+                if(pageId === 'page-home') {
+                    nav.style.display = 'none';
+                } else {
+                    nav.style.display = 'block';
+                }
+            }, 500);
+        }
+
+        function goHome() {
+            goToPage('page-home');
+        }
+    </script>
+</body>
+</html>
