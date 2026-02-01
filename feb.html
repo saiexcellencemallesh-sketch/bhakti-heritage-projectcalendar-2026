@@ -81,25 +81,25 @@
         /* --- 3. IMMERSIVE JOURNEY LAYOUT --- */
         #immersive-journey { display: none; width: 100%; height: 100vh; position: relative; overflow: hidden; }
         
-        /* Z-INDEX LAYERING STRATEGY 
-           -2: Background Colors (Section)
-           -1: Celestial Body (Moon/Sun)
-            0: Rain Container
-            2: Content Wrapper (Text/Images)
-        */
-
         .main-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; position: relative; z-index: 2; }
         
-        section { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; padding: 40px; position: relative; transition: background 2s ease; background: transparent; }
+        /* THE HARD STOP FIX: scroll-snap-stop: always prevents skipping */
+        section { 
+            height: 100vh; width: 100%; 
+            scroll-snap-align: start; 
+            scroll-snap-stop: always; 
+            display: flex; justify-content: center; align-items: center; padding: 40px; position: relative; 
+            transition: background 2s ease; background: transparent; 
+        }
         
-        /* Background Layer Handler */
+        /* Background Layer */
         #bg-layer { position: fixed; inset: 0; background: var(--bg-color-dark); z-index: -2; transition: background 2s ease; }
         body.light-mode #bg-layer { background: radial-gradient(circle at center, var(--bg-color-light-1) 0%, var(--bg-color-light-2) 100%); }
 
-        h1, h2 { font-family: 'Cinzel Decorative'; color: var(--accent-color-dark); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-        p { line-height: 1.9; margin-bottom: 1.5rem; font-size: 1.15rem; text-align: justify; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
+        h1, h2 { font-family: 'Cinzel Decorative'; color: var(--accent-color-dark); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
+        p { line-height: 1.9; margin-bottom: 1.5rem; font-size: 1.15rem; text-align: justify; text-shadow: 0 1px 5px rgba(0,0,0,0.9); }
 
-        /* Light Theme Text Adjustments */
+        /* Light Theme Text */
         body.light-mode h2 { color: var(--accent-color-light); text-shadow: none; }
         body.light-mode p { color: var(--text-color-light); text-shadow: none; }
         body.light-mode .highlight { color: #800000; font-weight: bold; border-bottom: 1px solid #800000; }
@@ -114,40 +114,32 @@
         .img-block img { max-width: 100%; max-height: 55vh; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); border: 1px solid rgba(212, 175, 55, 0.3); transition: 1s; }
         body.light-mode .img-block img { box-shadow: 0 20px 40px rgba(139, 94, 60, 0.2); border: 2px solid var(--accent-color-light); }
 
-        /* --- CELESTIAL BODY (MOON -> SUN) --- */
+        /* --- CELESTIAL BODY (TEXT & TRANSITION) --- */
         #celestial-body {
             position: fixed;
-            top: 50px;
-            right: 50px;
-            width: 80px;
-            height: 80px;
+            top: 40px; right: 40px;
+            width: 120px; height: 120px; /* Larger to fit text */
             border-radius: 50%;
-            z-index: -1; /* Behind rain, behind text */
+            z-index: -1; 
             transition: all 3s ease-in-out;
-            opacity: 0; /* Hidden initially */
+            opacity: 0;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            font-size: 0.65rem; font-family: 'Cinzel Decorative', serif; font-weight: bold; letter-spacing: 0.5px; line-height: 1.4;
+            padding: 10px;
         }
-        
-        /* Moon State */
         #celestial-body.moon {
-            opacity: 0.8;
-            background: #d4d4d4;
-            box-shadow: 0 0 40px #fff, inset -20px -10px 0px 0px rgba(0,0,0,0.2);
+            opacity: 1; background: #e0e0e0; color: #1a1a1a; /* Dark text on white moon */
+            box-shadow: 0 0 50px rgba(255,255,255,0.8), inset -20px -10px 0px 0px rgba(0,0,0,0.1);
         }
-        
-        /* Sun State */
         #celestial-body.sun {
-            opacity: 0.9;
-            background: #ffcc00;
-            box-shadow: 0 0 60px #ffcc00, 0 0 100px #ff6600;
-            top: 40px; right: 40px; /* Slight movement */
+            opacity: 1; background: #ffcc00; color: #660000; /* Maroon text on yellow sun */
+            box-shadow: 0 0 80px #ffcc00, 0 0 150px #ff6600;
+            top: 30px; right: 30px; 
         }
+        @media (max-width: 768px) { #celestial-body { width: 90px; height: 90px; font-size: 0.5rem; top: 15px; right: 15px; } }
 
-        /* Mobile Adjustment for Moon/Sun */
-        @media (max-width: 768px) {
-            #celestial-body { width: 50px; height: 50px; top: 15px; right: 15px; }
-        }
-
-        /* --- RAIN EFFECT --- */
+        /* --- RAIN & LIGHTNING --- */
         #rain-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 2s ease; }
         .drop { position: absolute; background: rgba(255,255,255,0.15); width: 2px; height: 30px; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(100vh); } }
@@ -159,17 +151,25 @@
         .urge-card { background: rgba(212, 175, 55, 0.08); border-top: 4px solid var(--accent-color-dark); padding: 40px; border-radius: 15px; text-align: center; max-width: 800px; }
         body.light-mode .urge-card { background: rgba(139, 94, 60, 0.05); border-top: 4px solid var(--accent-color-light); }
 
-        .anim { opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
+        /* --- ANIMATIONS & HINT --- */
+        .anim { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+        section.active .img-block.anim { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+        section.active .text-block.anim { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         section.active .anim { opacity: 1; transform: translateY(0); }
-        
-        /* Audio Status & Back Buttons */
-        #audio-status { 
-            position: fixed; bottom: 20px; right: 20px; /* Moved to bottom to clear sky */
-            z-index: 10002; background: rgba(0,0,0,0.6); padding: 8px 15px; 
-            border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--accent-color-dark); display: none; 
+
+        #scroll-hint {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: var(--accent-color-dark); font-size: 2rem; z-index: 10003;
+            opacity: 0; animation: bounce 2s infinite; pointer-events: none; transition: opacity 0.5s;
         }
-        
-        /* Hidden YouTube Players */
+        body.light-mode #scroll-hint { color: var(--accent-color-light); }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
+
+        #audio-status { 
+            position: fixed; bottom: 20px; right: 20px; 
+            z-index: 10002; background: rgba(0,0,0,0.6); padding: 8px 15px; 
+            border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--accent-color-dark); display: none; color: #fff; 
+        }
         .hidden-player { position: absolute; top: -9999px; left: -9999px; visibility: hidden; }
     </style>
 </head>
@@ -212,17 +212,14 @@
     <div class="content-wrapper" style="align-items: flex-start; margin: 0 auto;">
         <button class="back-btn" onclick="location.reload()" data-i18n="btn_back_gate">← BACK TO GATEWAY</button>
         <h2 style="font-family: 'Cinzel Decorative'; color: var(--accent-color-dark);" data-i18n="lib_title">Sacred Sounds</h2>
-        
         <p class="media-intro" data-i18n="lib_intro">
             Welcome to the digital sanctuary of Sant Tulsidas Ji. Below, we have curated a collection of cinematic stories and soul-stirring compositions that define his legacy.
         </p>
-
         <h3 style="color:var(--accent-color-dark); margin: 30px 0 10px;" data-i18n="vid_sec_story">The Story of Tulsidas Ji</h3>
         <div class="video-grid">
             <div class="vid-box"><iframe src="https://www.youtube.com/embed/4-BzjHYhc-M?si=SPN7PF72_oGg-IrN"></iframe></div>
             <div class="vid-box"><iframe src="https://www.youtube.com/embed/OxzVwF6Anzw?si=7VHQzOjEA-Fqw6nL"></iframe></div>
         </div>
-
         <h3 style="color:var(--accent-color-dark); margin: 50px 0 10px;" data-i18n="vid_sec_songs">Compositions of Tulsidas Ji</h3>
         <div class="video-grid">
             <div class="vid-box"><iframe src="https://www.youtube.com/embed/z56DlPcG8k8?si=8bpDvTYKbFbQrXg6"></iframe></div>
@@ -234,15 +231,17 @@
 
 <div id="immersive-journey">
     <div id="bg-layer"></div>
-    <div id="celestial-body" class="moon"></div>
+    <div id="celestial-body" class="moon">
+        Bhakthi Heritage<br>Art Calendar
+    </div>
     <div id="lightning-flash"></div>
     <div id="rain-container"></div>
     
     <div id="audio-status" data-i18n="audio_status">🔊 SOUNDSCAPE: ACTIVE</div>
+    <div id="scroll-hint">↓</div>
     <button class="back-btn" style="position: fixed; top: 20px; left: 20px; z-index: 10002; background: rgba(0,0,0,0.5);" onclick="location.reload()" data-i18n="btn_exit">EXIT</button>
 
     <div class="main-container">
-        
         <section id="hero">
             <div class="content-wrapper anim">
                 <h1 data-i18n="journey_title">Tulsidas: The Evolution</h1>
@@ -321,16 +320,13 @@
                 <p style="font-size: 1.3rem; font-style: italic; color: var(--text-color-light); max-width: 800px; margin: 0 auto; line-height: 1.8;" data-i18n="observe_text">
                     How are you satiating your burning desire? Are you using your energy for short-term gain, or are you using it to love, embrace, grow in your real self, and achieve the purpose for which you were born?
                 </p>
-                
                 <button class="back-btn" style="margin-top: 50px; border-color: var(--accent-color-light); color: var(--accent-color-light); background: transparent; cursor: pointer; padding: 15px 30px; font-weight: bold;" onclick="location.reload()" data-i18n="btn_return">RETURN TO GATEWAY</button>
             </div>
         </section>
-
     </div>
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
-
 <script>
     // --- TRANSLATION DATA ---
     const i18n = {
@@ -436,9 +432,7 @@
         }
     };
 
-    // --- LOGIC ---
     let currentLang = 'en';
-
     function setLanguage(lang) {
         currentLang = lang;
         document.body.className = 'lang-' + lang;
@@ -458,30 +452,73 @@
     let playerSuspense, playerDevotional;
     function onYouTubeIframeAPIReady() {
         playerSuspense = new YT.Player('player-suspense', {
-            height: '0', width: '0', videoId: 'X9y5ka70Qto', // Suspense BG
+            height: '0', width: '0', videoId: 'X9y5ka70Qto', 
             events: { 'onReady': onPlayerReady }
         });
         playerDevotional = new YT.Player('player-devotional', {
-            height: '0', width: '0', videoId: 'IGOhME0xSUU', // Devotional BG
+            height: '0', width: '0', videoId: 'IGOhME0xSUU', 
             events: { 'onReady': onPlayerReady }
         });
     }
-    function onPlayerReady(event) { event.target.setVolume(50); } // Set YouTube volume
+    function onPlayerReady(event) { event.target.setVolume(50); }
+
+    // --- FADE CONTROL ---
+    function audioFade(player, direction) {
+        if(!player || !player.setVolume) return;
+        
+        let vol = direction === 'in' ? 0 : 50;
+        const target = direction === 'in' ? 50 : 0;
+        
+        if (direction === 'in') {
+            player.setVolume(0);
+            player.playVideo();
+        }
+
+        const interval = setInterval(() => {
+            vol += (direction === 'in' ? 2 : -2);
+            player.setVolume(vol);
+            
+            if ((direction === 'in' && vol >= target) || (direction === 'out' && vol <= target)) {
+                clearInterval(interval);
+                if (direction === 'out') player.pauseVideo();
+            }
+        }, 50); // Fade over approx 1.25s
+    }
+
+    function rainFade(audio, direction) {
+        let vol = direction === 'in' ? 0 : 0.8;
+        const target = direction === 'in' ? 0.8 : 0;
+        
+        if (direction === 'in') {
+            audio.volume = 0;
+            audio.play();
+        }
+
+        const interval = setInterval(() => {
+            vol += (direction === 'in' ? 0.05 : -0.05);
+            // Clamp value
+            if(vol > 1) vol = 1; if(vol < 0) vol = 0;
+            
+            audio.volume = vol;
+            
+            if ((direction === 'in' && vol >= target) || (direction === 'out' && vol <= 0.05)) {
+                clearInterval(interval);
+                if (direction === 'out') audio.pause();
+            }
+        }, 100);
+    }
 
     // --- SOUND EFFECTS ---
     const rainAudio = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
     const thunderAudio = new Audio('https://www.soundjay.com/nature/thunder-01.mp3');
-    rainAudio.volume = 0.4; // Raised volume to be audible with BGM
-    thunderAudio.volume = 0.5; 
     rainAudio.loop = true;
+    thunderAudio.volume = 0.5;
 
     let currentPath = '';
 
-    // --- ROUTING ---
     function openPath(path) {
         currentPath = path;
         document.getElementById('gateway-screen').style.opacity = '0';
-        
         setTimeout(() => {
             document.getElementById('gateway-screen').style.display = 'none';
             if(path === 'media') {
@@ -489,19 +526,16 @@
             } else {
                 document.getElementById('immersive-journey').style.display = 'block';
                 document.getElementById('audio-status').style.display = 'block';
-                // Trigger Suspense Audio & Rain
-                rainAudio.play().catch(e => console.log("Click required"));
-                if(playerSuspense && playerSuspense.playVideo) {
-                    playerSuspense.playVideo();
-                    playerSuspense.setLoop(true);
-                }
-                // Show Moon
+                // Trigger Start Fade
+                rainFade(rainAudio, 'in');
+                audioFade(playerSuspense, 'in');
+                if(playerSuspense) playerSuspense.setLoop(true);
+                
                 document.getElementById('celestial-body').style.opacity = '1';
             }
         }, 1000);
     }
 
-    // --- VISUAL EFFECTS ---
     function triggerLightning() {
         const flash = document.getElementById('lightning-flash');
         flash.style.animation = "flashEffect 0.6s ease-out";
@@ -509,63 +543,65 @@
         setTimeout(() => flash.style.animation = "", 700);
     }
 
-    // --- SCROLL OBSERVER (The Director) ---
+    // --- SCROLL OBSERVER ---
+    let currentPhase = 'storm'; // Tracks state to prevent repeat firing
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && currentPath === 'journey') {
                 entry.target.classList.add('active');
                 
+                // Hint Logic
+                const hint = document.getElementById('scroll-hint');
+                hint.style.opacity = '0';
+                setTimeout(() => { hint.style.opacity = '1'; }, 2000);
+
                 const id = entry.target.id;
 
-                // PHASE 1: STORM & DARKNESS
+                // PHASE 1: STORM
                 if (['storm-start', 'corpse-section', 'wake-up'].includes(id)) {
                     document.body.classList.remove('light-mode');
                     document.getElementById('rain-container').style.opacity = "1";
                     
-                    // Ensure Suspense Music is Playing
-                    if(playerSuspense && playerSuspense.getPlayerState && playerSuspense.getPlayerState() !== 1) {
-                         playerSuspense.playVideo();
+                    if (currentPhase !== 'storm') {
+                        currentPhase = 'storm';
+                        rainFade(rainAudio, 'in');
+                        audioFade(playerSuspense, 'in');
+                        audioFade(playerDevotional, 'out');
                     }
-                    if(playerDevotional && playerDevotional.pauseVideo) playerDevotional.pauseVideo();
-                    
-                    // Celestial: MOON
+
                     const cb = document.getElementById('celestial-body');
                     cb.className = 'moon';
-                    
-                    if(rainAudio.paused) rainAudio.play();
                 } 
                 
-                // LIGHTNING TRIGGER
-                if (id === 'wake-up') {
-                    triggerLightning();
-                }
+                if (id === 'wake-up') triggerLightning();
 
-                // PHASE 2: THE SHIFT (Transformation)
+                // PHASE 2: SHIFT
                 if (['the-shift', 'legend-akbar', 'tulsidas-urge', 'observe-yourself'].includes(id)) {
                     document.body.classList.add('light-mode');
-                    document.getElementById('rain-container').style.opacity = "0"; // Stop Rain
+                    document.getElementById('rain-container').style.opacity = "0";
                     
-                    // SWITCH AUDIO: Stop Suspense, Play Devotional
-                    if(playerSuspense && playerSuspense.pauseVideo) playerSuspense.pauseVideo();
-                    if(playerDevotional && playerDevotional.playVideo) {
-                        playerDevotional.playVideo();
-                        playerDevotional.setLoop(true);
+                    if (currentPhase !== 'shift') {
+                        currentPhase = 'shift';
+                        rainFade(rainAudio, 'out');
+                        audioFade(playerSuspense, 'out');
+                        audioFade(playerDevotional, 'in');
+                        if(playerDevotional) playerDevotional.setLoop(true);
                     }
                     
-                    // Stop Rain Audio
-                    rainAudio.pause();
-
-                    // Celestial: SUN
                     const cb = document.getElementById('celestial-body');
                     cb.className = 'sun';
                 }
+                
+                // Hide hint at end
+                if(id === 'observe-yourself') hint.style.display = 'none';
             }
         });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.5 }); 
 
     document.querySelectorAll('section').forEach(s => observer.observe(s));
     
-    // --- RAIN GENERATOR ---
+    // Rain Generator
     const rainContainer = document.getElementById('rain-container');
     for(let i=0; i<100; i++) {
         const drop = document.createElement('div');
