@@ -2,259 +2,325 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>September 2026 - Meerabai | The Mystic Queen of Bhakti</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akka Mahadevi | The Fierce Mystic</title>
     <style>
+        /* --- RESET & VARIABLES --- */
         :root {
-            --royal-maroon: #800000;
-            --palace-gold: #d4af37;
-            --sand-stone: #fdf5e6;
-            --desert-clay: #a0522d;
-            --text-main: #2d241e;
-            --off-white: #faf9f6;
+            --primary-color: #d35400; /* Ochre/Saffron */
+            --secondary-color: #2c3e50; /* Deep Stone Blue */
+            --accent-color: #f39c12; /* Golden */
+            --bg-color: #fafafa; /* Off-white (Jasmine) */
+            --text-color: #333;
+            --font-heading: 'Georgia', serif;
+            --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            margin: 0; padding: 0;
-            font-family: 'Lora', serif;
-            background-color: var(--sand-stone);
-            color: var(--text-main);
-            line-height: 1.8;
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
-        /* Celestial Logo - Radiant Sun Theme */
-        /* Absolute position ensures it stays at the top and doesn't float over content */
-        #celestial-logo {
-            position: absolute; 
-            z-index: 999; width: 110px; height: 110px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            font-family: 'Cinzel'; font-size: 8px; line-height: 1.2; font-weight: bold;
-            left: 30px; top: 30px;
-            background: radial-gradient(circle, #fff700 0%, #ffae00 100%); 
-            border: 3px double var(--palace-gold); 
-            box-shadow: 0 0 50px #ffae00; 
-            color: #000;
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Navigation */
-        nav {
-            background: rgba(26, 0, 0, 0.95);
-            padding: 15px 0;
-            position: sticky; top: 0; z-index: 1000;
-            border-bottom: 2px solid var(--palace-gold);
-            text-align: center;
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
         }
 
         nav a {
-            color: var(--palace-gold); text-decoration: none;
-            margin: 0 15px; font-family: 'Cinzel', serif;
-            font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s;
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        nav a:hover { color: white; }
+        nav a:hover { color: var(--primary-color); }
 
-        /* Hero Section */
-        header {
-            position: relative; height: 65vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
-                        url('https://aanganresortmandawa.com/wp-content/uploads/2021/09/Famous-Sunset-and-Sunrise-Spots-in-Rajasthan.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; color: white;
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            /* Cave background image */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQryfeEIof7T6FylfO0Fx7hwyYgUdbqTeFMPw&s');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 2rem;
         }
 
-        header h1 {
-            font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 5rem);
-            margin: 0; text-shadow: 4px 4px 15px rgba(0,0,0,0.8); letter-spacing: 8px;
+        /* Profile Picture Style */
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            margin-bottom: 2rem;
         }
 
-        header p {
-            font-size: 1.1rem; letter-spacing: 4px; text-transform: uppercase;
-            color: var(--palace-gold); font-weight: bold;
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
-        .portrait-container {
-            position: relative; margin-top: -100px; text-align: center; z-index: 10;
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            font-style: italic;
+            font-family: var(--font-heading);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        .portrait-container img {
-            width: 240px; height: 240px; border-radius: 50%;
-            border: 10px solid var(--sand-stone);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            object-fit: cover; background: white;
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
+        .cta-button:hover { background-color: #b04600; }
+
+        /* --- CONTENT SECTIONS --- */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
         h2 {
-            font-family: 'Cinzel', serif; color: var(--royal-maroon);
-            text-align: center; font-size: 2.2rem; margin-bottom: 40px; position: relative;
+            font-family: var(--font-heading);
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
         }
 
         h2::after {
-            content: ''; display: block; width: 60px; height: 3px;
-            background: var(--palace-gold); margin: 15px auto;
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
         }
 
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center; }
-
-        .insight-card {
-            background: var(--off-white); padding: 40px; border-radius: 2px;
-            border: 1px solid #e0d7c6; box-shadow: 10px 10px 0px var(--palace-gold);
+        .content-block {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            font-size: 1.15rem;
+            color: #444;
         }
 
-        .miracle-box {
-            background: var(--royal-maroon); color: white; padding: 30px;
-            margin: 20px 0; border-radius: 8px; border-left: 10px solid var(--palace-gold);
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
         }
 
-        .miracle-box h3 { font-family: 'Cinzel', serif; margin-top: 0; color: var(--palace-gold); }
-
-        /* Video System */
+        /* --- VIDEO GRID --- */
         .video-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
         }
 
         .video-card {
-            background: white; border-radius: 8px; overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 4px solid var(--royal-maroon);
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
 
-        .iframe-wrap { position: relative; padding-bottom: 56.25%; height: 0; }
-        .iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .video-desc { padding: 15px; text-align: center; font-weight: bold; font-size: 0.9rem; color: var(--royal-maroon); font-family: 'Cinzel'; }
-
-        .footer {
-            background: #1a0000; color: #d4af37; padding: 80px 20px; text-align: center; line-height: 2;
+        .video-card:hover {
+            transform: translateY(-5px);
         }
 
-        .social-btn {
-            display: inline-block; border: 1px solid var(--palace-gold);
-            padding: 10px 25px; color: var(--palace-gold); text-decoration: none;
-            margin: 10px; font-family: 'Cinzel', serif; font-size: 0.8rem;
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
         }
 
-        .social-btn:hover { background: var(--palace-gold); color: white; }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-        @media (max-width: 600px) {
-            header { height: 45vh; }
-            #celestial-logo { width: 90px; height: 90px; left: 15px; top: 15px; font-size: 7px; position: absolute; }
-            .portrait-container img { width: 180px; height: 180px; }
-            .portrait-container { margin-top: -80px; }
+        .video-desc {
+            padding: 1.5rem;
+        }
+
+        .video-desc h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+            font-family: var(--font-heading);
+        }
+
+        .video-desc p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #222;
+            color: #888;
+            text-align: center;
+            padding: 3rem;
+            margin-top: 4rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1.2rem; }
+            nav ul { gap: 1rem; font-size: 0.9rem; }
+            section { padding: 3rem 1.5rem; }
+            .profile-pic { width: 120px; height: 120px; }
         }
     </style>
 </head>
 <body>
 
-<div id="celestial-logo">BHAKTHI<br>HERITAGE<br>ART CALENDAR<br>2026</div>
+    <header>
+        <a href="#" class="logo">Akka Mahadevi</a>
+        <nav>
+            <ul>
+                <li><a href="#story">Her Story</a></li>
+                <li><a href="#caves">Srisailam Caves</a></li>
+                <li><a href="#videos">Videos</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<nav>
-    <a href="#about">The Saint</a>
-    <a href="#miracles">Miracles</a>
-    <a href="#music">Bhajans</a>
-</nav>
+    <div class="hero">
+        <img src="data:image/jpeg;base64,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" alt="Akka Mahadevi" class="profile-pic">
+        
+        <h1>Chenna Mallikarjuna!</h1>
+        <p>
+            "You are the forest, You are the great trees in the forest,<br>
+            You are all the animals playing in the forest,<br>
+            Oh! Lord Chenna Mallikarjuna, You are in all, and yet<br>
+            You do not show me Your face?"
+        </p>
+        <a href="#story" class="cta-button">Read Her Story</a>
+    </div>
 
-<header>
-    <p>Bhakti Movement Series</p>
-    <h1>Meera Bai</h1>
-</header>
-
-<div class="portrait-container">
-    <img src="https://trovecraftindia.com/cdn/shop/files/plate_1.jpg?v=1733214129&width=1100" alt="Meerabai Portrait">
-    <p style="color: var(--royal-maroon); font-weight: bold; margin-top: 15px; font-style: italic;">"Mere toh Giridhar Gopal, Dusara na koi"</p>
-</div>
-
-<main class="container">
-    
-    <section id="about" class="grid-2">
-        <div class="content">
-            <h2>The Rebel Princess</h2>
+    <section id="story">
+        <h2>The Divine Mystic</h2>
+        <div class="content-block">
             <p>
-                Born in 1498 in the fortress of <b>Kudki</b>, Meera Bai was a Rajput princess who redefined the meaning of love and royalty. While her family sought political alliances, Meera's heart was already wedded to <b>Lord Krishna</b>.
+                Born in Udutadi, <strong>Akka Mahadevi</strong> (12th Century) was a visionary saint whose soul was wedded solely to <span class="highlight">Chenna Mallikarjuna</span> (Shiva). Her beauty captivated King Kaushika, who forced her into marriage. However, Akka placed her devotion above royal duties.
             </p>
+            <br>
             <p>
-                She famously refused to follow the traditional 'Stri-Dharma' of a royal wife, instead spending her days in the company of wandering saints and dancing in the streets of Chittorgarh.
+                When the King violated her conditions for worship, she engaged in the ultimate act of renunciation: she gave up her fine clothes and jewels, walking out of the palace covered only by her long hair. Wandering as an ascetic, she reached the <em>Anubhava Mantapa</em>, where she won the reverence of saints like Allama Prabhu with her spiritual brilliance.
             </p>
-        </div>
-        <div class="insight-card">
-            <h3 style="font-family: 'Cinzel'; color: var(--royal-maroon);">The Eternal Vow</h3>
-            <p style="font-style: italic;">"I have found the wealth of the Divine Name; a treasure that no thief can steal, and that grows more beautiful every day."</p>
-            <hr>
-            <p><small><b>Legacy:</b> Her refusal to commit <i>Sati</i> and her choice of Sant Ravidas as her Guru were revolutionary acts against the caste and gender norms of the 16th century.</small></p>
         </div>
     </section>
 
-    <section id="miracles">
-        <h2>The Divine Interventions</h2>
-        <div class="miracle-box">
-            <h3>The Cup of Poison</h3>
-            <p>When her in-laws sent a cup of lethal poison to end her life, Meera offered it to Krishna and drank it. By divine grace, the poison turned into sweet nectar, leaving her unharmed.</p>
-        </div>
-        <div class="miracle-box">
-            <h3>The Serpent & The Flower</h3>
-            <p>A basket containing a deadly cobra was sent to her. When Meera opened the basket, the snake had miraculously transformed into a garland of fresh roses.</p>
+    <section id="caves">
+        <h2>The Srisailam Caves</h2>
+        <div class="content-block">
+            <p>
+                Her journey culminated in the wild forests of <strong>Srisailam</strong>. In the solitude of the <span class="highlight">Kadali caves</span>, she attained <em>aikya</em> (oneness) with the Divine.
+            </p>
+            <br>
+            <p>
+                Her living presence is felt there even today. In those very caves, <strong>water naturally drips onto the Shivalinga throughout the year</strong>, irrespective of the season—a timeless, miraculous testament to her unconquerable spirit and her eternal union with the Lord.
+            </p>
         </div>
     </section>
 
-    <section id="music">
-        <h2>The Melody of Devotion</h2>
+    <section id="videos">
+        <h2>Echoes of Devotion</h2>
         <div class="video-grid">
             
             <div class="video-card">
-                <div class="iframe-wrap">
-                    <iframe src="https://www.youtube.com/embed/hfSFGnoUOYg?si=8hYWoZfn3HifF0Bc" allowfullscreen></iframe>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/8oSuwfAfWh4?si=8_5dQZnISopQsPNf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
-                <div class="video-desc">The Life Story of Meerabai</div>
+                <div class="video-desc">
+                    <h3>The Story of Akka Mahadevi</h3>
+                    <p>A journey to the sacred caves where Akka Mahadevi is believed to have attained union with the Divine.</p>
+                </div>
             </div>
 
             <div class="video-card">
-                <div class="iframe-wrap">
-                    <iframe src="https://www.youtube.com/embed/qmWuyDG-mBg?si=VJRrnW-l5s_A8yWs" allowfullscreen></iframe>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/JEsZffJk0jE?si=ra7J1e2WenfUcwLC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
-                <div class="video-desc">Soulful Meerabai Bhajan</div>
+                <div class="video-desc">
+                    <h3>Akka Mahadevi Short</h3>
+                    <p>A short, powerful visual tribute to her life of fierce renunciation and love.</p>
+                </div>
             </div>
 
             <div class="video-card">
-                <div class="iframe-wrap">
-                    <iframe src="https://www.youtube.com/embed/6ihKc-NUwZU?si=z2A6SEn5sKKjoS2m" allowfullscreen></iframe>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/p1fCufjYj6I?si=kvcTIEH_P7QmH2HI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
-                <div class="video-desc">The ISKCON Perspective</div>
-            </div>
-
-            <div class="video-card">
-                <div class="iframe-wrap">
-                    <iframe src="https://www.youtube.com/embed/i8HnmuZMmbk?si=VgHDLI7KWXnBXsEg" allowfullscreen></iframe>
+                <div class="video-desc">
+                    <h3>The Poet in Love with Shiva</h3>
+                    <p>An exploration of her life as a pioneering poet-saint and her intense devotional verses.</p>
                 </div>
-                <div class="video-desc">New Addition</div>
-            </div>
-
-            <div class="video-card">
-                <div class="iframe-wrap">
-                    <iframe src="https://www.youtube.com/embed/8oSuwfAfWh4?si=vubaZe_tH-uAkB-7" allowfullscreen></iframe>
-                </div>
-                <div class="video-desc">Cinematic Tribute</div>
             </div>
 
         </div>
     </section>
 
-</main>
-
-<footer class="footer">
-    <h3>Bhakthi Heritage Art Calendar 2026 Project</h3>
-    <p>Art By: <b>Sweta Sairam</b> | Content: <b>Sai Mallesh</b></p>
-    <div style="margin: 30px 0;">
-        <a href="https://www.instagram.com/swetcha_art" target="_blank" class="social-btn">@swetcha_art</a>
-        <a href="https://www.instagram.com/sai_prema_photography" target="_blank" class="social-btn">@sai_prema_photography</a>
-    </div>
-    <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2026 Bhakti Calendar Project | Meerabai: The Queen of Hearts</p>
-</footer>
+    <footer>
+        <p>&copy; 2024 Akka Mahadevi Tribute. Dedicated to the Spirit of Vachana Sahitya.</p>
+    </footer>
 
 </body>
 </html>
