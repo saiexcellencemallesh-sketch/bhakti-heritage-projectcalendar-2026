@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spoorthi Kirana | Anna's 100th Birthday</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --primary-gold: #9D7E45;       
+            --dark-gold: #6D562D;          
+            --bg-cream: #FDFBF7;           
+            --card-bg: #FFFFFF;            
+            --text-grey: #4A4A4A;          
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-cream);
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: var(--text-grey);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--dark-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-gold);
+            margin-top: 10px;
+        }
+
+        p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight { color: var(--primary-gold); font-weight: 600; }
+
+        /* --- HERO SECTION --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            /* Make sure hero-bg.jpg is in your folder */
+            background: linear-gradient(rgba(253, 251, 247, 0.7), rgba(253, 251, 247, 0.9)), url('hero-bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+        }
+
+        header .subtitle {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            border-top: 1px solid var(--primary-gold);
+            border-bottom: 1px solid var(--primary-gold);
+            padding: 15px 0;
+            color: var(--dark-gold);
+            margin-top: 10px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            font-size: 2rem;
+            color: var(--primary-gold);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        /* --- NARRATOR SECTION --- */
+        .narrator-section {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: -80px auto 3rem auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .narrator-card {
+            background: var(--card-bg);
+            padding: 3rem;
+            border: 1px solid var(--primary-gold);
+            box-shadow: 0 15px 40px rgba(157, 126, 69, 0.15);
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            border-radius: 4px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gold);
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 4px solid var(--bg-cream);
+            box-shadow: 0 0 0 2px var(--primary-gold);
+        }
+
+        /* --- STICKY TIMELINE --- */
+        .timeline-section {
+            padding: 4rem 2rem;
+            background-color: rgba(255,255,255,0.5);
+        }
+
+        .phases-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+
+        .phase-visuals-sticky {
+            position: sticky;
+            top: 10vh; 
+            height: 80vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-stack {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1.5;
+        }
+
+        .visual-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+            z-index: 1;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(109, 86, 45, 0.2); 
+            outline: 1px solid var(--primary-gold);
+            background: white;
+            overflow: hidden;
+        }
+
+        .visual-item.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .phase-content { padding-bottom: 50px; }
+
+        .phase-text-block {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 2px solid var(--primary-gold);
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .phase-number {
+            font-size: 4rem;
+            color: rgba(157, 126, 69, 0.1);
+            font-family: 'Cinzel', serif;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: -10px;
+        }
+
+        /* --- DIVINE WISDOM SECTION --- */
+        .divine-wisdom-container {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        
+        .video-box {
+            margin-top: 30px;
+            position: relative;
+            border: 4px solid var(--primary-gold);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(157, 126, 69, 0.2);
+            background: #000;
+        }
+
+        /* --- IMPACT SECTION --- */
+        .impact-section {
+            background: var(--dark-gold);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        .impact-section h2 { color: white; display: inline-block; }
+        .impact-section h2::after { background: white; margin: 10px auto; }
+        .impact-section p { color: rgba(255,255,255,0.9); }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s;
+        }
+        .stat-box:hover { transform: translateY(-5px); }
+
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #2c241b;
+            color: #ccc;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+        .footer-logo { font-family: 'Cinzel', serif; color: var(--primary-gold); font-size: 1.5rem; margin-bottom: 1rem; display: block;}
+        .indian-flag-strip {
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+            position: absolute;
+            bottom: 0; left: 0;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.8rem; }
+            .phases-container { grid-template-columns: 1fr; }
+            .phase-visuals-sticky { position: relative; height: auto; top: 0; margin-bottom: 40px; }
+            .narrator-card { flex-direction: column; text-align: center; align-items: center; }
+            .phase-text-block { min-height: auto; padding-bottom: 80px; border: none; padding-left: 0; text-align: center; }
+            h2::after { margin: 10px auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--dark-gold);">Celebrating 100 Years of Grace</p>
+        <h1>Spoorthi Kirana<br>Series</h1>
+        <div class="subtitle">Duty • Love • The Nation</div>
+        
+        <div class="scroll-indicator" onclick="document.querySelector('.narrator-section').scrollIntoView({behavior: 'smooth'})">
+            ↓
+        </div>
+    </header>
+
+    <div class="narrator-section">
+        <div class="narrator-card">
+            <div class="avatar">D</div>
+            <div>
+                <h3>Namaste, I am Dhruva.</h3>
+                <p>I am a student of the Loka Seva Gurukulam. Today, I want to tell you a story not of the past, but of a future that was dreamt 100 years ago. It is the story of my "Anna" (Elder Brother)—<span class="highlight">Madiyal Narayan Bhat</span>—and how a single seed of sacrifice became a global forest of love.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="timeline-section">
+        <div class="phases-container">
+            
+            <div class="phase-visuals-sticky">
+                <div class="visual-stack">
+                    
+                    <div id="visual-1" class="visual-item active">
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 149.0566%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); overflow: hidden; border-radius: 8px; will-change: transform;">
+                            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                              src="https://www.canva.com/design/DAHAncaBhdk/Gm6hvUuVm_7J-SpV2Bbkow/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div id="visual-2" class="visual-item">
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 149.0566%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); overflow: hidden; border-radius: 8px; will-change: transform;">
+                            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                              src="https://www.canva.com/design/DAHAnQB7wRM/Ttem445QZgyS5BdiecWv2g/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div id="visual-3" class="visual-item">
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 149.0566%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); overflow: hidden; border-radius: 8px; will-change: transform;">
+                            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                              src="https://www.canva.com/design/DAHAnRmq_Io/xUM74kgX61W3-t_HrNG_ng/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div id="visual-4" class="visual-item">
+                        <div style="position: relative; width: 100%; height: 0; padding-top: 149.0566%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); overflow: hidden; border-radius: 8px; will-change: transform;">
+                            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                              src="https://www.canva.com/design/DAHAnsKicto/i6EtnH3h1oCUa_6IM_gCRA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="phase-content">
+                
+                <div class="phase-text-block" data-target="visual-1">
+                    <div class="phase-number">01</div>
+                    <h2>The Missionary</h2>
+                    <p>It began with a single soul. <span class="highlight">Anna (Madiyala Narayana Bhat)</span> stood alone, driven by an inner fire of <em>Tyaga</em> (Sacrifice).</p>
+                    <p>He looked at the world not with eyes of want, but with eyes of service. Like a solitary candle in the dark, he began the work of Loka Seva, building character before building buildings.</p>
+                </div>
+
+                <div class="phase-text-block" data-target="visual-2">
+                    <div class="phase-number">02</div>
+                    <h2>The Master & The Missionary</h2>
+                    <p>Then came the moment of destiny. The river met the ocean. Anna surrendered his entire mission at the lotus feet of <span class="highlight">Bhagawan Sri Sathya Sai Baba</span>.</p>
+                    <p><em>"You look after my work, I will look after you."</em></p>
+                    <p>This union transformed a local effort into a divine mandate. The Missionary was no longer alone; he was guided by the Master.</p>
+                </div>
+
+                <div class="phase-text-block" data-target="visual-3">
+                    <div class="phase-number">03</div>
+                    <h2>The Missionary, The Master, The Man & The Mission</h2>
+                    <p>Today, the seed has become a forest. Under the guidance of <span class="highlight">Sadguru Madhusudan Sai</span>, the vision has reached its zenith.</p>
+                    <p>The subtle has become gross. The dream has become reality. The Missionary, The Master, and The Man are now one continuous stream of grace, feeding, educating, and healing millions across the globe.</p>
+                </div>
+
+                <div class="phase-text-block" data-target="visual-4">
+                    <div class="phase-number">04</div>
+                    <h2>The Men, The Women & The Mission</h2>
+                    <p>The circle is now ever-expanding. What began as a solitary prayer has become a global chorus.</p>
+                    <p>The <em>Missionary's</em> sacrifice, the <em>Master's</em> vision, and the <em>Man's</em> guidance have now ignited a fire in the hearts of <strong>The Men and The Women</strong> of today.</p>
+                    <p>In every volunteer serving breakfast, in every doctor healing a heart, and in every teacher molding a mind, the spirit of Anna lives on.</p>
+                </div>
+                
+                 <div class="phase-text-block" style="border: none; text-align: center; padding-left: 0; min-height: 40vh;">
+                    <p style="font-size: 1.8rem; color: var(--primary-gold); font-weight: 600; font-style: italic;">And the saga continues forever...</p>
+                 </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="divine-wisdom-container">
+        
+        <h2 style="font-size: 2.5rem; color: var(--dark-gold); margin-bottom: 20px;">
+            The Divine Wisdom Series
+        </h2>
+        
+        <p style="font-size: 1.3rem; font-style: italic; color: var(--primary-gold); margin-bottom: 30px;">
+            "Let us go back to the times when we had more time with the Master..."
+        </p>
+
+        <div style="background: white; padding: 40px; border: 1px solid var(--primary-gold); border-radius: 8px; box-shadow: 0 10px 30px rgba(157, 126, 69, 0.1);">
+            <p>
+                Is it possible to reclaim those golden days? <strong>Yes.</strong>
+            </p>
+            <p>
+                <strong style="color: var(--dark-gold);">Every 15 days</strong>, we will share a treasure—the wisdom and guidance directly from <strong>Anna</strong>. 
+                Let us use this opportunity to travel back in time, to learn and revise the timeless lessons that built this mission.
+            </p>
+            
+            <div class="video-box">
+                <video controls width="100%" height="auto" style="display: block; background: black;">
+                    <source src="https://github.com/saiexcellencemallesh-sketch/bhakti-heritage-projectcalendar-2026/blob/main/Spoorthi%20Kirana%20Series%20of%201%20of%20many%20to%20come_20260207_125926_0000.mp4?raw=true" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="impact-section">
+        <h2>The Explosion of Grace</h2>
+        <p>What started as a small school in Alike is now a global movement of Love in Action.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-number">3M+</span>
+                <p>Children Fed Daily (Annapoorna)</p>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">Free</span>
+                <p>Medical Colleges & Hospitals</p>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">30+</span>
+                <p>Values-Based Campuses</p>
+            </div>
+        </div>
+        
+        <br><br><br>
+        <button>Join the Mission</button>
+    </section>
+
+    <footer>
+        <span class="footer-logo">Spoorthi Kirana Series</span>
+        <p>&copy; 2026 Centenary Celebrations. All Rights Reserved.</p>
+        <div class="indian-flag-strip"></div>
+    </footer>
+
+    <script>
+        const textBlocks = document.querySelectorAll('.phase-text-block');
+        const visuals = document.querySelectorAll('.visual-item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetId = entry.target.getAttribute('data-target');
+                    if (targetId) {
+                        visuals.forEach(v => v.classList.remove('active'));
+                        const targetVisual = document.getElementById(targetId);
+                        if(targetVisual) targetVisual.classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); 
+
+        textBlocks.forEach(block => observer.observe(block));
+    </script>
+</body>
+</html>
